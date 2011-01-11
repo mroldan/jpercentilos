@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jpercentilos.Paciente.Sexo;
 
 /**
  *
@@ -32,8 +33,7 @@ import java.util.logging.Logger;
 public final class TablaPercentilos {
 
     static final int P50 = 0;
-    static final int SD_MINUS = 1;
-    static final int SD_PLUS = 2;
+    static final int SD = 1;
     private final Sexo sexo;
     private final Tipo tipo;
     static final TablaNormales TABLA_NORMALES = new TablaNormales();
@@ -52,7 +52,7 @@ public final class TablaPercentilos {
     }
 
     /**
-     *
+     * Lee la tabla contenida en el archivo especificado
      * @param fromFile
      * @return
      */
@@ -79,39 +79,25 @@ public final class TablaPercentilos {
                 scan.close();
             }
         } catch (IOException ex) {
-            System.out.println("Error archivo normaltable");
+            System.out.println("Error archivo " + fromFile.getPath());
             ex.printStackTrace();
             Logger.getLogger(TablaNormales.class.getName()).log(Level.SEVERE, null, ex);
         }
         return t;
     }
 
+    public double getCentile(int index, double value) {
+        double Px = TABLA[index][P50];
+        double Sx = TABLA[index][SD];
+        return TABLA_NORMALES.getPx(value, Px, Sx);
+    }
+
     private static double[][] initializeTable() {
-        double[][] t = new double[181][3];
+        double[][] t = new double[1867][2];
         for (int i = 0; i < t.length; i++) {
             Arrays.fill(t[i], 0);
         }
         return t;
-    }
-
-    static void saveTable(File toFile) {
-
-    }
-    
-    public enum Sexo {
-
-        VARÓN,
-        MUJER;
-
-        public String bitPath() {
-            return this.toString().substring(0, 1).toLowerCase();
-        }
-
-        @Override
-        public String toString() {
-            return this.name();
-        }
-
     }
     
     public enum Tipo {
