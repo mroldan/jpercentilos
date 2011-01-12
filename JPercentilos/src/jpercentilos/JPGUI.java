@@ -20,8 +20,17 @@
  *
  * Created on 07/01/2011, 20:35:27
  */
-
 package jpercentilos;
+
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.*;
 
 /**
  *
@@ -44,41 +53,59 @@ public class JPGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        calcPanel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        ageField = new javax.swing.JTextField();
+        ageComboBox = new javax.swing.JComboBox();
+        heightField = new javax.swing.JTextField();
+        heightComboBox = new javax.swing.JComboBox();
+        weightField = new javax.swing.JTextField();
+        weightComboBox = new javax.swing.JComboBox();
+        HPField = new javax.swing.JTextField();
+        HPComboBox = new javax.swing.JComboBox();
+        sexComboBox = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        weightCentField = new javax.swing.JTextField();
+        heightCentField = new javax.swing.JTextField();
+        PCCentField = new javax.swing.JTextField();
+        IMCCentField = new javax.swing.JTextField();
         javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel9 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel10 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        javax.swing.JLabel jLabel6 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel12 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel13 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel14 = new javax.swing.JLabel();
+        weightPzField = new javax.swing.JTextField();
+        heightPzField = new javax.swing.JTextField();
+        PCPzField = new javax.swing.JTextField();
+        IMCPzField = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        IMCField = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JPercentilos (beta)");
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de entrada"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del paciente"));
 
         jLabel1.setText("Fecha de nacimiento:");
 
@@ -90,29 +117,29 @@ public class JPGUI extends javax.swing.JFrame {
 
         jLabel5.setText("Perímetro cefálico:");
 
+        jLabel11.setText("Sexo:");
+
         jFormattedTextField1.setColumns(10);
         jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM))));
         jFormattedTextField1.setText("10/10/1986");
 
-        jTextField1.setColumns(5);
+        ageField.setColumns(5);
 
-        jTextField2.setColumns(5);
+        ageComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(días)", "(meses)", "(años)" }));
 
-        jTextField3.setColumns(5);
+        heightField.setColumns(5);
 
-        jTextField4.setColumns(5);
+        heightComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(m)", "(cm)" }));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(kg)", "(g)" }));
+        weightField.setColumns(5);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(meses)", "(años)" }));
+        weightComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(kg)", "(g)" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(m)", "(cm)" }));
+        HPField.setColumns(5);
 
-        jLabel6.setText("(cm)");
+        HPComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(cm)", "(mm)" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Varón", "Mujer" }));
-
-        jLabel11.setText("Sexo:");
+        sexComboBox.setModel(new DefaultComboBoxModel(Paciente.Sexo.values()));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -121,29 +148,28 @@ public class JPGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox4, 0, 172, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jFormattedTextField1)))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(sexComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(HPField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(weightField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(HPComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(weightComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ageComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(heightComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jFormattedTextField1))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -154,136 +180,230 @@ public class JPGUI extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ageComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(heightComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(heightField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(weightComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(weightField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(HPField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(HPComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sexComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton1.setAction(new CalculateAction());
+        jButton1.setText("Calcular");
+
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Percentilos"));
 
-        jTextField5.setColumns(3);
-        jTextField5.setEditable(false);
-        jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        weightCentField.setColumns(3);
+        weightCentField.setEditable(false);
+        weightCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jTextField6.setColumns(3);
-        jTextField6.setEditable(false);
-        jTextField6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        heightCentField.setColumns(3);
+        heightCentField.setEditable(false);
+        heightCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jTextField7.setColumns(3);
-        jTextField7.setEditable(false);
-        jTextField7.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        PCCentField.setColumns(3);
+        PCCentField.setEditable(false);
+        PCCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jTextField8.setColumns(3);
-        jTextField8.setEditable(false);
-        jTextField8.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        IMCCentField.setColumns(3);
+        IMCCentField.setEditable(false);
+        IMCCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLabel7.setText("Percentil en Peso:");
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel7.setText("Peso:");
 
-        jLabel8.setText("Percentil en Talla:");
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel8.setText("Talla:");
 
-        jLabel9.setText("Percentil en Perímetro cefálico");
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel9.setText("PC:");
 
-        jLabel10.setText("Índice de Masa Corporal:");
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel10.setText("IMC:");
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel6.setText("Pz Peso:");
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel12.setText("Pz Talla:");
+
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel13.setText("Pz PC:");
+
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel14.setText("Pz IMC:");
+
+        weightPzField.setColumns(3);
+        weightPzField.setEditable(false);
+        weightPzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        heightPzField.setColumns(3);
+        heightPzField.setEditable(false);
+        heightPzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        PCPzField.setColumns(3);
+        PCPzField.setEditable(false);
+        PCPzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        IMCPzField.setColumns(3);
+        IMCPzField.setEditable(false);
+        IMCPzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel16.setText("jLabel16");
+
+        jLabel17.setText("jLabel17");
+
+        jLabel18.setText("jLabel18");
+
+        jLabel19.setText("jLabel19");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(weightCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(heightCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(PCCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(IMCCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(weightPzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(heightPzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PCPzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IMCPzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel19))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(weightPzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(heightPzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(PCPzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(IMCPzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(weightCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(heightCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(PCCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(IMCCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel14))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Calcular");
+        IMCField.setColumns(4);
+        IMCField.setEditable(false);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jLabel15.setText("IMC:");
+
+        javax.swing.GroupLayout calcPanelLayout = new javax.swing.GroupLayout(calcPanel);
+        calcPanel.setLayout(calcPanelLayout);
+        calcPanelLayout.setHorizontalGroup(
+            calcPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(calcPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(calcPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(calcPanelLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(IMCField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        calcPanelLayout.setVerticalGroup(
+            calcPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(calcPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(calcPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel15)
+                    .addComponent(IMCField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Calcular", jPanel1);
+        jTabbedPane1.addTab("Calcular", calcPanel);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 399, Short.MAX_VALUE)
+            .addGap(0, 343, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,97 +412,426 @@ public class JPGUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab2", jPanel2);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 399, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 439, Short.MAX_VALUE)
-        );
+        fileMenu.setText("Archivo");
 
-        jTabbedPane1.addTab("tab3", jPanel3);
+        jMenuItem2.setText("Salir");
+        fileMenu.add(jMenuItem2);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 399, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 439, Short.MAX_VALUE)
-        );
+        jMenuBar1.add(fileMenu);
 
-        jTabbedPane1.addTab("tab4", jPanel4);
+        helpMenu.setText("Ayuda");
+
+        jMenuItem1.setText("Acerca de...");
+        helpMenu.add(jMenuItem1);
+
+        jMenuBar1.add(helpMenu);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
+        try {
+            // Set System L&F
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        } catch (UnsupportedLookAndFeelException e) {
+            // handle exception
+        } catch (ClassNotFoundException e) {
+            // handle exception
+        } catch (InstantiationException e) {
+            // handle exception
+        } catch (IllegalAccessException e) {
+            // handle exception
+        }
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new JPGUI().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox HPComboBox;
+    private javax.swing.JTextField HPField;
+    private javax.swing.JTextField IMCCentField;
+    private javax.swing.JTextField IMCField;
+    private javax.swing.JTextField IMCPzField;
+    private javax.swing.JTextField PCCentField;
+    private javax.swing.JTextField PCPzField;
+    private javax.swing.JComboBox ageComboBox;
+    private javax.swing.JTextField ageField;
+    private javax.swing.JPanel calcPanel;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JTextField heightCentField;
+    private javax.swing.JComboBox heightComboBox;
+    private javax.swing.JTextField heightField;
+    private javax.swing.JTextField heightPzField;
+    private javax.swing.JMenu helpMenu;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JComboBox sexComboBox;
+    private javax.swing.JTextField weightCentField;
+    private javax.swing.JComboBox weightComboBox;
+    private javax.swing.JTextField weightField;
+    private javax.swing.JTextField weightPzField;
     // End of variables declaration//GEN-END:variables
+    private DecimalFormat doubleFormat = initDoubleFormat();
+    private DecimalFormat percentFormat = initPercentFormat();
 
-    /**
-     * Calcula el Indice de Masa Corporal
-     * @param masskg
-     * @param heightm
-     * @return
-     */
-    private double calculateCMI(double masskg, double heightm) {
-        return masskg/(heightm * heightm);
+    private DecimalFormat initDoubleFormat() {
+        DecimalFormat df = (DecimalFormat) DecimalFormat.getNumberInstance();
+        return df;
     }
 
+    private DecimalFormat initPercentFormat() {
+        DecimalFormat df = (DecimalFormat) DecimalFormat.getPercentInstance();
+        return df;
+    }
+
+    /**
+     * Lee el campo de edad, debe ser validado antes. Se delega el cálculo de la
+     * fecha de nacimiento al validador. Devuelve -1 si ocurre algún error.
+     * @return
+     */
+    int getAgeInDays() {
+        int days;
+        try {
+            days = (int) StrictMath.rint(
+                    doubleFormat.parse(
+                    ageField.getText().replaceAll("\\.", ",")).doubleValue());
+            double mult;
+            switch (ageComboBox.getSelectedIndex()) {
+                case 0:
+                    mult = 1;
+                    break;
+                case 1:
+                    mult = 30.4375;
+                    break;
+                case 2:
+                    mult = 365.25;
+                    break;
+                default:
+                    mult = 1;
+            }
+            days = (int) StrictMath.rint(mult * (double) days);
+            return days;
+        } catch (ParseException ex) {
+            Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
+
+    /**
+     * Devuelve el peso en Kg leyendo el campo de peso y convirtiendo de acuerdo
+     * a la selección del ComboBox correspondiente. Debe ser validado antes.
+     * Devuelve -1 si ocurre algún error.
+     * @return
+     */
+    double getWeightInKg() {
+        double kg;
+        try {
+            kg = doubleFormat.parse(
+                    weightField.getText().replaceAll("\\.", ",")).doubleValue();
+            double mult;
+            switch (weightComboBox.getSelectedIndex()) {
+                case 0:
+                    mult = 1;
+                    break;
+                case 1:
+                    mult = 10e-3;
+                    break;
+                default:
+                    mult = 1;
+            }
+            kg = mult * kg;
+            return kg;
+        } catch (ParseException ex) {
+            Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
+
+    /**
+     * Devuelve la talla en Cm leyendo el campo de peso y convirtiendo de acuerdo
+     * a la selección del ComboBox correspondiente. Debe ser validado antes.
+     * Devuelve -1 si ocurre algún error
+     * @return
+     */
+    double getHeightInCm() {
+        double cm;
+        try {
+            cm = doubleFormat.parse(
+                    heightField.getText().replaceAll("\\.", ",")).doubleValue();
+            double mult;
+            switch (heightComboBox.getSelectedIndex()) {
+                case 0:
+                    mult = 100;
+                    break;
+                case 1:
+                    mult = 1;
+                    break;
+                default:
+                    mult = 1;
+            }
+            cm = mult * cm;
+            return cm;
+        } catch (ParseException ex) {
+            Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
+
+    /**
+     * Devuelve el perímetro cefálico en mm leyendo el campo de peso y 
+     * convirtiendo según la opción en el ComboBox correspondiente. Debe ser 
+     * validado antes. Devuelve un -1 como indicador de error.
+     * @return
+     */
+    double getPcInCm() {
+        double cm;
+        try {
+            cm = doubleFormat.parse(
+                    HPField.getText().replaceAll("\\.", ",")).doubleValue();
+            double mult;
+            switch (HPComboBox.getSelectedIndex()) {
+                case 0:
+                    mult = 1;
+                    break;
+                case 1:
+                    mult = 10;
+                    break;
+                default:
+                    mult = 1;
+            }
+            cm = mult * cm;
+            return cm;
+        } catch (ParseException ex) {
+            Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
+
+    /**
+     * Validador de datos de entrada y formato.
+     */
+    private class Verifier extends InputVerifier implements FocusListener {
+
+        @Override
+        public boolean shouldYieldFocus(JComponent input) {
+            boolean checked = verify(input);
+            showPretty(input);
+            if (!checked) {
+                Toolkit.getDefaultToolkit().beep();
+                focusGained(new FocusEvent(input, FocusEvent.FOCUS_GAINED));
+            }
+            return checked;
+        }
+
+        @Override
+        public boolean verify(JComponent input) {
+            if (input instanceof JTextField) {
+                JTextField field = (JTextField) input;
+                return checkField(field, false);
+            }
+            return false; //No debería pasar
+        }
+
+        private void showPretty(JComponent input) {
+            if (input instanceof JTextField) {
+                JTextField field = (JTextField) input;
+                checkField(field, true);
+            }
+        }
+
+        private boolean checkField(JTextField field, boolean setIt) {
+            if (field.equals(ageField)) {
+                return checkAgeField(field, setIt);
+            } else if (field.equals(heightField)) {
+                return checkHeightField(field, setIt);
+            } else if (field.equals(weightField)) {
+                return checkWeightField(field, setIt);
+            } else if (field.equals(HPField)) {
+                return checkHPField(field, setIt);
+            } else {
+                return false; // No debería pasar.
+            }
+//            long num = DEFAULT_VALUE;
+//            boolean valid = true;
+//            try {
+//                num = intFormat.parse(field.getText()).longValue();
+//            } catch (ParseException pe) {
+//                pe.printStackTrace();
+//                valid = false;
+//            }
+//            if ((num <= MIN_VALUE) || (num >= MAX_VALUE)) {
+//                valid = false;
+//                if (setIt) {
+//                    if (num <= MIN_VALUE) {
+//                        num = MIN_VALUE;
+//                    } else if (num >= MAX_VALUE) {
+//                        num = MAX_VALUE;
+//                    }
+//                }
+//            }
+//            if (setIt) {
+//                field.setText(doubleFormat.format(num));
+//            }
+//            return valid;
+        }
+
+        /**
+         * Verifica si el campo de texto contiene un número
+         * @param field
+         * @return
+         */
+        private boolean checkForDouble(JTextField field) {
+            try {
+                doubleFormat.parse(field.getText().replaceAll("\\.", ","));
+                return true;
+            } catch (ParseException pe) {
+                return false;
+            }
+        }
+
+        /**
+         * Si el componente seleccionado es un campo de texto, selecciona todo
+         * su contenido
+         * @param e
+         */
+        public void focusGained(FocusEvent e) {
+            if (e.getComponent() instanceof JTextField) {
+                JTextField field = (JTextField) e.getComponent();
+                field.selectAll();
+            }
+        }
+
+        public void focusLost(FocusEvent e) {
+        }
+
+        /**
+         * Checkea el campo de edad. Debe estar entre 0 y 1856 días (60 meses, 
+         * 5 años).
+         * @param field
+         * @param setIt
+         * @return
+         */
+        private boolean checkAgeField(JTextField field, boolean setIt) {
+            boolean valid = false;
+            if (checkForDouble(field)) {
+                final long MIN_DAYS = 0;
+                final long MAX_DAYS = 1856;
+                if ((getAgeInDays() >= MIN_DAYS) && (getAgeInDays() <= MAX_DAYS)) {
+                    valid = true;
+                } else {
+                    valid = false;
+                }
+            }
+            return valid;
+        }
+
+        private boolean checkHeightField(JTextField field, boolean setIt) {
+            throw new UnsupportedOperationException("Not yet implemented");
+        }
+
+        private boolean checkWeightField(JTextField field, boolean setIt) {
+            throw new UnsupportedOperationException("Not yet implemented");
+        }
+
+        private boolean checkHPField(JTextField field, boolean setIt) {
+            throw new UnsupportedOperationException("Not yet implemented");
+        }
+    }
+
+    /**
+     * Acción que calcula los percentilos. Crea un objeto Paciente con los datos
+     * asignados. Imprime en el GUI los datos obtenidos
+     */
+    private class CalculateAction extends AbstractAction {
+
+        /**
+         * Lee los datos correspondientes. Imprime los percentilos.
+         * @param e
+         */
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Calculando...");
+            // Llenado de datos
+            Paciente.Sexo sexo = (Paciente.Sexo) sexComboBox.getSelectedItem();
+            int age = getAgeInDays();
+            double weight = getWeightInKg();
+            double height = getHeightInCm();
+            double pc = getPcInCm();
+            double IMC;
+            if (weight != -1 && height != -1) {
+                IMC = Paciente.getIMC(height / 100, weight);
+                IMCField.setText(doubleFormat.format(IMC));
+            } else {
+                IMC = -1;
+                IMCField.setText("--");
+            }
+            if (age != -1) {
+                if (weight != -1) {
+                    double perWeight = Paciente.getWeightToAgeCentile(sexo, age, weight);
+                    weightCentField.setText(percentFormat.format(perWeight));
+                } else {
+                    weightCentField.setText("--");
+                }
+                if (height != -1) {
+                    double perHeight = Paciente.getHeightToAgeCentile(sexo, age, height);
+                    heightCentField.setText(percentFormat.format(perHeight));
+                } else {
+                    heightCentField.setText("--");
+                }
+                if (pc != -1) {
+                    double perPc = Paciente.getHpToAgeCentile(sexo, age, pc);
+                    PCCentField.setText(percentFormat.format(perPc));
+                } else {
+                    PCCentField.setText("--");
+                }
+                if (IMC != -1) {
+                    double perImc = Paciente.getIMCToAgeCentile(sexo, age, IMC);
+                    IMCCentField.setText(percentFormat.format(perImc));
+                } else {
+                    IMCCentField.setText("--");
+                }
+            } else {
+                weightCentField.setText("--");
+                heightCentField.setText("--");
+                PCCentField.setText("--");
+                IMCCentField.setText("--");
+            }
+        }
+
+        private void showPz(double value, double mu, double sigma, JTextField field) {
+            field.setText(doubleFormat.format(TablaNormales.getStandardZ(value, mu, sigma)));
+        }
+    }
 }

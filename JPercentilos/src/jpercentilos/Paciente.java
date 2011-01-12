@@ -104,18 +104,42 @@ public class Paciente {
         return (new TablaPercentilos(sexo, TablaPercentilos.Tipo.TALLA)).getCentile(age, height);
     }
 
+    /**
+     * Calcula el percentilo de Índice de masa corporal con los parámetros 
+     * dados.
+     * @param sexo
+     * @param age
+     * @param imc
+     * @return
+     */
+    public static double getIMCToAgeCentile(Sexo sexo, int age, double imc) {
+        return (new TablaPercentilos(sexo, TablaPercentilos.Tipo.IMC)).getCentile(age, imc);
+    }
+
+    /**
+     * Calcula el Índice de masa corporal dados el peso en Kilogramos y la
+     * altura en metros
+     * @param heightM
+     * @param weightKG
+     * @return
+     */
+    public static double getIMC(double heightM, double weightKG) {
+        return weightKG / (heightM * heightM);
+    }
+
     public enum Sexo {
 
         VARÓN,
         MUJER;
 
         public String bitPath() {
-            return this.toString().substring(0, 1).toLowerCase();
+            return this.toString().substring(0, 2).toLowerCase();
         }
 
         @Override
         public String toString() {
-            return this.name();
+            String s = this.name().substring(0, 1) + this.name().substring(1).toLowerCase();
+            return s;
         }
 
     }
