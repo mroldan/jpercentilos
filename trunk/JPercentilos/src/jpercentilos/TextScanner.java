@@ -43,7 +43,7 @@ public class TextScanner {
      * Read the contents of the given file.
      */
     private String read() throws IOException {
-        System.out.println("Reading from file.");
+        System.out.println("Reading from file: " + fFileName);
         StringBuilder sb = new StringBuilder();
         String NL = System.getProperty("line.separator");
         Scanner scanner = new Scanner(new FileInputStream(fFileName), fEncoding);
@@ -54,7 +54,8 @@ public class TextScanner {
         } finally {
             scanner.close();
         }
-        System.out.println("Text read in:\n" + sb);
+        //Ésta línea tiene propósitos de testeo solamente
+//        System.out.println("Text read in:\n" + sb);
         return sb.toString();
     }
 

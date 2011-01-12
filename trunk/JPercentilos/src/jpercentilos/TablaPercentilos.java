@@ -93,7 +93,7 @@ public final class TablaPercentilos {
     }
 
     private static double[][] initializeTable() {
-        double[][] t = new double[1867][2];
+        double[][] t = new double[1857][2];
         for (int i = 0; i < t.length; i++) {
             Arrays.fill(t[i], 0);
         }
@@ -102,13 +102,13 @@ public final class TablaPercentilos {
     
     public enum Tipo {
         
-        TALLA,
-        PESO,
-        IMC,
-        PC;
+        TALLA,  // Leída en cm
+        PESO,   // Leído en kg
+        IMC,    //
+        PC;     // Leído en mm
 
         public String bitPath() {
-            return this.toString().substring(0, 1).toLowerCase();
+            return this.toString().substring(0, 2).toLowerCase();
         }
 
         @Override

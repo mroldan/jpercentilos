@@ -41,7 +41,7 @@ public class TablaNormales {
      * @return
      */
     public double getPx(double x, double mu, double sigma) {
-        double z = (x - mu) / sigma;
+        double z = getStandardZ(x, mu, sigma);
         return getPz(z);
     }
 
@@ -55,6 +55,10 @@ public class TablaNormales {
         return findInTable(z);
     }
 
+    public static double getStandardZ(double x, double mu, double sigma) {
+        return (x - mu) / sigma;
+    }
+
     /**
      * Busca el valor de probabilidad en la tabla para un valor de z dado.
      * Interpola de ser necesario.
@@ -63,9 +67,17 @@ public class TablaNormales {
      */
     private double findInTable(double z) {
         if (z >= 0) {
-            return interpolateValue(z);
+            if (z <= 4.99) {
+                return interpolateValue(z);
+            } else {
+                return 1;
+            }
         } else {
-            return 1-interpolateValue(-z);
+            if (z >= -4.99) {
+                return 1-interpolateValue(-z);
+            } else {
+                return 0;
+            }
         }
     }
 
@@ -173,9 +185,9 @@ public class TablaNormales {
      * Método main usado para testeo solamente.
      * @param args
      */
-    public static void main(String[] args) {
-        //Test for reading table
-        TablaNormales tn = new TablaNormales();
+//    public static void main(String[] args) {
+//        Test for reading table
+//        TablaNormales tn = new TablaNormales();
 //        double[][] tabla = tn.tabla;
 //        for (int i = 0; i < tabla.length; i++) {
 //            for (int j = 0; j < tabla[i].length; j++) {
@@ -184,7 +196,7 @@ public class TablaNormales {
 //            }
 //            System.out.println();
 //        }
-        double z = 1.53;
-        System.out.println(tn.getPz(z));
-    }
+//        double z = 1.53;
+//        System.out.println(tn.getPz(z));
+//    }
 }
