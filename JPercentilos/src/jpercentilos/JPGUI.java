@@ -782,7 +782,8 @@ public class JPGUI extends javax.swing.JFrame {
          * @param e
          */
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Calculando...");
+
+//            System.out.println("Calculando..."); //Línea dummy, debería comentarse
             // Llenado de datos
             Paciente.Sexo sexo = (Paciente.Sexo) sexComboBox.getSelectedItem();
             int age = getAgeInDays();
