@@ -16,12 +16,15 @@
  */
 package jpercentilos;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 
 /**
  *
@@ -141,9 +144,7 @@ public class TablaNormales {
      */
     private static double[][] readTableFile() {
         double[][] t = initializeTable();
-        TextScanner tx = new TextScanner("normaltable");
-        try {
-            String s = tx.retrieveText();
+            String s = TextScanner.retrieveText(TablaNormales.class.getResourceAsStream("tables/normaltable"));
             Scanner scan = new Scanner(s);
             scan.useLocale(Locale.US);
             try {
@@ -161,11 +162,6 @@ public class TablaNormales {
             } finally {
                 scan.close();
             }
-        } catch (IOException ex) {
-            System.out.println("Error archivo normaltable");
-            ex.printStackTrace();
-            Logger.getLogger(TablaNormales.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return t;
     }
 

@@ -16,8 +16,7 @@
  */
 package jpercentilos;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 /**
@@ -26,40 +25,19 @@ import java.util.Scanner;
  */
 public class TextScanner {
 
-    private String fFileName;
-    private String fEncoding;
-
-    public TextScanner(String fFileName){
-        this(fFileName, "UTF-8");
-    }
-
-    public TextScanner(String fFileName, String fEncoding) {
-        this.fFileName = fFileName;
-        this.fEncoding = fEncoding;
-    }
-
-
-    /**
-     * Read the contents of the given file.
-     */
-    private String read() throws IOException {
-        System.out.println("Reading from file: " + fFileName);
+    public static String retrieveText(InputStream is) {
         StringBuilder sb = new StringBuilder();
         String NL = System.getProperty("line.separator");
-        Scanner scanner = new Scanner(new FileInputStream(fFileName), fEncoding);
+        Scanner tx = new Scanner(is);
         try {
-            while (scanner.hasNextLine()) {
-                sb.append(scanner.nextLine()).append(NL);
+            while (tx.hasNextLine()) {
+                sb.append(tx.nextLine()).append(NL);
             }
         } finally {
-            scanner.close();
+            tx.close();
         }
         //Ésta línea tiene propósitos de testeo solamente
 //        System.out.println("Text read in:\n" + sb);
         return sb.toString();
-    }
-
-    public String retrieveText() throws IOException {
-        return read();
     }
 }

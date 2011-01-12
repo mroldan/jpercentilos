@@ -18,12 +18,9 @@
 package jpercentilos;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jpercentilos.Paciente.Sexo;
 
 /**
@@ -45,10 +42,10 @@ public final class TablaPercentilos {
         this.TABLA = readTable(getFileName(sexo, tipo));
     }
 
-    static File getFileName(Sexo sexo, Tipo tipo) {
+    static String getFileName(Sexo sexo, Tipo tipo) {
         StringBuilder fn = new StringBuilder();
         fn.append(sexo.bitPath()).append(tipo.bitPath());
-        return new File(fn.toString());
+        return fn.toString();
     }
 
     /**
@@ -56,11 +53,9 @@ public final class TablaPercentilos {
      * @param fromFile
      * @return
      */
-    private static double[][] readTable(File fromFile) { //TODO Leer tablas
+    private static double[][] readTable(String fromFile) { //TODO Leer tablas
         double[][] t = initializeTable();
-        TextScanner tx = new TextScanner(fromFile.getPath());
-        try {    
-            String s = tx.retrieveText();
+        String s = TextScanner.retrieveText(TablaNormales.class.getResourceAsStream("tables/" + fromFile));
             Scanner scan = new Scanner(s);
             scan.useLocale(Locale.US);
             try {
@@ -78,11 +73,6 @@ public final class TablaPercentilos {
             } finally {
                 scan.close();
             }
-        } catch (IOException ex) {
-            System.out.println("Error archivo " + fromFile.getPath());
-            ex.printStackTrace();
-            Logger.getLogger(TablaNormales.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return t;
     }
 
