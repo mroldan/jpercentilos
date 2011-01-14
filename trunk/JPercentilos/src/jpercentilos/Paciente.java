@@ -14,72 +14,119 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package jpercentilos;
+
+import com.sun.corba.se.impl.orb.NormalDataCollector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
  */
-public class Paciente {
+public final class Paciente {
 
     private final Sexo sexo;
-    private int age; // Edad en días (hasta 5 años)
-    private double height;
-    private double headPerimeter;
-    private double weight;
-    private double perHeight;
-    private double perWeight;
-    private double perIMC;
-    private double perHp;
+    private int age = -1; // Edad en días (hasta 5 años)
+    private double height = -1;  // Altura en cm
+    private double headPerimeter = -1; // Perímetro cefálico en cm
+    private double weight = -1; // Peso en kilogramos
 
-    public Paciente(Sexo sexo, int age, double height, double perCef, double weight) {
+    public Paciente(Sexo sexo, int age, double height, double HP, double weight) {
         this.sexo = sexo;
         this.age = age;
         this.height = height;
-        this.headPerimeter = perCef;
+        this.headPerimeter = HP;
         this.weight = weight;
-        getCentiles();
     }
 
-
-    public double getPerHeight() {
-        return perHeight;
+    private double[] getPerHeight() throws DataNotFoundException {
+        return getHeightToAgeCentileAndPz(sexo, age, height);
     }
 
-    public double getPerIMC() {
-        return perIMC;
+    private double[] getPerIMC() throws DataNotFoundException {
+        return getIMCToAgeCentileAndPz(sexo, age, getIMC(height / 100, weight));
     }
 
-    public double getPerRC() {
-        return perHp;
+    private double[] getPerHp() throws DataNotFoundException {
+        return getHpToAgeCentileAndPz(sexo, age, headPerimeter);
     }
 
-    public double getPerWeight() {
-        return perWeight;
+    private double[] getPerWeight() throws DataNotFoundException {
+        return getWeightToAgeCentileAndPz(sexo, age, weight);
+    }
+
+    public final double getWeightCentile() throws DataNotFoundException {
+        return getPerWeight()[0];
+    }
+
+    public final double getPCCentile() throws DataNotFoundException {
+        return getPerHp()[0];
+    }
+
+    public final double getIMCCentile() throws DataNotFoundException {
+        return getPerIMC()[0];
+    }
+
+    public final double getHeightCentile() throws DataNotFoundException {
+        return getPerHeight()[0];
+    }
+
+    public final double getWeightPz() throws DataNotFoundException {
+        return getPerWeight()[1];
+    }
+
+    public final double getPCPz() throws DataNotFoundException {
+        return getPerHp()[1];
+    }
+
+    public final double getIMCPz() throws DataNotFoundException {
+        return getPerIMC()[1];
+    }
+
+    public final double getHeightPz() throws DataNotFoundException {
+        return getPerHeight()[1];
+    }
+
+    public final int getAge() {
+        return age;
+    }
+
+    public final double getHeadPerimeter() {
+        return headPerimeter;
+    }
+
+    public final double getHeight() {
+        return height;
+    }
+
+    public final Sexo getSexo() {
+        return sexo;
+    }
+
+    public final double getWeight() {
+        return weight;
     }
 
     /**
-     * Lee los percentilos de las tablas correspondientes. Debe ser llamado
-     * desde el constructor luego de establecer parámetros de edad peso, altura
-     * y perímetro cefálico.
-     */
-    private void getCentiles() {
-        this.perHeight = getHeightToAgeCentile(sexo, age, height);
-        this.perWeight = getWeightToAgeCentile(sexo, age, weight);
-        this.perHp = getHpToAgeCentile(sexo, age, headPerimeter);
-//        this.perIMC;
-    }
-
-    /**
-     * Calcula el percentilo de Peso para la Edad con los parámetros dados.
+     * Calcula el percentilo y el puntaje-z de Peso para la Edad con los
+     * parámetros dados.
      * @param sexo
      * @param age
      * @param height
      * @return
      */
-    public static double getWeightToAgeCentile(Sexo sexo, int age, double weight) {
-        return (new TablaPercentilos(sexo, TablaPercentilos.Tipo.PESO)).getCentile(age, weight);
+    public static double[] getWeightToAgeCentileAndPz(Sexo sexo, int age, double weight)
+            throws DataNotFoundException {
+        if (age != -1 && weight != -1) {
+            try {
+                return (new TablaPercentilos(sexo, TablaPercentilos.Tipo.PESO)).getCentile(age, weight);
+            } catch (Exception e) {
+                throw new DataNotFoundException("Error en tabla de percentilos");
+            }
+        } else {
+            throw new DataNotFoundException("Faltan datos para cálculo de Percentilo y Pz");
+        }
     }
 
     /**
@@ -89,8 +136,17 @@ public class Paciente {
      * @param pc
      * @return
      */
-    public static double getHpToAgeCentile(Sexo sexo, int age, double pc) {
-        return (new TablaPercentilos(sexo, TablaPercentilos.Tipo.PC)).getCentile(age, pc);
+    public static double[] getHpToAgeCentileAndPz(Sexo sexo, int age, double pc)
+            throws DataNotFoundException {
+        if (age != -1 && pc != -1) {
+            try {
+                return (new TablaPercentilos(sexo, TablaPercentilos.Tipo.PC)).getCentile(age, pc);
+            } catch (Exception e) {
+                throw new DataNotFoundException("Error en Tabla");
+            }
+        } else {
+            throw new DataNotFoundException("Faltan datos para el cálculo de Percentilo y Pz");
+        }
     }
 
     /**
@@ -100,8 +156,17 @@ public class Paciente {
      * @param height
      * @return
      */
-    public static double getHeightToAgeCentile(Sexo sexo, int age, double height) {
-        return (new TablaPercentilos(sexo, TablaPercentilos.Tipo.TALLA)).getCentile(age, height);
+    public static double[] getHeightToAgeCentileAndPz(Sexo sexo, int age, double height)
+            throws DataNotFoundException {
+        if (age != -1 && height != -1) {
+            try {
+                return (new TablaPercentilos(sexo, TablaPercentilos.Tipo.TALLA)).getCentile(age, height);
+            } catch (Exception e) {
+                throw new DataNotFoundException("Error en Tabla");
+            }
+        } else {
+            throw new DataNotFoundException("Faltan datos para cálculo de Percentilo y Pz");
+        }
     }
 
     /**
@@ -112,8 +177,17 @@ public class Paciente {
      * @param imc
      * @return
      */
-    public static double getIMCToAgeCentile(Sexo sexo, int age, double imc) {
-        return (new TablaPercentilos(sexo, TablaPercentilos.Tipo.IMC)).getCentile(age, imc);
+    public static double[] getIMCToAgeCentileAndPz(Sexo sexo, int age, double imc)
+            throws DataNotFoundException {
+        if (age != -1) {
+            try {
+                return (new TablaPercentilos(sexo, TablaPercentilos.Tipo.IMC)).getCentile(age, imc);
+            } catch (Exception e) {
+                throw new DataNotFoundException("Error en Tabla");
+            }
+        } else {
+            throw new DataNotFoundException("Faltan datos para cálculo de Percentilo y Pz");
+        }
     }
 
     /**
@@ -123,8 +197,17 @@ public class Paciente {
      * @param weightKG
      * @return
      */
-    public static double getIMC(double heightM, double weightKG) {
-        return weightKG / (heightM * heightM);
+    public static double getIMC(double heightM, double weightKG)
+            throws DataNotFoundException {
+        if (heightM != -1 && weightKG != -1) {
+            try {
+                return weightKG / (heightM * heightM);
+            } catch (Exception e) {
+                throw new DataNotFoundException("Error en Cálculo de IMC");
+            }
+        } else {
+            throw new DataNotFoundException("Faltan datos para el cálculo de IMC");
+        }
     }
 
     public enum Sexo {
@@ -132,16 +215,28 @@ public class Paciente {
         VARÓN,
         MUJER;
 
-        public String bitPath() {
+        public final String bitPath() {
             return this.toString().substring(0, 2).toLowerCase();
         }
 
         @Override
-        public String toString() {
+        public final String toString() {
             String s = this.name().substring(0, 1) + this.name().substring(1).toLowerCase();
             return s;
         }
-
     }
 
+    public enum Estado {
+        NORMAL,
+        EXCEDIDO,
+        POR_DEBAJO;
+        
+    }
+
+    public static final class DataNotFoundException extends Exception {
+
+        public DataNotFoundException(String message) {
+            super(message);
+        }
+    }
 }

@@ -17,7 +17,6 @@
 
 package jpercentilos;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
@@ -42,7 +41,7 @@ public final class TablaPercentilos {
         this.TABLA = readTable(getFileName(sexo, tipo));
     }
 
-    static String getFileName(Sexo sexo, Tipo tipo) {
+    private static String getFileName(Sexo sexo, Tipo tipo) {
         StringBuilder fn = new StringBuilder();
         fn.append(sexo.bitPath()).append(tipo.bitPath());
         return fn.toString();
@@ -76,10 +75,18 @@ public final class TablaPercentilos {
         return t;
     }
 
-    public double getCentile(int index, double value) {
+    /**
+     * Devuelve un array de 2 valores conteniendo el percentilo y el puntaje-z
+     * para los valores especificados
+     * @param index
+     * @param value
+     * @return
+     */
+    public double[] getCentile(int index, double value) {
         double Px = TABLA[index][P50];
         double Sx = TABLA[index][SD];
-        return TABLA_NORMALES.getPx(value, Px, Sx);
+        double[] centiles = { TABLA_NORMALES.getPx(value, Px, Sx), TablaNormales.getStandardZ(value, Px, Sx)};
+         return centiles;
     }
 
     private static double[][] initializeTable() {
@@ -89,7 +96,7 @@ public final class TablaPercentilos {
         }
         return t;
     }
-    
+
     public enum Tipo {
         
         TALLA,  // Leída en cm
