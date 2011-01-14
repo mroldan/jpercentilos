@@ -63,12 +63,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" min="-2" max="-2" attributes="0"/>
+          <Component id="jTabbedPane1" pref="374" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" min="-2" max="-2" attributes="0"/>
+          <Component id="jTabbedPane1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -90,8 +90,8 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -99,10 +99,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="IMCField" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jPanel5" alignment="0" max="32767" attributes="1"/>
-                          <Component id="jPanel6" alignment="0" max="32767" attributes="1"/>
+                          <Component id="jPanel5" alignment="0" max="32767" attributes="2"/>
+                          <Component id="jPanel6" alignment="0" max="32767" attributes="2"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -140,12 +140,12 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel1" max="32767" attributes="0"/>
-                              <Component id="jLabel2" alignment="1" pref="120" max="32767" attributes="0"/>
-                              <Component id="jLabel3" alignment="1" pref="120" max="32767" attributes="0"/>
-                              <Component id="jLabel4" alignment="1" pref="120" max="32767" attributes="0"/>
-                              <Component id="jLabel5" alignment="1" pref="120" max="32767" attributes="0"/>
-                              <Component id="jLabel11" alignment="1" pref="120" max="32767" attributes="0"/>
+                              <Component id="jLabel1" pref="143" max="32767" attributes="0"/>
+                              <Component id="jLabel2" alignment="1" pref="143" max="32767" attributes="0"/>
+                              <Component id="jLabel3" alignment="1" pref="143" max="32767" attributes="0"/>
+                              <Component id="jLabel4" alignment="1" pref="143" max="32767" attributes="0"/>
+                              <Component id="jLabel5" alignment="1" pref="143" max="32767" attributes="0"/>
+                              <Component id="jLabel11" alignment="1" pref="143" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -165,7 +165,7 @@
                                       <Component id="heightComboBox" alignment="1" max="32767" attributes="1"/>
                                   </Group>
                               </Group>
-                              <Component id="jFormattedTextField1" max="32767" attributes="1"/>
+                              <Component id="dateOfBirthField" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -175,7 +175,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jFormattedTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="dateOfBirthField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -263,18 +263,24 @@
                     <Property name="text" type="java.lang.String" value="Sexo:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
+                <Component class="javax.swing.JFormattedTextField" name="dateOfBirthField">
                   <Properties>
                     <Property name="columns" type="int" value="10"/>
                     <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                       <Format subtype="2" type="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="10/10/1986"/>
+                    <Property name="inputVerifier" type="javax.swing.InputVerifier" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="verificador" type="code"/>
+                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="ageField">
                   <Properties>
                     <Property name="columns" type="int" value="5"/>
+                    <Property name="inputVerifier" type="javax.swing.InputVerifier" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="verificador" type="code"/>
+                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="ageComboBox">
@@ -291,6 +297,9 @@
                 <Component class="javax.swing.JTextField" name="heightField">
                   <Properties>
                     <Property name="columns" type="int" value="5"/>
+                    <Property name="inputVerifier" type="javax.swing.InputVerifier" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="verificador" type="code"/>
+                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="heightComboBox">
@@ -306,6 +315,9 @@
                 <Component class="javax.swing.JTextField" name="weightField">
                   <Properties>
                     <Property name="columns" type="int" value="5"/>
+                    <Property name="inputVerifier" type="javax.swing.InputVerifier" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="verificador" type="code"/>
+                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="weightComboBox">
@@ -321,6 +333,9 @@
                 <Component class="javax.swing.JTextField" name="HPField">
                   <Properties>
                     <Property name="columns" type="int" value="5"/>
+                    <Property name="inputVerifier" type="javax.swing.InputVerifier" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="verificador" type="code"/>
+                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="HPComboBox">
@@ -366,34 +381,34 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel7" pref="41" max="32767" attributes="0"/>
+                                  <Component id="jLabel7" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="weightCentField" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="1">
-                                  <Component id="jLabel8" pref="41" max="32767" attributes="0"/>
+                                  <Component id="jLabel8" pref="30" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="heightCentField" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel9" pref="41" max="32767" attributes="0"/>
+                                  <Component id="jLabel9" pref="30" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="PCCentField" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel10" pref="41" max="32767" attributes="0"/>
+                                  <Component id="jLabel10" pref="30" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="IMCCentField" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel6" alignment="0" pref="56" max="32767" attributes="0"/>
-                              <Component id="jLabel12" alignment="0" pref="56" max="32767" attributes="0"/>
-                              <Component id="jLabel13" alignment="0" pref="56" max="32767" attributes="0"/>
-                              <Component id="jLabel14" alignment="0" pref="56" max="32767" attributes="0"/>
+                              <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel12" alignment="0" pref="46" max="32767" attributes="0"/>
+                              <Component id="jLabel13" alignment="0" pref="46" max="32767" attributes="0"/>
+                              <Component id="jLabel14" alignment="1" pref="46" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="weightPzField" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="heightPzField" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -402,10 +417,10 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelWeight" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelHeight" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelHP" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelIMC" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -418,22 +433,22 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="weightPzField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelWeight" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="heightPzField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelHeight" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="PCPzField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelHP" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="IMCPzField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelIMC" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -470,28 +485,28 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="weightCentField">
                   <Properties>
-                    <Property name="columns" type="int" value="3"/>
+                    <Property name="columns" type="int" value="4"/>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="heightCentField">
                   <Properties>
-                    <Property name="columns" type="int" value="3"/>
+                    <Property name="columns" type="int" value="4"/>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="PCCentField">
                   <Properties>
-                    <Property name="columns" type="int" value="3"/>
+                    <Property name="columns" type="int" value="4"/>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="IMCCentField">
                   <Properties>
-                    <Property name="columns" type="int" value="3"/>
+                    <Property name="columns" type="int" value="4"/>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
@@ -578,48 +593,48 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="weightPzField">
                   <Properties>
-                    <Property name="columns" type="int" value="3"/>
+                    <Property name="columns" type="int" value="6"/>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="heightPzField">
                   <Properties>
-                    <Property name="columns" type="int" value="3"/>
+                    <Property name="columns" type="int" value="6"/>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="PCPzField">
                   <Properties>
-                    <Property name="columns" type="int" value="3"/>
+                    <Property name="columns" type="int" value="6"/>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="IMCPzField">
                   <Properties>
-                    <Property name="columns" type="int" value="3"/>
+                    <Property name="columns" type="int" value="6"/>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel16">
+                <Component class="javax.swing.JLabel" name="labelWeight">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="jLabel16"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel17">
+                <Component class="javax.swing.JLabel" name="labelHeight">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="jLabel17"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel18">
+                <Component class="javax.swing.JLabel" name="labelHP">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="jLabel18"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel19">
+                <Component class="javax.swing.JLabel" name="labelIMC">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="jLabel19"/>
                   </Properties>
@@ -628,7 +643,7 @@
             </Container>
             <Component class="javax.swing.JTextField" name="IMCField">
               <Properties>
-                <Property name="columns" type="int" value="4"/>
+                <Property name="columns" type="int" value="6"/>
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
             </Component>
@@ -651,7 +666,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="343" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="366" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">

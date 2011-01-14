@@ -16,15 +16,9 @@
  */
 package jpercentilos;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
 
 /**
  *
