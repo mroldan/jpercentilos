@@ -17,26 +17,32 @@ public class GMUI extends MIDlet implements CommandListener {
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
     private Command exitCommand;
-    private Command nextCommand;
+    private Command CalculateCommand;
     private Command backCommand;
     private Command exitCommand1;
+    private Command helpCommand;
+    private Command cancelCommand;
+    private Command okCommand;
+    private Command okCommand1;
+    private Command cancelCommand1;
+    private Command exitCommand2;
     private Form InputDataScreen;
     private StringItem stringItem;
     private ChoiceGroup sexChoice;
     private TextField heightField;
     private TextField ageField;
+    private ChoiceGroup ageChoice;
     private TextField weightField;
     private TextField headPerimeterField;
-    private ChoiceGroup ageChoice;
     private ChoiceGroup heightChoice;
     private ChoiceGroup weightChoice;
     private ChoiceGroup headPerimeterChoice;
+    private Spacer spacer;
     private Form OutputDataScreen;
-    private StringItem stringItem1;
-    private StringItem stringItem2;
-    private StringItem stringItem3;
-    private StringItem stringItem4;
-    private StringItem stringItem5;
+    private StringItem IMCOutput;
+    private StringItem HPOutput;
+    private StringItem heightOutput;
+    private StringItem weightOutput;
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -108,14 +114,16 @@ public class GMUI extends MIDlet implements CommandListener {
      */
     public void commandAction(Command command, Displayable displayable) {//GEN-END:|7-commandAction|0|7-preCommandAction
         // write pre-action user code here
-        if (displayable == InputDataScreen) {//GEN-BEGIN:|7-commandAction|1|19-preAction
-            if (command == exitCommand) {//GEN-END:|7-commandAction|1|19-preAction
-                // write pre-action user code here
-                exitMIDlet();//GEN-LINE:|7-commandAction|2|19-postAction
+        if (displayable == InputDataScreen) {//GEN-BEGIN:|7-commandAction|1|23-preAction
+            if (command == CalculateCommand) {//GEN-END:|7-commandAction|1|23-preAction
+                // Get the Values in Input fields.
+                
+                switchDisplayable(null, getOutputDataScreen());//GEN-LINE:|7-commandAction|2|23-postAction
                 // write post-action user code here
-            } else if (command == nextCommand) {//GEN-LINE:|7-commandAction|3|23-preAction
+                // Show calculated data.
+            } else if (command == exitCommand) {//GEN-LINE:|7-commandAction|3|19-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getOutputDataScreen());//GEN-LINE:|7-commandAction|4|23-postAction
+                exitMIDlet();//GEN-LINE:|7-commandAction|4|19-postAction
                 // write post-action user code here
             }//GEN-BEGIN:|7-commandAction|5|27-preAction
         } else if (displayable == OutputDataScreen) {
@@ -132,6 +140,8 @@ public class GMUI extends MIDlet implements CommandListener {
         // write post-action user code here
     }//GEN-BEGIN:|7-commandAction|10|
     //</editor-fold>//GEN-END:|7-commandAction|10|
+
+
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -156,9 +166,9 @@ public class GMUI extends MIDlet implements CommandListener {
     public Form getInputDataScreen() {
         if (InputDataScreen == null) {//GEN-END:|14-getter|0|14-preInit
             // write pre-init user code here
-            InputDataScreen = new Form(null, new Item[] { getStringItem(), getSexChoice(), getAgeField(), getAgeChoice(), getHeightField(), getHeightChoice(), getWeightField(), getWeightChoice(), getHeadPerimeterField(), getHeadPerimeterChoice() });//GEN-BEGIN:|14-getter|1|14-postInit
+            InputDataScreen = new Form(null, new Item[] { getStringItem(), getSexChoice(), getAgeField(), getAgeChoice(), getHeightField(), getHeightChoice(), getWeightField(), getWeightChoice(), getHeadPerimeterField(), getHeadPerimeterChoice(), getSpacer() });//GEN-BEGIN:|14-getter|1|14-postInit
             InputDataScreen.addCommand(getExitCommand());
-            InputDataScreen.addCommand(getNextCommand());
+            InputDataScreen.addCommand(getCalculateCommand());
             InputDataScreen.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
             // write post-init user code here
         }//GEN-BEGIN:|14-getter|2|
@@ -180,19 +190,20 @@ public class GMUI extends MIDlet implements CommandListener {
         return stringItem;
     }
     //</editor-fold>//GEN-END:|16-getter|2|
+    //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: nextCommand ">//GEN-BEGIN:|22-getter|0|22-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: CalculateCommand ">//GEN-BEGIN:|22-getter|0|22-preInit
     /**
-     * Returns an initiliazed instance of nextCommand component.
+     * Returns an initiliazed instance of CalculateCommand component.
      * @return the initialized component instance
      */
-    public Command getNextCommand() {
-        if (nextCommand == null) {//GEN-END:|22-getter|0|22-preInit
+    public Command getCalculateCommand() {
+        if (CalculateCommand == null) {//GEN-END:|22-getter|0|22-preInit
             // write pre-init user code here
-            nextCommand = new Command("Siguiente", Command.OK, 0);//GEN-LINE:|22-getter|1|22-postInit
+            CalculateCommand = new Command("Calcular", Command.OK, 0);//GEN-LINE:|22-getter|1|22-postInit
             // write post-init user code here
         }//GEN-BEGIN:|22-getter|2|
-        return nextCommand;
+        return CalculateCommand;
     }
     //</editor-fold>//GEN-END:|22-getter|2|
 
@@ -234,7 +245,7 @@ public class GMUI extends MIDlet implements CommandListener {
     public Form getOutputDataScreen() {
         if (OutputDataScreen == null) {//GEN-END:|24-getter|0|24-preInit
             // write pre-init user code here
-            OutputDataScreen = new Form("Percentilos", new Item[] { getStringItem1(), getStringItem2(), getStringItem3(), getStringItem4(), getStringItem5() });//GEN-BEGIN:|24-getter|1|24-postInit
+            OutputDataScreen = new Form("Percentilos", new Item[] { getWeightOutput(), getHeightOutput(), getHPOutput(), getIMCOutput() });//GEN-BEGIN:|24-getter|1|24-postInit
             OutputDataScreen.addCommand(getBackCommand());
             OutputDataScreen.addCommand(getExitCommand1());
             OutputDataScreen.setCommandListener(this);//GEN-END:|24-getter|1|24-postInit
@@ -342,9 +353,9 @@ public class GMUI extends MIDlet implements CommandListener {
         if (ageChoice == null) {//GEN-END:|43-getter|0|43-preInit
             // write pre-init user code here
             ageChoice = new ChoiceGroup(null, Choice.POPUP);//GEN-BEGIN:|43-getter|1|43-postInit
-            ageChoice.append("Choice Element 1", null);
-            ageChoice.append("Choice Element 2", null);
-            ageChoice.append("Choice Element 3", null);
+            ageChoice.append("d\u00EDas", null);
+            ageChoice.append("meses", null);
+            ageChoice.append("a\u00F1os", null);
             ageChoice.setLayout(ImageItem.LAYOUT_DEFAULT);
             ageChoice.setFitPolicy(Choice.TEXT_WRAP_DEFAULT);
             ageChoice.setSelectedFlags(new boolean[] { false, false, false });//GEN-END:|43-getter|1|43-postInit
@@ -364,8 +375,8 @@ public class GMUI extends MIDlet implements CommandListener {
         if (heightChoice == null) {//GEN-END:|47-getter|0|47-preInit
             // write pre-init user code here
             heightChoice = new ChoiceGroup(null, Choice.POPUP);//GEN-BEGIN:|47-getter|1|47-postInit
-            heightChoice.append("Choice Element 1", null);
-            heightChoice.append("Choice Element 2", null);
+            heightChoice.append("m", null);
+            heightChoice.append("cm", null);
             heightChoice.setSelectedFlags(new boolean[] { false, false });//GEN-END:|47-getter|1|47-postInit
             // write post-init user code here
         }//GEN-BEGIN:|47-getter|2|
@@ -382,8 +393,8 @@ public class GMUI extends MIDlet implements CommandListener {
         if (weightChoice == null) {//GEN-END:|50-getter|0|50-preInit
             // write pre-init user code here
             weightChoice = new ChoiceGroup(null, Choice.POPUP);//GEN-BEGIN:|50-getter|1|50-postInit
-            weightChoice.append("Choice Element 1", null);
-            weightChoice.append("Choice Element 2", null);
+            weightChoice.append("kg", null);
+            weightChoice.append("g", null);
             weightChoice.setSelectedFlags(new boolean[] { false, false });//GEN-END:|50-getter|1|50-postInit
             // write post-init user code here
         }//GEN-BEGIN:|50-getter|2|
@@ -400,89 +411,223 @@ public class GMUI extends MIDlet implements CommandListener {
         if (headPerimeterChoice == null) {//GEN-END:|53-getter|0|53-preInit
             // write pre-init user code here
             headPerimeterChoice = new ChoiceGroup(null, Choice.POPUP);//GEN-BEGIN:|53-getter|1|53-postInit
-            headPerimeterChoice.append("Choice Element 1", null);
-            headPerimeterChoice.append("Choice Element 2", null);
+            headPerimeterChoice.append("cm", null);
+            headPerimeterChoice.append("mm", null);
             headPerimeterChoice.setSelectedFlags(new boolean[] { false, false });//GEN-END:|53-getter|1|53-postInit
             // write post-init user code here
         }//GEN-BEGIN:|53-getter|2|
         return headPerimeterChoice;
     }
     //</editor-fold>//GEN-END:|53-getter|2|
+    //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem1 ">//GEN-BEGIN:|56-getter|0|56-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: weightOutput ">//GEN-BEGIN:|56-getter|0|56-preInit
     /**
-     * Returns an initiliazed instance of stringItem1 component.
+     * Returns an initiliazed instance of weightOutput component.
      * @return the initialized component instance
      */
-    public StringItem getStringItem1() {
-        if (stringItem1 == null) {//GEN-END:|56-getter|0|56-preInit
+    public StringItem getWeightOutput() {
+        if (weightOutput == null) {//GEN-END:|56-getter|0|56-preInit
             // write pre-init user code here
-            stringItem1 = new StringItem("stringItem1", null);//GEN-LINE:|56-getter|1|56-postInit
+            weightOutput = new StringItem("Peso:", "--");//GEN-LINE:|56-getter|1|56-postInit
             // write post-init user code here
         }//GEN-BEGIN:|56-getter|2|
-        return stringItem1;
+        return weightOutput;
     }
     //</editor-fold>//GEN-END:|56-getter|2|
+    //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem2 ">//GEN-BEGIN:|57-getter|0|57-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: heightOutput ">//GEN-BEGIN:|57-getter|0|57-preInit
     /**
-     * Returns an initiliazed instance of stringItem2 component.
+     * Returns an initiliazed instance of heightOutput component.
      * @return the initialized component instance
      */
-    public StringItem getStringItem2() {
-        if (stringItem2 == null) {//GEN-END:|57-getter|0|57-preInit
+    public StringItem getHeightOutput() {
+        if (heightOutput == null) {//GEN-END:|57-getter|0|57-preInit
             // write pre-init user code here
-            stringItem2 = new StringItem("stringItem2", null);//GEN-LINE:|57-getter|1|57-postInit
+            heightOutput = new StringItem("Altura:", "--");//GEN-LINE:|57-getter|1|57-postInit
             // write post-init user code here
         }//GEN-BEGIN:|57-getter|2|
-        return stringItem2;
+        return heightOutput;
     }
     //</editor-fold>//GEN-END:|57-getter|2|
+    //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem3 ">//GEN-BEGIN:|58-getter|0|58-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: HPOutput ">//GEN-BEGIN:|58-getter|0|58-preInit
     /**
-     * Returns an initiliazed instance of stringItem3 component.
+     * Returns an initiliazed instance of HPOutput component.
      * @return the initialized component instance
      */
-    public StringItem getStringItem3() {
-        if (stringItem3 == null) {//GEN-END:|58-getter|0|58-preInit
+    public StringItem getHPOutput() {
+        if (HPOutput == null) {//GEN-END:|58-getter|0|58-preInit
             // write pre-init user code here
-            stringItem3 = new StringItem("stringItem3", null);//GEN-LINE:|58-getter|1|58-postInit
+            HPOutput = new StringItem("PC:", null);//GEN-LINE:|58-getter|1|58-postInit
             // write post-init user code here
         }//GEN-BEGIN:|58-getter|2|
-        return stringItem3;
+        return HPOutput;
     }
     //</editor-fold>//GEN-END:|58-getter|2|
+    //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem4 ">//GEN-BEGIN:|59-getter|0|59-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: IMCOutput ">//GEN-BEGIN:|59-getter|0|59-preInit
     /**
-     * Returns an initiliazed instance of stringItem4 component.
+     * Returns an initiliazed instance of IMCOutput component.
      * @return the initialized component instance
      */
-    public StringItem getStringItem4() {
-        if (stringItem4 == null) {//GEN-END:|59-getter|0|59-preInit
+    public StringItem getIMCOutput() {
+        if (IMCOutput == null) {//GEN-END:|59-getter|0|59-preInit
             // write pre-init user code here
-            stringItem4 = new StringItem("stringItem4", null);//GEN-LINE:|59-getter|1|59-postInit
+            IMCOutput = new StringItem("IMC:", "--");//GEN-LINE:|59-getter|1|59-postInit
             // write post-init user code here
         }//GEN-BEGIN:|59-getter|2|
-        return stringItem4;
+        return IMCOutput;
     }
     //</editor-fold>//GEN-END:|59-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem5 ">//GEN-BEGIN:|60-getter|0|60-preInit
+
+
+
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: helpCommand ">//GEN-BEGIN:|61-getter|0|61-preInit
     /**
-     * Returns an initiliazed instance of stringItem5 component.
+     * Returns an initiliazed instance of helpCommand component.
      * @return the initialized component instance
      */
-    public StringItem getStringItem5() {
-        if (stringItem5 == null) {//GEN-END:|60-getter|0|60-preInit
+    public Command getHelpCommand() {
+        if (helpCommand == null) {//GEN-END:|61-getter|0|61-preInit
             // write pre-init user code here
-            stringItem5 = new StringItem("stringItem5", null);//GEN-LINE:|60-getter|1|60-postInit
+            helpCommand = new Command("Help", Command.HELP, 0);//GEN-LINE:|61-getter|1|61-postInit
             // write post-init user code here
-        }//GEN-BEGIN:|60-getter|2|
-        return stringItem5;
+        }//GEN-BEGIN:|61-getter|2|
+        return helpCommand;
     }
-    //</editor-fold>//GEN-END:|60-getter|2|
+    //</editor-fold>//GEN-END:|61-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand ">//GEN-BEGIN:|67-getter|0|67-preInit
+    /**
+     * Returns an initiliazed instance of okCommand component.
+     * @return the initialized component instance
+     */
+    public Command getOkCommand() {
+        if (okCommand == null) {//GEN-END:|67-getter|0|67-preInit
+            // write pre-init user code here
+            okCommand = new Command("Ok", Command.OK, 0);//GEN-LINE:|67-getter|1|67-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|67-getter|2|
+        return okCommand;
+    }
+    //</editor-fold>//GEN-END:|67-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: cancelCommand ">//GEN-BEGIN:|70-getter|0|70-preInit
+    /**
+     * Returns an initiliazed instance of cancelCommand component.
+     * @return the initialized component instance
+     */
+    public Command getCancelCommand() {
+        if (cancelCommand == null) {//GEN-END:|70-getter|0|70-preInit
+            // write pre-init user code here
+            cancelCommand = new Command("Cancel", Command.CANCEL, 0);//GEN-LINE:|70-getter|1|70-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|70-getter|2|
+        return cancelCommand;
+    }
+    //</editor-fold>//GEN-END:|70-getter|2|
+
+
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: cancelCommand1 ">//GEN-BEGIN:|74-getter|0|74-preInit
+    /**
+     * Returns an initiliazed instance of cancelCommand1 component.
+     * @return the initialized component instance
+     */
+    public Command getCancelCommand1() {
+        if (cancelCommand1 == null) {//GEN-END:|74-getter|0|74-preInit
+            // write pre-init user code here
+            cancelCommand1 = new Command("Cancel", Command.CANCEL, 0);//GEN-LINE:|74-getter|1|74-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|74-getter|2|
+        return cancelCommand1;
+    }
+    //</editor-fold>//GEN-END:|74-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand1 ">//GEN-BEGIN:|76-getter|0|76-preInit
+    /**
+     * Returns an initiliazed instance of okCommand1 component.
+     * @return the initialized component instance
+     */
+    public Command getOkCommand1() {
+        if (okCommand1 == null) {//GEN-END:|76-getter|0|76-preInit
+            // write pre-init user code here
+            okCommand1 = new Command("Ok", Command.OK, 0);//GEN-LINE:|76-getter|1|76-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|76-getter|2|
+        return okCommand1;
+    }
+    //</editor-fold>//GEN-END:|76-getter|2|
+
+
+
+
+
+
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: spacer ">//GEN-BEGIN:|83-getter|0|83-preInit
+    /**
+     * Returns an initiliazed instance of spacer component.
+     * @return the initialized component instance
+     */
+    public Spacer getSpacer() {
+        if (spacer == null) {//GEN-END:|83-getter|0|83-preInit
+            // write pre-init user code here
+            spacer = new Spacer(16, 300);//GEN-LINE:|83-getter|1|83-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|83-getter|2|
+        return spacer;
+    }
+    //</editor-fold>//GEN-END:|83-getter|2|
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand2 ">//GEN-BEGIN:|106-getter|0|106-preInit
+    /**
+     * Returns an initiliazed instance of exitCommand2 component.
+     * @return the initialized component instance
+     */
+    public Command getExitCommand2() {
+        if (exitCommand2 == null) {//GEN-END:|106-getter|0|106-preInit
+            // write pre-init user code here
+            exitCommand2 = new Command("Exit", Command.EXIT, 0);//GEN-LINE:|106-getter|1|106-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|106-getter|2|
+        return exitCommand2;
+    }
+    //</editor-fold>//GEN-END:|106-getter|2|
+
+
+
+
 
 
 
