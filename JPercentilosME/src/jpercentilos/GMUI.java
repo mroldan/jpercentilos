@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jpercentilos;
 
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
+import jpercentilos.res.Paciente;
+import jpercentilos.res.Paciente.DataNotFoundException;
 
 /**
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
@@ -14,7 +15,6 @@ import javax.microedition.lcdui.*;
 public class GMUI extends MIDlet implements CommandListener {
 
     private boolean midletPaused = false;
-
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
     private Command exitCommand;
     private Command CalculateCommand;
@@ -53,7 +53,6 @@ public class GMUI extends MIDlet implements CommandListener {
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Methods ">//GEN-BEGIN:|methods|0|
     //</editor-fold>//GEN-END:|methods|0|
-
     //<editor-fold defaultstate="collapsed" desc=" Generated Method: initialize ">//GEN-BEGIN:|0-initialize|0|0-preInitialize
     /**
      * Initilizes the application.
@@ -117,9 +116,64 @@ public class GMUI extends MIDlet implements CommandListener {
         if (displayable == InputDataScreen) {//GEN-BEGIN:|7-commandAction|1|23-preAction
             if (command == CalculateCommand) {//GEN-END:|7-commandAction|1|23-preAction
                 // Get the Values in Input fields.
-                
+                Paciente.Sexo sexo;
+                switch (sexChoice.getSelectedIndex()) {
+                    case 0:
+                        sexo = Paciente.Sexo.VARÓN;
+                        break;
+                    case 1:
+                        sexo = Paciente.Sexo.MUJER;
+                        break;
+                    default:
+                        sexo = Paciente.Sexo.VARÓN;
+                }
+                int age;
+                double weight;
+                double height;
+                double pc;
+                try {
+                    age = getAgeInDays();
+                } catch (Exception e) {
+                    age = -1;
+                }
+                try {
+                    weight = getWeightInKg();
+                } catch (Exception e) {
+                    weight = -1;
+                }
+                try {
+                    height = getHeightInCm();
+                } catch (Exception e) {
+                    height = -1;
+                }
+                try {
+                    pc = getPcInCm();
+                } catch (Exception e) {
+                    pc = -1;
+                }
+                Paciente p = new Paciente(sexo, age, height, pc, weight);
                 switchDisplayable(null, getOutputDataScreen());//GEN-LINE:|7-commandAction|2|23-postAction
                 // write post-action user code here
+                try {
+                    weightOutput.setText(formatPercent(p.getWeightCentile()));
+                } catch (DataNotFoundException ex) {
+                    weightOutput.setText("--");
+                }
+                try {
+                    heightOutput.setText(formatPercent(p.getHeightCentile()));
+                } catch (DataNotFoundException ex) {
+                    heightOutput.setText("--");
+                }
+                try {
+                    HPOutput.setText(formatPercent(p.getPCCentile()));
+                } catch (DataNotFoundException ex) {
+                    HPOutput.setText("--");
+                }
+                try {
+                    IMCOutput.setText(formatPercent(p.getIMCCentile()));
+                } catch (DataNotFoundException ex) {
+                    IMCOutput.setText("--");
+                }
                 // Show calculated data.
             } else if (command == exitCommand) {//GEN-LINE:|7-commandAction|3|19-preAction
                 // write pre-action user code here
@@ -140,8 +194,6 @@ public class GMUI extends MIDlet implements CommandListener {
         // write post-action user code here
     }//GEN-BEGIN:|7-commandAction|10|
     //</editor-fold>//GEN-END:|7-commandAction|10|
-
-
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -293,8 +345,6 @@ public class GMUI extends MIDlet implements CommandListener {
     //</editor-fold>//GEN-END:|36-getter|2|
     //</editor-fold>
 
-
-
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: heightField ">//GEN-BEGIN:|38-getter|0|38-preInit
     /**
      * Returns an initiliazed instance of heightField component.
@@ -310,8 +360,6 @@ public class GMUI extends MIDlet implements CommandListener {
     }
     //</editor-fold>//GEN-END:|38-getter|2|
     //</editor-fold>
-
-
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: weightField ">//GEN-BEGIN:|40-getter|0|40-preInit
     /**
@@ -484,10 +532,6 @@ public class GMUI extends MIDlet implements CommandListener {
     }
     //</editor-fold>//GEN-END:|59-getter|2|
 
-
-
-
-
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: helpCommand ">//GEN-BEGIN:|61-getter|0|61-preInit
     /**
      * Returns an initiliazed instance of helpCommand component.
@@ -533,8 +577,6 @@ public class GMUI extends MIDlet implements CommandListener {
     }
     //</editor-fold>//GEN-END:|70-getter|2|
 
-
-
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: cancelCommand1 ">//GEN-BEGIN:|74-getter|0|74-preInit
     /**
      * Returns an initiliazed instance of cancelCommand1 component.
@@ -565,12 +607,6 @@ public class GMUI extends MIDlet implements CommandListener {
     }
     //</editor-fold>//GEN-END:|76-getter|2|
 
-
-
-
-
-
-
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: spacer ">//GEN-BEGIN:|83-getter|0|83-preInit
     /**
      * Returns an initiliazed instance of spacer component.
@@ -585,30 +621,6 @@ public class GMUI extends MIDlet implements CommandListener {
         return spacer;
     }
     //</editor-fold>//GEN-END:|83-getter|2|
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand2 ">//GEN-BEGIN:|106-getter|0|106-preInit
     /**
@@ -625,17 +637,11 @@ public class GMUI extends MIDlet implements CommandListener {
     }
     //</editor-fold>//GEN-END:|106-getter|2|
 
-
-
-
-
-
-
     /**
      * Returns a display instance.
      * @return the display instance.
      */
-    public Display getDisplay () {
+    public Display getDisplay() {
         return Display.getDisplay(this);
     }
 
@@ -643,7 +649,7 @@ public class GMUI extends MIDlet implements CommandListener {
      * Exits MIDlet.
      */
     public void exitMIDlet() {
-        switchDisplayable (null, null);
+        switchDisplayable(null, null);
         destroyApp(true);
         notifyDestroyed();
     }
@@ -654,10 +660,10 @@ public class GMUI extends MIDlet implements CommandListener {
      */
     public void startApp() {
         if (midletPaused) {
-            resumeMIDlet ();
+            resumeMIDlet();
         } else {
-            initialize ();
-            startMIDlet ();
+            initialize();
+            startMIDlet();
         }
         midletPaused = false;
     }
@@ -676,4 +682,66 @@ public class GMUI extends MIDlet implements CommandListener {
     public void destroyApp(boolean unconditional) {
     }
 
+    private int getAgeInDays() {
+        double res = Double.parseDouble(ageField.getString());
+        double multiplier;
+        switch (ageChoice.getSelectedIndex()) {
+            case 1:
+                multiplier = 30.4375;
+                break;
+            case 2:
+                multiplier = 365.25;
+                break;
+            default:
+                multiplier = 1;
+        }
+        return (int) Math.floor(res * multiplier);
+    }
+
+    private double getWeightInKg() {
+        double kg = Double.parseDouble(weightField.getString());
+        double mult;
+        switch (weightChoice.getSelectedIndex()) {
+            case 1:
+                mult = 10e-3;
+                break;
+            default:
+                mult = 1;
+        }
+        kg = mult * kg;
+        return kg;
+    }
+
+    private double getHeightInCm() {
+        double cm = Double.parseDouble(heightField.getString());
+        double mult;
+        switch (heightChoice.getSelectedIndex()) {
+            case 0:
+                mult = 100;
+                break;
+            default:
+                mult = 1;
+        }
+        cm = mult * cm;
+        return cm;
+    }
+
+    private double getPcInCm() {
+        double cm = Double.parseDouble(headPerimeterField.getString());
+        double mult;
+        switch (headPerimeterChoice.getSelectedIndex()) {
+            case 1:
+                mult = 10;
+                break;
+            default:
+                mult = 1;
+        }
+        cm = mult * cm;
+        return cm;
+    }
+
+    private String formatPercent(double value) {
+        String s = String.valueOf(value * 100).substring(0, 5);
+        return s + "%";
+    }
 }
