@@ -25,7 +25,7 @@ import java.io.IOException;
 public class TablaNormales extends Table {
 
     public TablaNormales() throws IOException {
-        super("tables/normaltable");
+            super(new TextFileReaderME.File("tables/normaltable"));
     }
 
     /**

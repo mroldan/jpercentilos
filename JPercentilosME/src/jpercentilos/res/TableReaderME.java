@@ -5,6 +5,7 @@
 package jpercentilos.res;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * This class has methods for reading Text files as tables and parsing numbers.
@@ -12,6 +13,10 @@ import java.io.IOException;
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
  */
 public class TableReaderME extends TextFileReaderME {
+
+    //Constants
+    static final String NLDELIM = "\f\r\n";
+    static final String TABDELIM = "\t";
 
     /**
      * Returns an row*column array of doubles initialized with zeros.
@@ -34,33 +39,67 @@ public class TableReaderME extends TextFileReaderME {
      * @param tableString - the string to be read as table.
      * @return two dimensional array containing the double values in the string.
      */
-    public static double[][] readTable(String tableString) {
-        String s = tableString.trim();
-        // Count rows, skiping the first line
-        int rows = getRows(s);
-        // Count columns, skiping the first column
-        int columns = getColumns(s);
-        //Initialize table
-        double[][] t = initTable(rows, columns);
-        int row = 0;
-        StringTokenizerME lineBreaker = new StringTokenizerME(s, "\n\r\f");
-        // Skip a number of rows
-        for (int i = 0; i < 1; i++) {
+    public static double[][] readTable(TableReaderME.File file) throws IOException {
+        return (new TableReaderME(file)).getTableAsArray();
+    }
+
+    /**
+     * Reads specified line in input text
+     * @param text
+     * @param lineNum
+     * @return the specified line in text
+     */
+    static String readLine(String text, int lineNum) {
+        return (new TableReaderME(text)).readLine(lineNum);
+    }
+
+    String readNextLine() {
+        lastLine = lineBreaker.nextToken();
+        return lastLine;
+    }
+
+    String readLine(int lineNum) {
+        //Reset line breaker.
+        lineBreaker.reset();
+        int line = 1;
+        while (lineBreaker.hasMoreTokens()) {
+            if (line == lineNum) {
+                return lineBreaker.nextToken();
+            }
+            line++;
             lineBreaker.nextToken();
         }
-        for (; lineBreaker.hasMoreTokens(); row++) {
-            String line = lineBreaker.nextToken();
-            int column = 0;
-            StringTokenizerME fieldBraker = new StringTokenizerME(line, " \t");
-            // Skip a number of Columns
-            for (int i = 0; i < 1; i++) {
-                fieldBraker.nextToken();
+        return null;
+    }
+
+    /**
+     * Reads specified field in <code>line<code>
+     * @param line
+     * @param fieldNum
+     * @return
+     */
+    static String readFieldInLine(String line, int fieldNum) {
+        StringTokenizerME fieldBreaker = new StringTokenizerME(line.trim(), TABDELIM);
+        int field = 1;
+        while (fieldBreaker.hasMoreTokens()) {
+            if (field == fieldNum) {
+                return fieldBreaker.nextToken();
             }
-            for (; fieldBraker.hasMoreTokens(); column++) {
-                t[row][column] = Double.parseDouble(fieldBraker.nextToken());
-            }
+            field++;
+            fieldBreaker.nextToken();
         }
-        return t;
+        return null;
+    }
+
+    String readNextFieldInLine() {
+        if (fieldBreaker == null) {
+            fieldBreaker = new StringTokenizerME(lastLine, TABDELIM);
+        }
+        String s = fieldBreaker.nextToken();
+        if (!fieldBreaker.hasMoreTokens()) {
+            fieldBreaker = null;
+        }
+        return s;
     }
 
     /**
@@ -80,7 +119,7 @@ public class TableReaderME extends TextFileReaderME {
      * @return
      */
     static int getRows(String s, int ignoreLines) {
-        return (new StringTokenizerME(s, "\f\r\n")).countTokens() - ignoreLines;
+        return (new StringTokenizerME(s, NLDELIM)).countTokens() - ignoreLines;
     }
 
     /**
@@ -101,25 +140,89 @@ public class TableReaderME extends TextFileReaderME {
      * @return
      */
     static int getColumns(String s, int ignoreColumns) {
-        final String NLDELIM = "\f\r\n";
-        final String TABDELIM = "\t";
         // First line in text.
         String line = new StringTokenizerME(s, NLDELIM).nextToken();
         // Counts tokens in the line
         return (new StringTokenizerME(line, TABDELIM)).countTokens() - ignoreColumns;
     }
-    private String textRead;
 
     /**
-     * Constructs a TableReaderME Object reading form specified file.
+     * Instance fields
+     */
+    String textRead;
+    final StringTokenizerME lineBreaker = new StringTokenizerME(textRead, NLDELIM);
+    StringTokenizerME fieldBreaker = null;
+    String lastLine;
+
+    /**
+     * Constructs a TableReaderME Object reading form specified InputStream.
      * @param file
      * @throws IOException
      */
-    public TableReaderME(String file) throws IOException {
+    public TableReaderME(TextFileReaderME.File file) throws IOException {
         textRead = retrieveTextFromFile(file);
     }
 
-    public double[][] getTable() {
-        return readTable(textRead);
+    /**
+     * Constructs a TableReaderME Object reading from specified <code>tableText<code>.
+     * @param tableText String containing a table to be read.
+     */
+    public TableReaderME(String tableText) {
+        textRead = tableText;
     }
+
+    public double[][] getTableAsArray() {
+        return readTable();
+    }
+
+    /**
+     * Reads a String and retrieves a table of double values.
+     * @param tableString - the string to be read as table.
+     * @return two dimensional array containing the double values in the string.
+     */
+    private double[][] readTable() {
+        String s = textRead.trim();
+        // Count rows, skiping the first line
+        int rows = getRows(s);
+        // Count columns, skiping the first column /* Revisar!
+        int columns = getColumns(s, 0);
+        //Initialize table
+        double[][] t = initTable(rows, columns);
+        int row = 0;
+        lineBreaker.reset();
+        // Skip a number of rows
+        for (int i = 0; i < 1; i++) {
+            lineBreaker.nextToken();
+        }
+        for (; lineBreaker.hasMoreTokens(); row++) {
+            String line = lineBreaker.nextToken();
+            int column = 0;
+            fieldBreaker = new StringTokenizerME(line, " \t");
+//            // Skip a number of Columns
+//            for (int i = 0; i < 1; i++) {
+//                fieldBraker.nextToken();
+//            }
+            for (; fieldBreaker.hasMoreTokens(); column++) {
+                t[row][column] = Double.parseDouble(fieldBreaker.nextToken());
+            }
+        }
+        return t;
+    }
+
+    /**
+     * Read table header for the units in each Column.
+     * @return A String array containing the units in each column.
+     */
+    public String[] getTableUnits() {
+        String[] units = new String[getColumns(textRead)];
+        String header = readLine(1);
+        fieldBreaker = new StringTokenizerME(header, TABDELIM);
+        int i = 0;
+        while (fieldBreaker.hasMoreTokens()) {
+            units[i] = fieldBreaker.nextToken();
+            i++;
+        }
+        return units;
+    }
+    
 }

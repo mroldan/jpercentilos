@@ -27,12 +27,28 @@ import java.io.InputStream;
  */
 public class TextFileReaderME {
 
-    public static String retrieveTextFromFile(String file) throws IOException {
+    /**
+     * Class to wrap String pointing to text files.
+     */
+    public static final class File {
+
+        private final String path;
+
+        public File(String path) {
+            this.path = path;
+        }
+
+        public String getPath(){
+            return this.path;
+        }
+    }
+
+    public static String retrieveTextFromFile(File file) throws IOException {
         InputStream is = null;
         StringBuffer sb = new StringBuffer();
 //        String NL = System.getProperty("line.separator");
         try {
-            is = retrieveInputStream(file);
+            is = retrieveInputStream(file.getPath());
             int chars;
             while ((chars = is.read()) != -1) {
                 sb.append((char) chars);
@@ -49,7 +65,7 @@ public class TextFileReaderME {
         return sb.toString();
     }
 
-    static InputStream retrieveInputStream(String file) {
-        return TextFileReaderME.class.getResourceAsStream(file);
+    static InputStream retrieveInputStream(String filePath) {
+        return TextFileReaderME.class.getResourceAsStream(filePath);
     }
 }
