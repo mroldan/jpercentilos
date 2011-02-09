@@ -157,4 +157,13 @@ public class StringTokenizerME {
         }
         return count;
     }
+
+    /**
+     * Resets the current position of this string tokenizer to zero
+     *
+     */
+    public void reset() {
+        currentPosition = 0;
+        newPosition = -1;
+    }
 }

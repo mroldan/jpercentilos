@@ -18,7 +18,6 @@
 package jpercentilos.res;
 
 import java.io.IOException;
-import jpercentilos.res.Paciente.Sexo;
 
 /**
  *
@@ -26,24 +25,21 @@ import jpercentilos.res.Paciente.Sexo;
  */
 public final class TablaPercentilos extends Table {
 
-    static final int P50 = 0;
-    static final int SD = 1;
-    private final Sexo sexo;
-    private final Tipo tipo;
-    static TablaNormales TABLA_NORMALES;
+    static final int S_T = 3;   // S(t) index in table
+    static final int M_T = 2;   // M(t) index in table
+    static final int L_T = 1;   // L(t) index in table
+    static final int SD = 4;    // SD(t) index in table (not necesary?)
+    static final int VALUE = 0;  // Unit index in table
+//    private final Sexo sexo;
+//    private final Tipo tipo;
+//    static final TablaNormales TABLA_NORMALES;
 
-    public TablaPercentilos(Sexo sexo, Tipo tipo) throws IOException {
-        super("tables/" + getFileName(sexo, tipo));
-        TABLA_NORMALES = new TablaNormales();
-        this.sexo = sexo;
-        this.tipo = tipo;
-
+    public TablaPercentilos(PatientProfile profile, Tipo tipo) throws IOException {
+        super(profile.getTableFile(tipo));
     }
 
-    private static String getFileName(Sexo sexo, Tipo tipo) {
-        StringBuffer fn = new StringBuffer();
-        fn.append(sexo.bitPath()).append(tipo.bitPath());
-        return fn.toString();
+    public TablaPercentilos(TextFileReaderME.File file) throws IOException{
+        super(file);
     }
 
     /**
@@ -53,31 +49,37 @@ public final class TablaPercentilos extends Table {
      * @param value
      * @return
      */
-    public double[] getCentile(int index, double value) {
-        double Px = getElementAt(index, P50);
-        double Sx = getElementAt(index, P50);
-        double[] centiles = { TABLA_NORMALES.getPx(value, Px, Sx), TablaNormales.getStandardZ(value, Px, Sx)};
-         return centiles;
-    }
+//    public double[] getCentile(int index, double value) {
+//
+//    }
 
+    /**
+     *
+     */
     public static final class Tipo {
         private final String name;
 
-        public static final Tipo TALLA = new Tipo("Talla");    //leido en cm
-        public static final Tipo PESO = new Tipo("Peso");      // Leído en Kg
-        public static final Tipo IMC = new Tipo("IMC");        //
-        public static final Tipo PC = new Tipo("PC");          // Leído en mm
+        public static final Tipo TALLA_A_EDAD = new Tipo("TALLA-EDAD");    //leido en cm
+        public static final Tipo PESO_A_EDAD = new Tipo("PESO-EDAD");      // Leído en Kg
+        public static final Tipo IMC_A_EDAD = new Tipo("IMC-EDAD");        //
+        public static final Tipo PC_A_EDAD = new Tipo("PC-EDAD");          // Leído en mm
+        public static final Tipo PESO_A_TALLA = new Tipo("PESO-TALLA");
 
         public Tipo(String name) {
             this.name = name;
         }
 
         public String bitPath() {
-            return this.toString().substring(0, 2).toLowerCase();
+            return toString();
         }
 
         public String toString() {
-            return this.name;
+            return name;
+        }
+
+        public static Tipo[] values() {
+            Tipo[] t = {TALLA_A_EDAD, PESO_A_EDAD, IMC_A_EDAD, PC_A_EDAD, PESO_A_TALLA};
+            return t;
         }
 
     }
