@@ -4,11 +4,15 @@
  */
 package jpercentilos.res;
 
+import java.util.Vector;
 import jpercentilos.res.Dimensionizable.InvalidUnitException;
+import jpercentilos.res.Length.HeadPerimeter;
+import jpercentilos.res.Length.Height;
 import jpercentilos.res.Magnitude.*;
 
 /**
- *
+ * Class containing Patient info and methods to handle data retrieving.
+ * 
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
  */
 public class PatientProfile {
@@ -18,6 +22,7 @@ public class PatientProfile {
     protected final Height height;  // Altura
     protected final HeadPerimeter headPerimeter; // Perímetro
     protected final Weight weight; // Peso
+    protected Vector availableTable = new Vector(2);
 
     /**
      * Constructs a <code>PatientProfile<code> object with all parameters set.
@@ -33,6 +38,7 @@ public class PatientProfile {
         this.height = height;
         this.headPerimeter = headPerimeter;
         this.weight = weight;
+        lookForAvailableTables();
     }
 
     public PatientProfile(Sexo sexo, Age age, Height height, Weight weight) {
@@ -75,30 +81,124 @@ public class PatientProfile {
         return weight;
     }
 
+    public final double getIMC() {
+        double w = 0;
+        double h = 0;
+        try {
+            w = getWeight().getValueInUnit(Dimensionizable.WeightUnit.KG);
+            h = getHeight().getValueInUnit(Dimensionizable.LengthUnit.M);
+        } catch (InvalidUnitException invalidUnitException) {
+            return 0; // Should not happend
+        }
+        return w / MathME.pow(h, 2);
+    }
+
     public final TextFileReaderME.File getTableFile(TablaPercentilos.Tipo tipo) {
         StringBuffer sb = new StringBuffer("tables/");
         sb.append(tipo.toString()).append("-");
-        sb.append(getAgeRange()).append("-");
+        sb.append(getAgeRange(tipo)).append("-");
         sb.append(sexo.toString());
         return new TextFileReaderME.File(sb.toString());
     }
 
-    public final String getAgeRange() {
+    public final String getAgeRange(TablaPercentilos.Tipo tipo) { //TODO Establecer rangos segun tipo de tabla.
+        if (tipo == TablaPercentilos.Tipo.TALLA_A_EDAD) {
+            return getAgeRangeHeightToAge();
+        } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD) {
+            return getAgeRangeWeightToAge();
+        } else if (tipo == TablaPercentilos.Tipo.IMC_A_EDAD) {
+            return getAgeRangeBMIToAge();
+        } else if (tipo == TablaPercentilos.Tipo.PC_A_EDAD) {
+            return getAgeRangeHPToAge();
+        } else {
+            return null;
+        }
+    }
+
+    private String getAgeRangeHeightToAge() {
         String range;
         double year;
         try {
             year = age.getValueInUnit(age.getValue(), Dimensionizable.AgeUnit.AÑO);
         } catch (InvalidUnitException ex) {
-            year = 0;
+            year = -1;
         }
         if (year < 2 && year >= 0) {
-            range = "0to2";
+            range = "0a2";
         } else if (year >=2 && year < 5) {
-            range = "2to5";
+            range = "0a5";
         } else {
-            range = "2to19";
+            range = "5a19";
         }
         return range;
+    }
+
+    private String getAgeRangeWeightToAge() {
+        String range;
+        double year;
+        try {
+            year = age.getValueInUnit(age.getValue(), Dimensionizable.AgeUnit.AÑO);
+        } catch (InvalidUnitException ex) {
+            year = -1;
+        }
+        if (year < 5 && year >= 0) {
+            range = "0a5";
+        } else {
+            range = "5a10";
+        }
+        return range;
+    }
+
+    private String getAgeRangeBMIToAge() {
+        String range;
+        double year;
+        try {
+            year = age.getValueInUnit(age.getValue(), Dimensionizable.AgeUnit.AÑO);
+        } catch (InvalidUnitException ex) {
+            year = -1;
+        }
+        if (year < 2 && year >= 0) {
+            range = "0a2";
+        } else if (year >=2 && year < 5) {
+            range = "0a5";
+        } else {
+            range = "5a19";
+        }
+        return range;
+    }
+
+    private String getAgeRangeHPToAge() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private void lookForAvailableTables() {
+        try {
+            if (!age.equals(Age.NA) && age.getValueInUnit(Dimensionizable.AgeUnit.AÑO) <= 19) {
+                availableTable.addElement(TablaPercentilos.Tipo.IMC_A_EDAD);
+                availableTable.addElement(TablaPercentilos.Tipo.TALLA_A_EDAD);
+                try {
+                    if (age.getValueInUnit(age.getValue(), Dimensionizable.AgeUnit.AÑO) <= 10) {
+                        availableTable.addElement(TablaPercentilos.Tipo.PESO_A_EDAD);
+                    }
+                } catch (InvalidUnitException ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    if (age.getValueInUnit(age.getValue(), Dimensionizable.AgeUnit.AÑO) <= 5) {
+                        availableTable.addElement(TablaPercentilos.Tipo.PC_A_EDAD);
+                        availableTable.addElement(TablaPercentilos.Tipo.PESO_A_TALLA);
+                    }
+                } catch (InvalidUnitException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (InvalidUnitException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public boolean isTableAvailable(TablaPercentilos.Tipo tipo) {
+        return availableTable.contains(tipo);
     }
 
     public static final class Sexo {

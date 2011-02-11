@@ -150,7 +150,7 @@ public class TableReaderME extends TextFileReaderME {
      * Instance fields
      */
     String textRead;
-    final StringTokenizerME lineBreaker = new StringTokenizerME(textRead, NLDELIM);
+    final StringTokenizerME lineBreaker;
     StringTokenizerME fieldBreaker = null;
     String lastLine;
 
@@ -161,6 +161,7 @@ public class TableReaderME extends TextFileReaderME {
      */
     public TableReaderME(TextFileReaderME.File file) throws IOException {
         textRead = retrieveTextFromFile(file);
+        lineBreaker = new StringTokenizerME(textRead, NLDELIM);
     }
 
     /**
@@ -169,6 +170,7 @@ public class TableReaderME extends TextFileReaderME {
      */
     public TableReaderME(String tableText) {
         textRead = tableText;
+        lineBreaker = new StringTokenizerME(textRead, NLDELIM);
     }
 
     public double[][] getTableAsArray() {

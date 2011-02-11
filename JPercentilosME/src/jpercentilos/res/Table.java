@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jpercentilos.res;
 
 import java.io.IOException;
@@ -15,12 +14,12 @@ import java.util.NoSuchElementException;
 public class Table {
 
     final double[][] tabla;
-    final String[] units;
+//    final String[] units;
 
     public Table(TextFileReaderME.File fromFile) throws IOException {
         TableReaderME tr = new TableReaderME(fromFile);
         tabla = tr.getTableAsArray();
-        units = tr.getTableUnits();
+//        units = tr.getTableUnits();
     }
 
     public double getElementAt(int row, int column) {
@@ -64,7 +63,7 @@ public class Table {
                     prin = index + 1;
                 }
             }
-        } while (fin != prin);
+        } while (fin >= prin);
         throw new NoSuchElementException("Value not found");
     }
 
@@ -95,7 +94,7 @@ public class Table {
      * @return Index of the nearest lower of <code>value<code> in the specified column.
      * @throws ArrayIndexOutOfBoundsException
      */
-    public int searchFloorValue(double value, int column) throws ArrayIndexOutOfBoundsException{
+    public int searchFloorValue(double value, int column) {
         int row = 0;
         while (tabla[row][column] <= value) {
             row++;
@@ -112,12 +111,27 @@ public class Table {
      * @return Index of the nearest higher of <code>value<code> in the specified column.
      * @throws ArrayIndexOutOfBoundsException
      */
-    public int searchCeilValue(double value, int column) throws ArrayIndexOutOfBoundsException{
+    public int searchCeilValue(double value, int column) {
         int row = tabla.length - 1;
         while (tabla[row][column] >= value) {
             row--;
         }
         return row;
+    }
+
+    /**
+     * Interpolates value y in the interval (<code>y1<code>, <code>y2<code>) for the <code>x<code>
+     * value in the interval (<code>x1<code>, <code>x2<code>).
+     * @param x
+     * @param x1
+     * @param x2
+     * @param y1
+     * @param y2
+     * @return Interpolated value in the interval (<code>y1<code>, <code>y2<code>).
+     */
+    protected double interpolateValue(double x, double x1, double x2, double y1, double y2) {
+        double dx = x2 - x1, dy = y2 - y1;
+        return y1 + (dy / dx) * (x - x1);
     }
 
 }
