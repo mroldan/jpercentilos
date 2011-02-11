@@ -86,9 +86,9 @@ public class TablaNormales extends Table {
      */
     private double findInTableLowNearest(double z) {
         double[] sp = splitValue(z);
-        int column = (int) sp[0];
-        int index = (int) Math.floor(sp[1] * 100);
-        return getElementAt(index, column);
+        int column = (int) sp[0] + 1;
+        int row = (int) Math.floor(sp[1] * 100);
+        return getElementAt(row, column);
     }
 
     /**

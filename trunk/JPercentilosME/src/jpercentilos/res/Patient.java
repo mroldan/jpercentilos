@@ -14,16 +14,15 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package jpercentilos.res;
 
 import java.io.IOException;
 import java.util.Vector;
-import jpercentilos.res.Magnitude.Age;
-import jpercentilos.res.Magnitude.HeadPerimeter;
-import jpercentilos.res.Magnitude.Height;
-import jpercentilos.res.Magnitude.Weight;
+import jpercentilos.res.Dimensionizable.InvalidUnitException;
+import jpercentilos.res.Length.HeadPerimeter;
+import jpercentilos.res.Length.Height;
 import jpercentilos.res.PatientProfile.Sexo;
+import jpercentilos.res.TablaPercentilos.Tipo;
 
 /**
  *
@@ -31,7 +30,7 @@ import jpercentilos.res.PatientProfile.Sexo;
  */
 public final class Patient extends PatientProfile {
 
-    private Vector tablas;
+    private Vector tablas = new Vector(2);
 
     public Patient(Sexo sexo, Age age, Height height, HeadPerimeter headPerimeter, Weight weight) {
         super(sexo, age, height, headPerimeter, weight);
@@ -86,8 +85,6 @@ public final class Patient extends PatientProfile {
 //        return getPerHeight()[1];
 //    }
 
-
-
     /**
      * Calcula el percentilo y el puntaje-z de Peso para la Edad con los
      * parámetros dados.
@@ -108,7 +105,6 @@ public final class Patient extends PatientProfile {
 ////            throw new DataNotFoundException("Faltan datos para cálculo de Percentilo y Pz");
 ////        }
 //    }
-
     /**
      * Calcula el percentilo de Perímetro Cefálico para la Edad con los parámetros dados.
      * @param sexo
@@ -128,7 +124,6 @@ public final class Patient extends PatientProfile {
 ////            throw new DataNotFoundException("Faltan datos para el cálculo de Percentilo y Pz");
 ////        }
 //    }
-
     /**
      * Calcula el percentilo de Talla para la Edad con los parámetros dados.
      * @param sexo
@@ -148,7 +143,6 @@ public final class Patient extends PatientProfile {
 ////            throw new DataNotFoundException("Faltan datos para cálculo de Percentilo y Pz");
 ////        }
 //    }
-
     /**
      * Calcula el percentilo de Índice de masa corporal con los parámetros 
      * dados.
@@ -169,7 +163,6 @@ public final class Patient extends PatientProfile {
 //            throw new DataNotFoundException("Faltan datos para cálculo de Percentilo y Pz");
 //        }
 //    }
-
     /**
      * Calcula el Índice de masa corporal dados el peso en Kilogramos y la
      * altura en metros
@@ -189,29 +182,61 @@ public final class Patient extends PatientProfile {
 //            throw new DataNotFoundException("Faltan datos para el cálculo de IMC");
 //        }
 //    }
-
     private void readTables() {
         if (!age.equals(Age.NA)) {
             TextFileReaderME.File file;
             TablaPercentilos.Tipo[] tipo = TablaPercentilos.Tipo.values();
             for (int i = 0; i < tipo.length; i++) {
-                file = this.getTableFile(tipo[i]);
-                try {
-                    tablas.addElement(new TablaPercentilos(file));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                if (isTableAvailable(tipo[i])) {
+                    file = this.getTableFile(tipo[i]);
+                    try {
+                        System.out.println("Reading file: " + file.getPath());
+                        tablas.addElement(new TablaPercentilos(file));
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    System.out.println(file.getPath() + " successfuly read.");
                 }
-                System.out.println("Reading file: " + file);
             }
         }
     }
 
+    public Vector getTablas() {
+        return tablas;
+    }
 
+    public TablaPercentilos getTabla(TablaPercentilos.Tipo tipo) {
+        TextFileReaderME.File file = this.getTableFile(tipo);
+        for (int i = 0; i < tablas.size(); i++) {
+            TablaPercentilos tablaPercentilos = (TablaPercentilos) tablas.elementAt(i);
+            if (tablaPercentilos.getName().equals(this.getTableFile(tipo).getPath())) {
+                return tablaPercentilos;
+            }
+        }
+        return null;
+    }
+
+    public double getValueFor(Tipo tipo) throws InvalidUnitException {
+        if (tipo == TablaPercentilos.Tipo.TALLA_A_EDAD) {
+            return getHeight().getValueInUnit(Dimensionizable.LengthUnit.CM);
+        } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD) {
+            return getWeight().getValueInUnit(Dimensionizable.WeightUnit.KG);
+        } else if (tipo == TablaPercentilos.Tipo.PC_A_EDAD) {
+            return getHeadPerimeter().getValueInUnit(Dimensionizable.LengthUnit.MM); //TODO Chequear unidad
+        } else if (tipo == TablaPercentilos.Tipo.IMC_A_EDAD) {
+            return getIMC();
+        } else if (tipo == TablaPercentilos.Tipo.PESO_A_TALLA) {
+            return getWeight().getValueInUnit(Dimensionizable.WeightUnit.KG);
+        } else {
+            return 0; // Should not happend
+        }
+    }
 //    public enum Estado {
 //        NORMAL,
 //        EXCEDIDO,
 //        POR_DEBAJO;
 //
 //    }
-
 }

@@ -6,8 +6,12 @@ package jpercentilos;
 
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
-import jpercentilos.res.Paciente;
-import jpercentilos.res.Paciente.DataNotFoundException;
+import jpercentilos.res.*;
+import jpercentilos.res.Dimensionizable.*;
+import jpercentilos.res.Length.*;
+import jpercentilos.res.PatientProfile.Sexo;
+import org.netbeans.microedition.lcdui.WaitScreen;
+import org.netbeans.microedition.util.SimpleCancellableTask;
 
 /**
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
@@ -26,6 +30,7 @@ public class GMUI extends MIDlet implements CommandListener {
     private Command okCommand1;
     private Command cancelCommand1;
     private Command exitCommand2;
+    private Command okCommand2;
     private Form InputDataScreen;
     private StringItem stringItem;
     private ChoiceGroup sexChoice;
@@ -43,6 +48,10 @@ public class GMUI extends MIDlet implements CommandListener {
     private StringItem HPOutput;
     private StringItem heightOutput;
     private StringItem weightOutput;
+    private StringItem WeightHeightOutput;
+    private WaitScreen waitScreen;
+    private Alert alert;
+    private SimpleCancellableTask task;
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -116,64 +125,65 @@ public class GMUI extends MIDlet implements CommandListener {
         if (displayable == InputDataScreen) {//GEN-BEGIN:|7-commandAction|1|23-preAction
             if (command == CalculateCommand) {//GEN-END:|7-commandAction|1|23-preAction
                 // Get the Values in Input fields.
-                Paciente.Sexo sexo;
-                switch (sexChoice.getSelectedIndex()) {
-                    case 0:
-                        sexo = Paciente.Sexo.VARÓN;
-                        break;
-                    case 1:
-                        sexo = Paciente.Sexo.MUJER;
-                        break;
-                    default:
-                        sexo = Paciente.Sexo.VARÓN;
-                }
-                int age;
-                double weight;
-                double height;
-                double pc;
-                try {
-                    age = getAgeInDays();
-                } catch (Exception e) {
-                    age = -1;
-                }
-                try {
-                    weight = getWeightInKg();
-                } catch (Exception e) {
-                    weight = -1;
-                }
-                try {
-                    height = getHeightInCm();
-                } catch (Exception e) {
-                    height = -1;
-                }
-                try {
-                    pc = getPcInCm();
-                } catch (Exception e) {
-                    pc = -1;
-                }
-                Paciente p = new Paciente(sexo, age, height, pc, weight);
-                switchDisplayable(null, getOutputDataScreen());//GEN-LINE:|7-commandAction|2|23-postAction
+                switchDisplayable(null, getWaitScreen());
+//                Patient.Sexo sexo;
+//                switch (sexChoice.getSelectedIndex()) {
+//                    case 0:
+//                        sexo = Patient.Sexo.VARÓN;
+//                        break;
+//                    case 1:
+//                        sexo = Patient.Sexo.MUJER;
+//                        break;
+//                    default:
+//                        sexo = Patient.Sexo.VARÓN;
+//                }
+//                int age;
+//                double weight;
+//                double height;
+//                double headPerimeter;
+//                try {
+//                    age = getAge();
+//                } catch (Exception e) {
+//                    age = -1;
+//                }
+//                try {
+//                    weight = getWeightInKg();
+//                } catch (Exception e) {
+//                    weight = -1;
+//                }
+//                try {
+//                    height = getHeightInCm();
+//                } catch (Exception e) {
+//                    height = -1;
+//                }
+//                try {
+//                    headPerimeter = getHeadPerimeter();
+//                } catch (Exception e) {
+//                    headPerimeter = -1;
+//                }
+//                Patient p = new Patient(sexo, new Age(age, AgeUnit.DÍA), new Height(headPerimeter, LengthUnit.M), headPerimeter, weight);
+                switchDisplayable(null, getWaitScreen());//GEN-LINE:|7-commandAction|2|23-postAction
                 // write post-action user code here
-                try {
-                    weightOutput.setText(formatPercent(p.getWeightCentile()));
-                } catch (DataNotFoundException ex) {
-                    weightOutput.setText("--");
-                }
-                try {
-                    heightOutput.setText(formatPercent(p.getHeightCentile()));
-                } catch (DataNotFoundException ex) {
-                    heightOutput.setText("--");
-                }
-                try {
-                    HPOutput.setText(formatPercent(p.getPCCentile()));
-                } catch (DataNotFoundException ex) {
-                    HPOutput.setText("--");
-                }
-                try {
-                    IMCOutput.setText(formatPercent(p.getIMCCentile()));
-                } catch (DataNotFoundException ex) {
-                    IMCOutput.setText("--");
-                }
+//                try {
+//                    weightOutput.setText(formatCentile(p.getWeightCentile()));
+//                } catch (DataNotFoundException ex) {
+//                    weightOutput.setText("--");
+//                }
+//                try {
+//                    heightOutput.setText(formatCentile(p.getHeightCentile()));
+//                } catch (DataNotFoundException ex) {
+//                    heightOutput.setText("--");
+//                }
+//                try {
+//                    HPOutput.setText(formatCentile(p.getPCCentile()));
+//                } catch (DataNotFoundException ex) {
+//                    HPOutput.setText("--");
+//                }
+//                try {
+//                    IMCOutput.setText(formatCentile(p.getIMCCentile()));
+//                } catch (DataNotFoundException ex) {
+//                    IMCOutput.setText("--");
+//                }
                 // Show calculated data.
             } else if (command == exitCommand) {//GEN-LINE:|7-commandAction|3|19-preAction
                 // write pre-action user code here
@@ -189,11 +199,27 @@ public class GMUI extends MIDlet implements CommandListener {
                 // write pre-action user code here
                 exitMIDlet();//GEN-LINE:|7-commandAction|8|29-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|9|7-postCommandAction
-        }//GEN-END:|7-commandAction|9|7-postCommandAction
+            }//GEN-BEGIN:|7-commandAction|9|120-preAction
+        } else if (displayable == alert) {
+            if (command == okCommand2) {//GEN-END:|7-commandAction|9|120-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getInputDataScreen());//GEN-LINE:|7-commandAction|10|120-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|11|114-preAction
+        } else if (displayable == waitScreen) {
+            if (command == WaitScreen.FAILURE_COMMAND) {//GEN-END:|7-commandAction|11|114-preAction
+                // write pre-action user code here
+                switchDisplayable(getAlert(), getInputDataScreen());//GEN-LINE:|7-commandAction|12|114-postAction
+                // write post-action user code here
+            } else if (command == WaitScreen.SUCCESS_COMMAND) {//GEN-LINE:|7-commandAction|13|113-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getOutputDataScreen());//GEN-LINE:|7-commandAction|14|113-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|15|7-postCommandAction
+        }//GEN-END:|7-commandAction|15|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|10|
-    //</editor-fold>//GEN-END:|7-commandAction|10|
+    }//GEN-BEGIN:|7-commandAction|16|
+    //</editor-fold>//GEN-END:|7-commandAction|16|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -242,7 +268,6 @@ public class GMUI extends MIDlet implements CommandListener {
         return stringItem;
     }
     //</editor-fold>//GEN-END:|16-getter|2|
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: CalculateCommand ">//GEN-BEGIN:|22-getter|0|22-preInit
     /**
@@ -297,7 +322,7 @@ public class GMUI extends MIDlet implements CommandListener {
     public Form getOutputDataScreen() {
         if (OutputDataScreen == null) {//GEN-END:|24-getter|0|24-preInit
             // write pre-init user code here
-            OutputDataScreen = new Form("Percentilos", new Item[] { getWeightOutput(), getHeightOutput(), getHPOutput(), getIMCOutput() });//GEN-BEGIN:|24-getter|1|24-postInit
+            OutputDataScreen = new Form("Percentilos", new Item[] { getWeightOutput(), getHeightOutput(), getHPOutput(), getIMCOutput(), getWeightHeightOutput() });//GEN-BEGIN:|24-getter|1|24-postInit
             OutputDataScreen.addCommand(getBackCommand());
             OutputDataScreen.addCommand(getExitCommand1());
             OutputDataScreen.setCommandListener(this);//GEN-END:|24-getter|1|24-postInit
@@ -306,7 +331,6 @@ public class GMUI extends MIDlet implements CommandListener {
         return OutputDataScreen;
     }
     //</editor-fold>//GEN-END:|24-getter|2|
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: sexChoice ">//GEN-BEGIN:|32-getter|0|32-preInit
     /**
@@ -325,7 +349,6 @@ public class GMUI extends MIDlet implements CommandListener {
         return sexChoice;
     }
     //</editor-fold>//GEN-END:|32-getter|2|
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ageField ">//GEN-BEGIN:|36-getter|0|36-preInit
     /**
@@ -335,7 +358,7 @@ public class GMUI extends MIDlet implements CommandListener {
     public TextField getAgeField() {
         if (ageField == null) {//GEN-END:|36-getter|0|36-preInit
             // write pre-init user code here
-            ageField = new TextField("Edad:", "", 7, TextField.NUMERIC);//GEN-BEGIN:|36-getter|1|36-postInit
+            ageField = new TextField("Edad:", "5", 5, TextField.NUMERIC);//GEN-BEGIN:|36-getter|1|36-postInit
             ageField.setLayout(ImageItem.LAYOUT_DEFAULT);
             ageField.setPreferredSize(-1, -1);//GEN-END:|36-getter|1|36-postInit
             // write post-init user code here
@@ -343,7 +366,6 @@ public class GMUI extends MIDlet implements CommandListener {
         return ageField;
     }
     //</editor-fold>//GEN-END:|36-getter|2|
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: heightField ">//GEN-BEGIN:|38-getter|0|38-preInit
     /**
@@ -353,13 +375,12 @@ public class GMUI extends MIDlet implements CommandListener {
     public TextField getHeightField() {
         if (heightField == null) {//GEN-END:|38-getter|0|38-preInit
             // write pre-init user code here
-            heightField = new TextField("Talla:", "", 6, TextField.DECIMAL);//GEN-LINE:|38-getter|1|38-postInit
+            heightField = new TextField("Talla:", "65", 6, TextField.DECIMAL);//GEN-LINE:|38-getter|1|38-postInit
             // write post-init user code here
         }//GEN-BEGIN:|38-getter|2|
         return heightField;
     }
     //</editor-fold>//GEN-END:|38-getter|2|
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: weightField ">//GEN-BEGIN:|40-getter|0|40-preInit
     /**
@@ -369,13 +390,12 @@ public class GMUI extends MIDlet implements CommandListener {
     public TextField getWeightField() {
         if (weightField == null) {//GEN-END:|40-getter|0|40-preInit
             // write pre-init user code here
-            weightField = new TextField("Peso:", "", 6, TextField.DECIMAL);//GEN-LINE:|40-getter|1|40-postInit
+            weightField = new TextField("Peso:", "4", 6, TextField.DECIMAL);//GEN-LINE:|40-getter|1|40-postInit
             // write post-init user code here
         }//GEN-BEGIN:|40-getter|2|
         return weightField;
     }
     //</editor-fold>//GEN-END:|40-getter|2|
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: headPerimeterField ">//GEN-BEGIN:|41-getter|0|41-preInit
     /**
@@ -385,7 +405,7 @@ public class GMUI extends MIDlet implements CommandListener {
     public TextField getHeadPerimeterField() {
         if (headPerimeterField == null) {//GEN-END:|41-getter|0|41-preInit
             // write pre-init user code here
-            headPerimeterField = new TextField("PC:", "", 6, TextField.ANY);//GEN-LINE:|41-getter|1|41-postInit
+            headPerimeterField = new TextField("PC:", "45", 6, TextField.DECIMAL);//GEN-LINE:|41-getter|1|41-postInit
             // write post-init user code here
         }//GEN-BEGIN:|41-getter|2|
         return headPerimeterField;
@@ -406,13 +426,12 @@ public class GMUI extends MIDlet implements CommandListener {
             ageChoice.append("a\u00F1os", null);
             ageChoice.setLayout(ImageItem.LAYOUT_DEFAULT);
             ageChoice.setFitPolicy(Choice.TEXT_WRAP_DEFAULT);
-            ageChoice.setSelectedFlags(new boolean[] { false, false, false });//GEN-END:|43-getter|1|43-postInit
+            ageChoice.setSelectedFlags(new boolean[] { false, true, false });//GEN-END:|43-getter|1|43-postInit
             // write post-init user code here
         }//GEN-BEGIN:|43-getter|2|
         return ageChoice;
     }
     //</editor-fold>//GEN-END:|43-getter|2|
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: heightChoice ">//GEN-BEGIN:|47-getter|0|47-preInit
     /**
@@ -425,7 +444,7 @@ public class GMUI extends MIDlet implements CommandListener {
             heightChoice = new ChoiceGroup(null, Choice.POPUP);//GEN-BEGIN:|47-getter|1|47-postInit
             heightChoice.append("m", null);
             heightChoice.append("cm", null);
-            heightChoice.setSelectedFlags(new boolean[] { false, false });//GEN-END:|47-getter|1|47-postInit
+            heightChoice.setSelectedFlags(new boolean[] { false, true });//GEN-END:|47-getter|1|47-postInit
             // write post-init user code here
         }//GEN-BEGIN:|47-getter|2|
         return heightChoice;
@@ -467,7 +486,6 @@ public class GMUI extends MIDlet implements CommandListener {
         return headPerimeterChoice;
     }
     //</editor-fold>//GEN-END:|53-getter|2|
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: weightOutput ">//GEN-BEGIN:|56-getter|0|56-preInit
     /**
@@ -477,13 +495,12 @@ public class GMUI extends MIDlet implements CommandListener {
     public StringItem getWeightOutput() {
         if (weightOutput == null) {//GEN-END:|56-getter|0|56-preInit
             // write pre-init user code here
-            weightOutput = new StringItem("Peso:", "--");//GEN-LINE:|56-getter|1|56-postInit
+            weightOutput = new StringItem("Peso/Edad:", "--");//GEN-LINE:|56-getter|1|56-postInit
             // write post-init user code here
         }//GEN-BEGIN:|56-getter|2|
         return weightOutput;
     }
     //</editor-fold>//GEN-END:|56-getter|2|
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: heightOutput ">//GEN-BEGIN:|57-getter|0|57-preInit
     /**
@@ -493,13 +510,12 @@ public class GMUI extends MIDlet implements CommandListener {
     public StringItem getHeightOutput() {
         if (heightOutput == null) {//GEN-END:|57-getter|0|57-preInit
             // write pre-init user code here
-            heightOutput = new StringItem("Altura:", "--");//GEN-LINE:|57-getter|1|57-postInit
+            heightOutput = new StringItem("Talla/Edad:", "--");//GEN-LINE:|57-getter|1|57-postInit
             // write post-init user code here
         }//GEN-BEGIN:|57-getter|2|
         return heightOutput;
     }
     //</editor-fold>//GEN-END:|57-getter|2|
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: HPOutput ">//GEN-BEGIN:|58-getter|0|58-preInit
     /**
@@ -509,13 +525,12 @@ public class GMUI extends MIDlet implements CommandListener {
     public StringItem getHPOutput() {
         if (HPOutput == null) {//GEN-END:|58-getter|0|58-preInit
             // write pre-init user code here
-            HPOutput = new StringItem("PC:", null);//GEN-LINE:|58-getter|1|58-postInit
+            HPOutput = new StringItem("PC/Edad:", "--");//GEN-LINE:|58-getter|1|58-postInit
             // write post-init user code here
         }//GEN-BEGIN:|58-getter|2|
         return HPOutput;
     }
     //</editor-fold>//GEN-END:|58-getter|2|
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: IMCOutput ">//GEN-BEGIN:|59-getter|0|59-preInit
     /**
@@ -525,7 +540,7 @@ public class GMUI extends MIDlet implements CommandListener {
     public StringItem getIMCOutput() {
         if (IMCOutput == null) {//GEN-END:|59-getter|0|59-preInit
             // write pre-init user code here
-            IMCOutput = new StringItem("IMC:", "--");//GEN-LINE:|59-getter|1|59-postInit
+            IMCOutput = new StringItem("IMC/Edad:", "--");//GEN-LINE:|59-getter|1|59-postInit
             // write post-init user code here
         }//GEN-BEGIN:|59-getter|2|
         return IMCOutput;
@@ -637,6 +652,95 @@ public class GMUI extends MIDlet implements CommandListener {
     }
     //</editor-fold>//GEN-END:|106-getter|2|
 
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: waitScreen ">//GEN-BEGIN:|110-getter|0|110-preInit
+    /**
+     * Returns an initiliazed instance of waitScreen component.
+     * @return the initialized component instance
+     */
+    public WaitScreen getWaitScreen() {
+        if (waitScreen == null) {//GEN-END:|110-getter|0|110-preInit
+            // write pre-init user code here
+            waitScreen = new WaitScreen(getDisplay());//GEN-BEGIN:|110-getter|1|110-postInit
+            waitScreen.setTitle("waitScreen");
+            waitScreen.setCommandListener(this);
+            waitScreen.setTask(getTask());//GEN-END:|110-getter|1|110-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|110-getter|2|
+        return waitScreen;
+    }
+    //</editor-fold>//GEN-END:|110-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: task ">//GEN-BEGIN:|115-getter|0|115-preInit
+    /**
+     * Returns an initiliazed instance of task component.
+     * @return the initialized component instance
+     */
+    public SimpleCancellableTask getTask() {
+        if (task == null) {//GEN-END:|115-getter|0|115-preInit
+            // write pre-init user code here
+            task = new SimpleCancellableTask();//GEN-BEGIN:|115-getter|1|115-execute
+            task.setExecutable(new org.netbeans.microedition.util.Executable() {
+                public void execute() throws Exception {//GEN-END:|115-getter|1|115-execute
+                    // write task-execution user code here
+                    Patient p = createPatient();
+                    System.out.println("Paciente creado");
+                    showResults(p);
+                }//GEN-BEGIN:|115-getter|2|115-postInit
+            });//GEN-END:|115-getter|2|115-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|115-getter|3|
+        return task;
+    }
+    //</editor-fold>//GEN-END:|115-getter|3|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand2 ">//GEN-BEGIN:|119-getter|0|119-preInit
+    /**
+     * Returns an initiliazed instance of okCommand2 component.
+     * @return the initialized component instance
+     */
+    public Command getOkCommand2() {
+        if (okCommand2 == null) {//GEN-END:|119-getter|0|119-preInit
+            // write pre-init user code here
+            okCommand2 = new Command("Ok", Command.OK, 0);//GEN-LINE:|119-getter|1|119-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|119-getter|2|
+        return okCommand2;
+    }
+    //</editor-fold>//GEN-END:|119-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: alert ">//GEN-BEGIN:|118-getter|0|118-preInit
+    /**
+     * Returns an initiliazed instance of alert component.
+     * @return the initialized component instance
+     */
+    public Alert getAlert() {
+        if (alert == null) {//GEN-END:|118-getter|0|118-preInit
+            // write pre-init user code here
+            alert = new Alert("alert", "Error!", null, AlertType.ERROR);//GEN-BEGIN:|118-getter|1|118-postInit
+            alert.addCommand(getOkCommand2());
+            alert.setCommandListener(this);
+            alert.setTimeout(10000);//GEN-END:|118-getter|1|118-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|118-getter|2|
+        return alert;
+    }
+    //</editor-fold>//GEN-END:|118-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: WeightHeightOutput ">//GEN-BEGIN:|122-getter|0|122-preInit
+    /**
+     * Returns an initiliazed instance of WeightHeightOutput component.
+     * @return the initialized component instance
+     */
+    public StringItem getWeightHeightOutput() {
+        if (WeightHeightOutput == null) {//GEN-END:|122-getter|0|122-preInit
+            // write pre-init user code here
+            WeightHeightOutput = new StringItem("Peso/Talla:", "--");//GEN-LINE:|122-getter|1|122-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|122-getter|2|
+        return WeightHeightOutput;
+    }
+    //</editor-fold>//GEN-END:|122-getter|2|
+
     /**
      * Returns a display instance.
      * @return the display instance.
@@ -682,66 +786,164 @@ public class GMUI extends MIDlet implements CommandListener {
     public void destroyApp(boolean unconditional) {
     }
 
-    private int getAgeInDays() {
-        double res = Double.parseDouble(ageField.getString());
-        double multiplier;
-        switch (ageChoice.getSelectedIndex()) {
-            case 1:
-                multiplier = 30.4375;
-                break;
-            case 2:
-                multiplier = 365.25;
-                break;
-            default:
-                multiplier = 1;
+    private Age getAge() {
+        try {
+            double res = Double.parseDouble(ageField.getString());
+            AgeUnit unit;
+            switch (ageChoice.getSelectedIndex()) {
+                case 0:
+                    unit = AgeUnit.DÍA;
+                    break;
+                case 1:
+                    unit = AgeUnit.MES;
+                    break;
+                case 2:
+                    unit = AgeUnit.AÑO;
+                    break;
+                default:
+                    unit = AgeUnit.AÑO;
+            }
+            System.out.println("Age Read: " + res + " " + unit.toString());
+            return new Age(res, unit);
+        } catch (NumberFormatException numberFormatException) {
+            return Age.NA;
         }
-        return (int) Math.floor(res * multiplier);
     }
 
-    private double getWeightInKg() {
-        double kg = Double.parseDouble(weightField.getString());
-        double mult;
-        switch (weightChoice.getSelectedIndex()) {
-            case 1:
-                mult = 10e-3;
-                break;
-            default:
-                mult = 1;
+    private Weight getWeight() {
+        try {
+            double kg = Double.parseDouble(weightField.getString());
+            WeightUnit unit;
+            switch (weightChoice.getSelectedIndex()) {
+                case 0:
+                    unit = WeightUnit.KG;
+                    break;
+                case 1:
+                    unit = WeightUnit.G;
+                    break;
+                default:
+                    unit = WeightUnit.KG;
+            }
+            System.out.println("Weight read: " + kg + " " + unit.toString());
+            return new Weight(kg, unit);
+        } catch (NumberFormatException numberFormatException) {
+            return Weight.NA;
         }
-        kg = mult * kg;
-        return kg;
     }
 
-    private double getHeightInCm() {
-        double cm = Double.parseDouble(heightField.getString());
-        double mult;
-        switch (heightChoice.getSelectedIndex()) {
-            case 0:
-                mult = 100;
-                break;
-            default:
-                mult = 1;
+    private Height getHeight() {
+        try {
+            double cm = Double.parseDouble(heightField.getString());
+            LengthUnit unit;
+            switch (heightChoice.getSelectedIndex()) {
+                case 0:
+                    unit = LengthUnit.M;
+                    break;
+                case 1:
+                    unit = LengthUnit.CM;
+                    break;
+                default:
+                    unit = LengthUnit.M;
+            }
+            System.out.println("Height read: " + cm + " " + unit.toString());
+            return new Height(cm, unit);
+        } catch (NumberFormatException numberFormatException) {
+            return (Height) Height.NA;
         }
-        cm = mult * cm;
-        return cm;
     }
 
-    private double getPcInCm() {
-        double cm = Double.parseDouble(headPerimeterField.getString());
-        double mult;
-        switch (headPerimeterChoice.getSelectedIndex()) {
-            case 1:
-                mult = 10;
-                break;
-            default:
-                mult = 1;
+    private HeadPerimeter getHeadPerimeter() {
+        try {
+            double cm = Double.parseDouble(headPerimeterField.getString());
+            LengthUnit unit;
+            switch (headPerimeterChoice.getSelectedIndex()) {
+                case 0:
+                    unit = LengthUnit.CM;
+                    break;
+                case 1:
+                    unit = LengthUnit.MM;
+                    break;
+                default:
+                    unit = LengthUnit.CM;
+            }
+            System.out.println("Head Perimeter read: " + cm + " " + unit.toString());
+            return new HeadPerimeter(cm, unit);
+        } catch (NumberFormatException numberFormatException) {
+            return (HeadPerimeter) HeadPerimeter.NA;
         }
-        cm = mult * cm;
-        return cm;
     }
 
-    private String formatPercent(double value) {
-        String s = String.valueOf(value * 100).substring(0, 5);
+    private String formatCentile(double value) {
+        String s = String.valueOf(value * 100);
+        if (s.length() > 5) {
+            s = s.substring(0, 5);
+        }
         return s + "%";
+    }
+
+    private Sexo getSexo() {
+        Patient.Sexo sexo;
+        switch (sexChoice.getSelectedIndex()) {
+            case 0:
+                sexo = Patient.Sexo.VARÓN;
+                break;
+            case 1:
+                sexo = Patient.Sexo.MUJER;
+                break;
+            default:
+                sexo = Patient.Sexo.VARÓN;
+        }
+        return sexo;
+    }
+
+    private Patient createPatient() {
+        Sexo sexo = getSexo();
+        Age age = getAge();
+        Weight weight = getWeight();
+        Height height = getHeight();
+        HeadPerimeter headPerimeter = getHeadPerimeter();
+        return new Patient(sexo, age, height, headPerimeter, weight);
+    }
+
+    private void showResults(Patient patient) {
+        TablaPercentilos.Tipo[] tipo = TablaPercentilos.Tipo.values();
+        for (int i = 0; i < tipo.length; i++) {
+            if (patient.isTableAvailable(tipo[i])) {
+                TablaPercentilos tabla = patient.getTabla(tipo[i]);
+                try {
+                    showCentile(tabla, patient.getAge(), patient.getValueFor(tipo[i]), getOutputStringItem(tipo[i]));
+                } catch (InvalidUnitException ex) {
+                    ex.printStackTrace();
+                    showEmpty(getOutputStringItem(tipo[i]));
+                }
+            } else {
+                showEmpty(getOutputStringItem(tipo[i]));
+            }
+        }
+    }
+
+    private StringItem getOutputStringItem(TablaPercentilos.Tipo tipo) {
+        if (tipo == TablaPercentilos.Tipo.TALLA_A_EDAD) {
+            return getHeightOutput();
+        } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD){
+            return getWeightOutput();
+        } else if (tipo == TablaPercentilos.Tipo.PC_A_EDAD) {
+            return getHPOutput();
+        } else if (tipo == TablaPercentilos.Tipo.IMC_A_EDAD) {
+            return getIMCOutput();
+        } else if (tipo == TablaPercentilos.Tipo.PESO_A_TALLA) {
+            return getWeightHeightOutput();
+        } else {
+            return null; // Should not happend
+        }
+    }
+
+    private void showCentile(TablaPercentilos tabla, Age age,double value, StringItem outputStringItem) {
+        double centile = tabla.getCentile(age, value);
+        outputStringItem.setText(formatCentile(centile));
+    }
+
+    private void showEmpty(StringItem outputStringItem) {
+        outputStringItem.setText("--");
     }
 }
