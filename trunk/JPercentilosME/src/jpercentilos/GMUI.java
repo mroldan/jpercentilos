@@ -390,7 +390,7 @@ public class GMUI extends MIDlet implements CommandListener {
     public TextField getWeightField() {
         if (weightField == null) {//GEN-END:|40-getter|0|40-preInit
             // write pre-init user code here
-            weightField = new TextField("Peso:", "4", 6, TextField.DECIMAL);//GEN-LINE:|40-getter|1|40-postInit
+            weightField = new TextField("Peso:", "7.4", 6, TextField.DECIMAL);//GEN-LINE:|40-getter|1|40-postInit
             // write post-init user code here
         }//GEN-BEGIN:|40-getter|2|
         return weightField;

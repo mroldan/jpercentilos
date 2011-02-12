@@ -195,7 +195,7 @@
                         <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                         <Property name="label" typeID="Pjava.lang.String" value="VPeso:"/>
                         <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
-                        <Property name="text" typeID="Pjava.lang.String" value="V4"/>
+                        <Property name="text" typeID="Pjava.lang.String" value="V7.4"/>
                         <Property name="maxSize" typeID="Pint" value="V6"/>
                         <Property name="constraints" typeID="Pint" value="V5"/>
                     </Component>

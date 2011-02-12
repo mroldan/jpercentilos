@@ -48,7 +48,7 @@ public final class TablaPercentilos extends Table {
     private static TablaNormales initializeTablaNormales() {
         if (TABLA_NORMALES == null) {
             try {
-                TABLA_NORMALES =  new TablaNormales();
+                TABLA_NORMALES = new TablaNormales();
             } catch (Exception e) {
                 return null;
             }
@@ -60,6 +60,7 @@ public final class TablaPercentilos extends Table {
     public double getCentile(double zScore) {
         return TABLA_NORMALES.getPz(zScore);
     }
+
     public String getName() {
         return name;
     }
@@ -70,7 +71,8 @@ public final class TablaPercentilos extends Table {
         double L = lms.getL(),
                 M = lms.getM(),
                 S = lms.getS();
-        double zS = (MathME.pow(value / M, L) - 1) / (L * S);
+        double pow = MathME.pow(value / M, L);
+        double zS = (pow - 1) / (L * S);
         if (Math.abs(zS) > 3) { //TODO revisar.
             if (zS < -3) {
                 double s23neg = lms.getM() * (MathME.pow(1 + lms.getL() * lms.getS() * (-2), lms.getL()) - MathME.pow(1 + lms.getL() * lms.getS() * (-3), lms.getL()));
@@ -172,8 +174,9 @@ public final class TablaPercentilos extends Table {
             Tipo[] t = {
                 TALLA_A_EDAD,
                 PESO_A_EDAD,
-                IMC_A_EDAD, //                PC_A_EDAD,
-            //                PESO_A_TALLA
+                IMC_A_EDAD,
+                PC_A_EDAD,
+//                PESO_A_TALLA
             };
             return t;
         }
