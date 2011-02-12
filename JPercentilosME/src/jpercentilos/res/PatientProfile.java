@@ -4,7 +4,6 @@
  */
 package jpercentilos.res;
 
-import com.sun.midp.lcdui.InputMethodClient;
 import java.util.Vector;
 import jpercentilos.res.Dimensionizable.InvalidUnitException;
 import jpercentilos.res.Length.HeadPerimeter;
@@ -43,7 +42,7 @@ public class PatientProfile {
     }
 
     public PatientProfile(Sexo sexo, Age age, Height height, Weight weight) {
-        this(sexo, age, height, (HeadPerimeter) HeadPerimeter.NA, weight);
+        this(sexo, age, height, HeadPerimeter.NA, weight);
     }
 
     public PatientProfile(Height height, Weight weight) {
@@ -55,44 +54,67 @@ public class PatientProfile {
     }
 
     public PatientProfile(Sexo sexo, Age age, Weight weight) {
-        this(sexo, age, (Height) Height.NA, weight);
+        this(sexo, age, Height.NA, weight);
     }
 
     public PatientProfile(Sexo sexo, Age age, HeadPerimeter headPerimeter) {
-        this(sexo, age, (Height) Height.NA, headPerimeter, Weight.NA);
+        this(sexo, age, Height.NA, headPerimeter, Weight.NA);
     }
 
-    public final Age getAge() {
-        return age;
+    public final Age getAge() throws DataNotFoundException {
+        if (age.equals(Age.NA)) {
+            throw new DataNotFoundException("Edad no especificada");
+        } else {
+            return age;
+        }
     }
 
-    public final HeadPerimeter getHeadPerimeter() {
-        return headPerimeter;
+    public final HeadPerimeter getHeadPerimeter() throws DataNotFoundException {
+        if (headPerimeter.equals(HeadPerimeter.NA)) {
+            throw new DataNotFoundException("PC no especificado");
+        } else {
+            return headPerimeter;
+        }
     }
 
-    public final Height getHeight() {
-        return height;
+    public final Height getHeight() throws DataNotFoundException {
+        if (height.equals(Height.NA)) {
+            throw new DataNotFoundException("Talla no especificada");
+        } else {
+            return height;
+        }
     }
 
-    public final Sexo getSex() {
-        return sexo;
+    public final Sexo getSex() throws DataNotFoundException {
+        if (sexo.equals(Sexo.NA)) {
+            throw new DataNotFoundException("Sexo no especificado");
+        } else {
+            return sexo;
+        }
     }
 
-    public final Weight getWeight() {
-        return weight;
+    public final Weight getWeight() throws DataNotFoundException {
+        if (weight.equals(Weight.NA)) {
+            throw new DataNotFoundException("Peso no especificado");
+        } else {
+            return weight;
+        }
     }
 
-    public final double getIMC() {
+    public final double getIMC() throws DataNotFoundException {
         double w = 0;
         double h = 0;
         try {
             w = getWeight().getValueInUnit(Dimensionizable.WeightUnit.KG);
             h = getHeight().getValueInUnit(Dimensionizable.LengthUnit.M);
         } catch (InvalidUnitException invalidUnitException) {
-            return 0; // Should not happend
+            throw new DataNotFoundException("Error de unidades"); // Should not happend
+        } catch (DataNotFoundException dataNotFoundException) {
+            throw new DataNotFoundException("No se puede calcular IMC con los datos actuales");
         }
         double IMC = w / (h * h);
         return IMC;
+
     }
 
     public final TextFileReaderME.File getTableFile(TablaPercentilos.Tipo tipo) {

@@ -5,7 +5,6 @@
 package jpercentilos.res;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * This class has methods for reading Text files as tables and parsing numbers.

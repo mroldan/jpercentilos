@@ -9,6 +9,7 @@ import javax.microedition.lcdui.*;
 import jpercentilos.res.*;
 import jpercentilos.res.Dimensionizable.*;
 import jpercentilos.res.Length.*;
+import jpercentilos.res.PatientProfile.DataNotFoundException;
 import jpercentilos.res.PatientProfile.Sexo;
 import org.netbeans.microedition.lcdui.WaitScreen;
 import org.netbeans.microedition.util.SimpleCancellableTask;
@@ -49,6 +50,7 @@ public class GMUI extends MIDlet implements CommandListener {
     private StringItem heightOutput;
     private StringItem weightOutput;
     private StringItem WeightHeightOutput;
+    private StringItem IMCValueOutput;
     private WaitScreen waitScreen;
     private Alert alert;
     private SimpleCancellableTask task;
@@ -322,7 +324,7 @@ public class GMUI extends MIDlet implements CommandListener {
     public Form getOutputDataScreen() {
         if (OutputDataScreen == null) {//GEN-END:|24-getter|0|24-preInit
             // write pre-init user code here
-            OutputDataScreen = new Form("Percentilos", new Item[] { getWeightOutput(), getHeightOutput(), getHPOutput(), getIMCOutput(), getWeightHeightOutput() });//GEN-BEGIN:|24-getter|1|24-postInit
+            OutputDataScreen = new Form("Percentilos", new Item[] { getIMCValueOutput(), getWeightOutput(), getHeightOutput(), getHPOutput(), getIMCOutput(), getWeightHeightOutput() });//GEN-BEGIN:|24-getter|1|24-postInit
             OutputDataScreen.addCommand(getBackCommand());
             OutputDataScreen.addCommand(getExitCommand1());
             OutputDataScreen.setCommandListener(this);//GEN-END:|24-getter|1|24-postInit
@@ -741,6 +743,21 @@ public class GMUI extends MIDlet implements CommandListener {
     }
     //</editor-fold>//GEN-END:|122-getter|2|
 
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: IMCValueOutput ">//GEN-BEGIN:|123-getter|0|123-preInit
+    /**
+     * Returns an initiliazed instance of IMCValueOutput component.
+     * @return the initialized component instance
+     */
+    public StringItem getIMCValueOutput() {
+        if (IMCValueOutput == null) {//GEN-END:|123-getter|0|123-preInit
+            // write pre-init user code here
+            IMCValueOutput = new StringItem("IMC:", "--");//GEN-LINE:|123-getter|1|123-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|123-getter|2|
+        return IMCValueOutput;
+    }
+    //</editor-fold>//GEN-END:|123-getter|2|
+
     /**
      * Returns a display instance.
      * @return the display instance.
@@ -906,13 +923,29 @@ public class GMUI extends MIDlet implements CommandListener {
     }
 
     private void showResults(Patient patient) {
+        try {
+            double imc = patient.getIMC();
+            String s = String.valueOf(imc);
+            s = (s.length() > 6) ? s.substring(0, 6) : s;
+            getIMCValueOutput().setText(s);
+        } catch (DataNotFoundException ex) {
+            ex.printStackTrace();
+            showEmpty(getIMCValueOutput());
+        }
         TablaPercentilos.Tipo[] tipo = TablaPercentilos.Tipo.values();
         for (int i = 0; i < tipo.length; i++) {
             if (patient.isTableAvailable(tipo[i])) {
                 TablaPercentilos tabla = patient.getTabla(tipo[i]);
+                double observed,
+                        inputValue;
                 try {
-                    showCentile(tabla, patient.getAge(), patient.getValueFor(tipo[i]), getOutputStringItem(tipo[i]));
+                    observed = patient.getValueFor(tipo[i]);
+                    inputValue = patient.getInputValueFor(tipo[i]);
+                    showCentile(tabla, observed, inputValue, getOutputStringItem(tipo[i]));
                 } catch (InvalidUnitException ex) {
+                    ex.printStackTrace();
+                    showEmpty(getOutputStringItem(tipo[i]));
+                } catch (PatientProfile.DataNotFoundException ex){
                     ex.printStackTrace();
                     showEmpty(getOutputStringItem(tipo[i]));
                 }
@@ -925,7 +958,7 @@ public class GMUI extends MIDlet implements CommandListener {
     private StringItem getOutputStringItem(TablaPercentilos.Tipo tipo) {
         if (tipo == TablaPercentilos.Tipo.TALLA_A_EDAD) {
             return getHeightOutput();
-        } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD){
+        } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD) {
             return getWeightOutput();
         } else if (tipo == TablaPercentilos.Tipo.PC_A_EDAD) {
             return getHPOutput();
@@ -938,8 +971,8 @@ public class GMUI extends MIDlet implements CommandListener {
         }
     }
 
-    private void showCentile(TablaPercentilos tabla, Age age,double value, StringItem outputStringItem) {
-        double centile = tabla.getCentile(age, value);
+    private void showCentile(TablaPercentilos tabla, double observed, double value, StringItem outputStringItem) {
+        double centile = tabla.getCentile(observed, value);
         outputStringItem.setText(formatCentile(centile));
     }
 
