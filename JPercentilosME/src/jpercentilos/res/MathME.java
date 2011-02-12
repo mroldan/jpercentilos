@@ -11,11 +11,32 @@ package jpercentilos.res;
 public class MathME {
 
 
+//    static double ln(double a) {
+//
+//    }
+
     static double pow(double a, double b) {
+        // is exponent a negative number
         if (b < 0) {
-            a = 1 / a;
+            return realPow((double)1 / a, b);
+        }
+        // is exponent a whole number?
+        if ((b - Math.floor(b)) == 0) {
+            return realPow(a, (int) b);
         }
         return realPow(a, b);
+    }
+
+    private static double realPow(double a, int b) {
+        double p = a;
+        if (b == 0 && a != 0) {
+            return 1;
+        } else {
+            for (int i = 1; i < b; i++){
+                p *= a;
+            }
+            return p;
+        }
     }
 
     private static double realPow(double a, double b) {
@@ -24,15 +45,6 @@ public class MathME {
         int oc = -1; // used to alternate math symbol (+,-)
         int iter = 20; // number of iterations
         double p, x, x2, sumX, sumY;
-        // is exponent a whole number?
-        if ((b - Math.floor(b)) == 0) {
-            // return base^exponent
-            p = a;
-            for (int i = 1; i < b; i++) {
-                p *= a;
-            }
-            return p;
-        }
         x = (gt1)
                 ? (a / (a - 1)) : // base is greater than 1
                 (a - 1); // base is 1 or less

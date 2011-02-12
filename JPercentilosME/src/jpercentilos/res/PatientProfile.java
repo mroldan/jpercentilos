@@ -4,6 +4,7 @@
  */
 package jpercentilos.res;
 
+import com.sun.midp.lcdui.InputMethodClient;
 import java.util.Vector;
 import jpercentilos.res.Dimensionizable.InvalidUnitException;
 import jpercentilos.res.Length.HeadPerimeter;
@@ -90,7 +91,8 @@ public class PatientProfile {
         } catch (InvalidUnitException invalidUnitException) {
             return 0; // Should not happend
         }
-        return w / MathME.pow(h, 2);
+        double IMC = w / (h * h);
+        return IMC;
     }
 
     public final TextFileReaderME.File getTableFile(TablaPercentilos.Tipo tipo) {
@@ -125,7 +127,7 @@ public class PatientProfile {
         }
         if (year < 2 && year >= 0) {
             range = "0a2";
-        } else if (year >=2 && year < 5) {
+        } else if (year >= 2 && year < 5) {
             range = "0a5";
         } else {
             range = "5a19";
@@ -159,7 +161,7 @@ public class PatientProfile {
         }
         if (year < 2 && year >= 0) {
             range = "0a2";
-        } else if (year >=2 && year < 5) {
+        } else if (year >= 2 && year < 5) {
             range = "0a5";
         } else {
             range = "5a19";
@@ -168,7 +170,9 @@ public class PatientProfile {
     }
 
     private String getAgeRangeHPToAge() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        String range;
+        range = "0a5";
+        return range;
     }
 
     private void lookForAvailableTables() {
