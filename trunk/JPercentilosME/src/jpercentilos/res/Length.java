@@ -34,6 +34,7 @@ public class Length extends Magnitude implements Dimensionizable {
 
     public static class Height extends Length {
 
+        public static final Height NA = new Height(-1, LengthUnit.M);
         public Height(double value, LengthUnit unit) {
             super(value, unit);
         }
@@ -41,6 +42,7 @@ public class Length extends Magnitude implements Dimensionizable {
 
     public static class HeadPerimeter extends Length {
 
+        public static final HeadPerimeter NA = new HeadPerimeter(-1, LengthUnit.M);
         public HeadPerimeter(double value, LengthUnit unit) {
             super(value, unit);
         }

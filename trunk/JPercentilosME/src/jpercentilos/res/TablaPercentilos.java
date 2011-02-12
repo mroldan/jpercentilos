@@ -65,40 +65,34 @@ public final class TablaPercentilos extends Table {
         return name;
     }
 
-    public double getZScore(Age age, double value) {
-        LMS lms = getLms(age);
+    public double getZScore(double observedValue, double forInputValue) {
+        LMS lms = getLms(forInputValue);
         System.out.println("LMS: " + lms.getL() + ", " + lms.getM() + ", " + lms.getS());
         double L = lms.getL(),
                 M = lms.getM(),
                 S = lms.getS();
-        double pow = MathME.pow(value / M, L);
+        double pow = MathME.pow(observedValue / M, L);
         double zS = (pow - 1) / (L * S);
         if (Math.abs(zS) > 3) { //TODO revisar.
             if (zS < -3) {
-                double s23neg = lms.getM() * (MathME.pow(1 + lms.getL() * lms.getS() * (-2), lms.getL()) - MathME.pow(1 + lms.getL() * lms.getS() * (-3), lms.getL()));
-                double s3neg = lms.getM() * MathME.pow(1 + lms.getL() * lms.getS() * (-3), lms.getL());
-                zS = -3 + (value - s3neg) / (s23neg);
+                double s23neg = M * (MathME.pow(1 + L * S * (-2), L) - MathME.pow(1 + L * S * (-3), L));
+                double s3neg = M * MathME.pow(1 + L * S * (-3), L);
+                zS = -3 + (observedValue - s3neg) / (s23neg);
             } else {
-                double s23pos = lms.getM() * (MathME.pow(1 + lms.getL() * lms.getS() * 3, lms.getL()) - MathME.pow(1 + lms.getL() * lms.getS() * 2, lms.getL()));
-                double s3pos = lms.getM() * MathME.pow(1 + lms.getL() * lms.getS() * 3, lms.getL());
-                zS = 3 + (value - s3pos) / (s23pos);
+                double s23pos = M * (MathME.pow(1 + L * S * 3, L) - MathME.pow(1 + L * S * 2, L));
+                double s3pos = M * MathME.pow(1 + L * S * 3, L);
+                zS = 3 + (observedValue - s3pos) / (s23pos);
             }
         }
         return zS;
     }
 
-    public double getCentile(Age age, double value) {
-        double zScore = getZScore(age, value);
+    public double getCentile(double observedValue, double forInputValue) {
+        double zScore = getZScore(observedValue, forInputValue);
         return TABLA_NORMALES.getPz(zScore);
     }
 
-    private LMS getLms(Age age) {
-        double value = 0;
-        try {
-            value = age.getValueInUnit(Dimensionizable.AgeUnit.MES);
-        } catch (InvalidUnitException invalidUnitException) {
-            invalidUnitException.printStackTrace();
-        }
+    private LMS getLms(double value) {
         if (value != lastValue) {
             double L, M, S;
             try {
@@ -175,8 +169,7 @@ public final class TablaPercentilos extends Table {
                 TALLA_A_EDAD,
                 PESO_A_EDAD,
                 IMC_A_EDAD,
-                PC_A_EDAD,
-//                PESO_A_TALLA
+                PC_A_EDAD, //                PESO_A_TALLA
             };
             return t;
         }

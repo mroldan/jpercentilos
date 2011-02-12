@@ -218,13 +218,13 @@ public final class Patient extends PatientProfile {
         return null;
     }
 
-    public double getValueFor(Tipo tipo) throws InvalidUnitException {
+    public double getValueFor(Tipo tipo) throws InvalidUnitException, DataNotFoundException {
         if (tipo == TablaPercentilos.Tipo.TALLA_A_EDAD) {
             return getHeight().getValueInUnit(Dimensionizable.LengthUnit.CM);
         } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD) {
             return getWeight().getValueInUnit(Dimensionizable.WeightUnit.KG);
         } else if (tipo == TablaPercentilos.Tipo.PC_A_EDAD) {
-            return getHeadPerimeter().getValueInUnit(Dimensionizable.LengthUnit.MM); //TODO Chequear unidad
+            return getHeadPerimeter().getValueInUnit(Dimensionizable.LengthUnit.CM); //TODO Chequear unidad
         } else if (tipo == TablaPercentilos.Tipo.IMC_A_EDAD) {
             return getIMC();
         } else if (tipo == TablaPercentilos.Tipo.PESO_A_TALLA) {
@@ -233,6 +233,16 @@ public final class Patient extends PatientProfile {
             return 0; // Should not happend
         }
     }
+
+    public double getInputValueFor(Tipo tipo) throws DataNotFoundException, InvalidUnitException {
+        if (tipo != TablaPercentilos.Tipo.PESO_A_TALLA) {
+            return getAge().getValueInUnit(Dimensionizable.AgeUnit.MES);
+        } else if (tipo == TablaPercentilos.Tipo.PESO_A_TALLA) {
+            return getHeight().getValueInUnit(Dimensionizable.LengthUnit.CM);
+        } else {
+        return 0; // Should not happend
+    }
+}
 //    public enum Estado {
 //        NORMAL,
 //        EXCEDIDO,
