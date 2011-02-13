@@ -230,7 +230,7 @@ public class PatientProfile {
     public static final class Sexo {
 
         private final String name;
-        public static final Sexo VARÓN = new Sexo("VARÓN");
+        public static final Sexo VARON = new Sexo("VARON");
         public static final Sexo MUJER = new Sexo("MUJER");
         public static final Sexo NA = new Sexo("ND");
 

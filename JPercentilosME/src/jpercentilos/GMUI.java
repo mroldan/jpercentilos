@@ -32,6 +32,7 @@ public class GMUI extends MIDlet implements CommandListener {
     private Command cancelCommand1;
     private Command exitCommand2;
     private Command okCommand2;
+    private Command cancelCommand2;
     private Form InputDataScreen;
     private StringItem stringItem;
     private ChoiceGroup sexChoice;
@@ -49,8 +50,8 @@ public class GMUI extends MIDlet implements CommandListener {
     private StringItem HPOutput;
     private StringItem heightOutput;
     private StringItem weightOutput;
-    private StringItem WeightHeightOutput;
     private StringItem IMCValueOutput;
+    private StringItem WeightHeightOutput;
     private WaitScreen waitScreen;
     private Alert alert;
     private SimpleCancellableTask task;
@@ -131,13 +132,13 @@ public class GMUI extends MIDlet implements CommandListener {
 //                Patient.Sexo sexo;
 //                switch (sexChoice.getSelectedIndex()) {
 //                    case 0:
-//                        sexo = Patient.Sexo.VARÓN;
+//                        sexo = Patient.Sexo.VARON;
 //                        break;
 //                    case 1:
 //                        sexo = Patient.Sexo.MUJER;
 //                        break;
 //                    default:
-//                        sexo = Patient.Sexo.VARÓN;
+//                        sexo = Patient.Sexo.VARON;
 //                }
 //                int age;
 //                double weight;
@@ -217,11 +218,15 @@ public class GMUI extends MIDlet implements CommandListener {
                 // write pre-action user code here
                 switchDisplayable(null, getOutputDataScreen());//GEN-LINE:|7-commandAction|14|113-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|15|7-postCommandAction
-        }//GEN-END:|7-commandAction|15|7-postCommandAction
+            } else if (command == cancelCommand2) {//GEN-LINE:|7-commandAction|15|125-preAction
+                // write pre-action user code here
+//GEN-LINE:|7-commandAction|16|125-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|17|7-postCommandAction
+        }//GEN-END:|7-commandAction|17|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|16|
-    //</editor-fold>//GEN-END:|7-commandAction|16|
+    }//GEN-BEGIN:|7-commandAction|18|
+    //</editor-fold>//GEN-END:|7-commandAction|18|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -664,6 +669,7 @@ public class GMUI extends MIDlet implements CommandListener {
             // write pre-init user code here
             waitScreen = new WaitScreen(getDisplay());//GEN-BEGIN:|110-getter|1|110-postInit
             waitScreen.setTitle("waitScreen");
+            waitScreen.addCommand(getCancelCommand2());
             waitScreen.setCommandListener(this);
             waitScreen.setTask(getTask());//GEN-END:|110-getter|1|110-postInit
             // write post-init user code here
@@ -757,6 +763,21 @@ public class GMUI extends MIDlet implements CommandListener {
         return IMCValueOutput;
     }
     //</editor-fold>//GEN-END:|123-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: cancelCommand2 ">//GEN-BEGIN:|124-getter|0|124-preInit
+    /**
+     * Returns an initiliazed instance of cancelCommand2 component.
+     * @return the initialized component instance
+     */
+    public Command getCancelCommand2() {
+        if (cancelCommand2 == null) {//GEN-END:|124-getter|0|124-preInit
+            // write pre-init user code here
+            cancelCommand2 = new Command("Cancel", Command.CANCEL, 0);//GEN-LINE:|124-getter|1|124-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|124-getter|2|
+        return cancelCommand2;
+    }
+    //</editor-fold>//GEN-END:|124-getter|2|
 
     /**
      * Returns a display instance.
@@ -902,13 +923,13 @@ public class GMUI extends MIDlet implements CommandListener {
         Patient.Sexo sexo;
         switch (sexChoice.getSelectedIndex()) {
             case 0:
-                sexo = Patient.Sexo.VARÓN;
+                sexo = Patient.Sexo.VARON;
                 break;
             case 1:
                 sexo = Patient.Sexo.MUJER;
                 break;
             default:
-                sexo = Patient.Sexo.VARÓN;
+                sexo = Patient.Sexo.VARON;
         }
         return sexo;
     }
