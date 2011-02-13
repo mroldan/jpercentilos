@@ -102,6 +102,12 @@
                     <Property name="priority" typeID="Pint" value="V0"/>
                     <Property name="ordinary" typeID="Pboolean" value="Vfalse"/>
                 </Component>
+                <Component componentID="124" typeID="Cjavax.microedition.lcdui.Command">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="VcancelCommand2"/>
+                    <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
+                    <Property name="label" typeID="Pjava.lang.String" value="VCancel"/>
+                    <Property name="type" typeID="Pint" value="V3"/>
+                </Component>
             </Component>
             <Component componentID="10" typeID="C#DisplayablesCategory">
                 <Component componentID="14" typeID="Cjavax.microedition.lcdui.Form">
@@ -310,13 +316,6 @@
                         <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
                         <Property name="text" typeID="Pjava.lang.String" value="V--"/>
                     </Component>
-                    <Component componentID="122" typeID="Cjavax.microedition.lcdui.StringItem">
-                        <Property name="instanceName" typeID="Pjava.lang.String" value="VWeightHeightOutput"/>
-                        <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
-                        <Property name="label" typeID="Pjava.lang.String" value="VPeso/Talla:"/>
-                        <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
-                        <Property name="text" typeID="Pjava.lang.String" value="V--"/>
-                    </Component>
                     <Component componentID="123" typeID="Cjavax.microedition.lcdui.StringItem">
                         <Property name="instanceName" typeID="Pjava.lang.String" value="VIMCValueOutput"/>
                         <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
@@ -324,11 +323,18 @@
                         <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
                         <Property name="text" typeID="Pjava.lang.String" value="V--"/>
                     </Component>
+                    <Component componentID="122" typeID="Cjavax.microedition.lcdui.StringItem">
+                        <Property name="instanceName" typeID="Pjava.lang.String" value="VWeightHeightOutput"/>
+                        <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
+                        <Property name="label" typeID="Pjava.lang.String" value="VPeso/Talla:"/>
+                        <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
+                        <Property name="text" typeID="Pjava.lang.String" value="V--"/>
+                    </Component>
                 </Component>
                 <Component componentID="110" typeID="Corg.netbeans.microedition.lcdui.WaitScreen">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VwaitScreen"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
-                    <Property name="commands" typeID="1C#CommandEventSource" value="A2:4_R1134_R114"/>
+                    <Property name="commands" typeID="1C#CommandEventSource" value="A3:4_R1134_R1144_R125"/>
                     <Property name="title" typeID="Pjava.lang.String" value="VwaitScreen"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="task" typeID="Corg.netbeans.microedition.util.CancellableTask" value="R115"/>
@@ -350,6 +356,10 @@
                             <Property name="eventSource" typeID="C#EventSource" value="R113"/>
                             <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R24"/>
                         </Component>
+                    </Component>
+                    <Component componentID="125" typeID="C#CommandEventSource">
+                        <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R110"/>
+                        <Property name="command" typeID="Cjavax.microedition.lcdui.Command" value="R124"/>
                     </Component>
                 </Component>
                 <Component componentID="118" typeID="Cjavax.microedition.lcdui.Alert">
@@ -383,9 +393,9 @@
     </Document>
     <FlowScene version="1">
         <Node componentID="118" descriptorID="componentNode118" x="536" y="192"/>
-        <Node componentID="2" descriptorID="componentNode2" x="24" y="26"/>
         <Node componentID="110" descriptorID="componentNode110" x="528" y="10"/>
-        <Node componentID="14" descriptorID="componentNode14" x="245" y="96"/>
+        <Node componentID="2" descriptorID="componentNode2" x="24" y="26"/>
         <Node componentID="24" descriptorID="componentNode24" x="152" y="236"/>
+        <Node componentID="14" descriptorID="componentNode14" x="245" y="96"/>
     </FlowScene>
 </VisualDesign>
