@@ -34,6 +34,20 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import jpercentilos.res.Age;
+import jpercentilos.res.Dimensionizable.AgeUnit;
+import jpercentilos.res.Dimensionizable.InvalidUnitException;
+import jpercentilos.res.Dimensionizable.LengthUnit;
+import jpercentilos.res.Dimensionizable.WeightUnit;
+import jpercentilos.res.Length.HeadPerimeter;
+import jpercentilos.res.Length.Height;
+import jpercentilos.res.Patient;
+import jpercentilos.res.PatientProfile;
+import jpercentilos.res.PatientProfile.DataNotFoundException;
+import jpercentilos.res.PatientProfile.Sexo;
+import jpercentilos.res.TablaPercentilos;
+import jpercentilos.res.TablaPercentilos.Tipo;
+import jpercentilos.res.Weight;
 
 /**
  *
@@ -55,7 +69,6 @@ public class JPGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         calcPanel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
@@ -78,7 +91,7 @@ public class JPGUI extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         weightCentField = new javax.swing.JTextField();
         heightCentField = new javax.swing.JTextField();
-        PCCentField = new javax.swing.JTextField();
+        HPCentField = new javax.swing.JTextField();
         IMCCentField = new javax.swing.JTextField();
         javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
@@ -98,7 +111,6 @@ public class JPGUI extends javax.swing.JFrame {
         labelIMC = new javax.swing.JLabel();
         IMCField = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -128,26 +140,32 @@ public class JPGUI extends javax.swing.JFrame {
         dateOfBirthField.setInputVerifier(verificador);
 
         ageField.setColumns(5);
+        ageField.setText("5");
         ageField.setInputVerifier(verificador);
 
         ageComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(días)", "(meses)", "(años)" }));
+        ageComboBox.setSelectedIndex(1);
 
         heightField.setColumns(5);
+        heightField.setText("66");
         heightField.setInputVerifier(verificador);
 
         heightComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(m)", "(cm)" }));
+        heightComboBox.setSelectedIndex(1);
 
         weightField.setColumns(5);
+        weightField.setText("7,3");
         weightField.setInputVerifier(verificador);
 
         weightComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(kg)", "(g)" }));
 
         HPField.setColumns(5);
+        HPField.setText("38");
         HPField.setInputVerifier(verificador);
 
         HPComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(cm)", "(mm)" }));
 
-        sexComboBox.setModel(new DefaultComboBoxModel(Paciente.Sexo.values()));
+        sexComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Varón", "Mujer" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -226,9 +244,9 @@ public class JPGUI extends javax.swing.JFrame {
         heightCentField.setEditable(false);
         heightCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        PCCentField.setColumns(4);
-        PCCentField.setEditable(false);
-        PCCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        HPCentField.setColumns(4);
+        HPCentField.setEditable(false);
+        HPCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         IMCCentField.setColumns(4);
         IMCCentField.setEditable(false);
@@ -300,7 +318,7 @@ public class JPGUI extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PCCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(HPCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -357,7 +375,7 @@ public class JPGUI extends javax.swing.JFrame {
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(PCCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(HPCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
                             .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -405,21 +423,6 @@ public class JPGUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Calcular", calcPanel);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 366, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 439, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab2", jPanel2);
-
         fileMenu.setText("Archivo");
 
         jMenuItem2.setText("Salir");
@@ -440,11 +443,11 @@ public class JPGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+            .addComponent(calcPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(calcPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -475,12 +478,12 @@ public class JPGUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField HPCentField;
     private javax.swing.JComboBox HPComboBox;
     private javax.swing.JTextField HPField;
     private javax.swing.JTextField IMCCentField;
     private javax.swing.JTextField IMCField;
     private javax.swing.JTextField IMCPzField;
-    private javax.swing.JTextField PCCentField;
     private javax.swing.JTextField PCPzField;
     private javax.swing.JComboBox ageComboBox;
     private javax.swing.JTextField ageField;
@@ -498,10 +501,8 @@ public class JPGUI extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel labelHP;
     private javax.swing.JLabel labelHeight;
     private javax.swing.JLabel labelIMC;
@@ -528,126 +529,105 @@ public class JPGUI extends javax.swing.JFrame {
         return df;
     }
 
-    /**
-     * Lee el campo de edad, debe ser validado antes. Se delega el cálculo de la
-     * fecha de nacimiento al validador. Devuelve -1 si ocurre algún error.
-     * @return
-     */
-    int getAgeInDays() {
-        int days;
+    private Sexo getSexo() {
+        Sexo sexo;
+        switch (sexComboBox.getSelectedIndex()) {
+            case 0:
+                sexo = Patient.Sexo.VARÓN;
+                break;
+            case 1:
+                sexo = Patient.Sexo.MUJER;
+                break;
+            default:
+                sexo = Patient.Sexo.VARÓN;
+        }
+        return sexo;
+    }
+
+    private Age readAge() {
         try {
-            days = (int) StrictMath.rint(
-                    doubleFormat.parse(
-                    ageField.getText().replaceAll("\\.", ",")).doubleValue());
-            double mult;
+            double res = Double.parseDouble(ageField.getText());
+            AgeUnit unit;
             switch (ageComboBox.getSelectedIndex()) {
                 case 0:
-                    mult = 1;
+                    unit = AgeUnit.DÍA;
                     break;
                 case 1:
-                    mult = 30.4375;
+                    unit = AgeUnit.MES;
                     break;
                 case 2:
-                    mult = 365.25;
+                    unit = AgeUnit.AÑO;
                     break;
                 default:
-                    mult = 1;
+                    unit = AgeUnit.AÑO;
             }
-            days = (int) StrictMath.rint(mult * (double) days);
-            return days;
-        } catch (ParseException ex) {
-            Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
-            return -1;
+            System.out.println("Age Read: " + res + " " + unit.toString());
+            return new Age(res, unit);
+        } catch (NumberFormatException numberFormatException) {
+            return Age.NA;
         }
     }
 
-    /**
-     * Devuelve el peso en Kg leyendo el campo de peso y convirtiendo de acuerdo
-     * a la selección del ComboBox correspondiente. Debe ser validado antes.
-     * Devuelve -1 si ocurre algún error.
-     * @return
-     */
-    double getWeightInKg() {
-        double kg;
+    private Weight getWeight() {
         try {
-            kg = doubleFormat.parse(
-                    weightField.getText().replaceAll("\\.", ",")).doubleValue();
-            double mult;
+            double kg = Double.parseDouble(weightField.getText());
+            WeightUnit unit;
             switch (weightComboBox.getSelectedIndex()) {
                 case 0:
-                    mult = 1;
+                    unit = WeightUnit.KG;
                     break;
                 case 1:
-                    mult = 10e-3;
+                    unit = WeightUnit.G;
                     break;
                 default:
-                    mult = 1;
+                    unit = WeightUnit.KG;
             }
-            kg = mult * kg;
-            return kg;
-        } catch (ParseException ex) {
-            Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
-            return -1;
+            System.out.println("Weight read: " + kg + " " + unit.toString());
+            return new Weight(kg, unit);
+        } catch (NumberFormatException numberFormatException) {
+            return Weight.NA;
         }
     }
 
-    /**
-     * Devuelve la talla en Cm leyendo el campo de peso y convirtiendo de acuerdo
-     * a la selección del ComboBox correspondiente. Debe ser validado antes.
-     * Devuelve -1 si ocurre algún error
-     * @return
-     */
-    double getHeightInCm() {
-        double cm;
+    private Height readHeight() {
         try {
-            cm = doubleFormat.parse(
-                    heightField.getText().replaceAll("\\.", ",")).doubleValue();
-            double mult;
+            double cm = Double.parseDouble(heightField.getText());
+            LengthUnit unit;
             switch (heightComboBox.getSelectedIndex()) {
                 case 0:
-                    mult = 100;
+                    unit = LengthUnit.M;
                     break;
                 case 1:
-                    mult = 1;
+                    unit = LengthUnit.CM;
                     break;
                 default:
-                    mult = 1;
+                    unit = LengthUnit.M;
             }
-            cm = mult * cm;
-            return cm;
-        } catch (ParseException ex) {
-            Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
-            return -1;
+            System.out.println("Height read: " + cm + " " + unit.toString());
+            return new Height(cm, unit);
+        } catch (NumberFormatException numberFormatException) {
+            return (Height) Height.NA;
         }
     }
 
-    /**
-     * Devuelve el perímetro cefálico en mm leyendo el campo de peso y 
-     * convirtiendo según la opción en el ComboBox correspondiente. Debe ser 
-     * validado antes. Devuelve un -1 como indicador de error.
-     * @return
-     */
-    double getPcInCm() {
-        double cm;
+    private HeadPerimeter getHeadPerimeter() {
         try {
-            cm = doubleFormat.parse(
-                    HPField.getText().replaceAll("\\.", ",")).doubleValue();
-            double mult;
+            double cm = Double.parseDouble(HPField.getText());
+            LengthUnit unit;
             switch (HPComboBox.getSelectedIndex()) {
                 case 0:
-                    mult = 1;
+                    unit = LengthUnit.CM;
                     break;
                 case 1:
-                    mult = 10;
+                    unit = LengthUnit.MM;
                     break;
                 default:
-                    mult = 1;
+                    unit = LengthUnit.CM;
             }
-            cm = mult * cm;
-            return cm;
-        } catch (ParseException ex) {
-            Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
-            return -1;
+            System.out.println("Head Perimeter read: " + cm + " " + unit.toString());
+            return new HeadPerimeter(cm, unit);
+        } catch (NumberFormatException numberFormatException) {
+            return (HeadPerimeter) HeadPerimeter.NA;
         }
     }
 
@@ -684,41 +664,20 @@ public class JPGUI extends javax.swing.JFrame {
         }
 
         private boolean checkField(JTextField field, boolean setIt) {
-            if (field.equals(ageField)) {
-                return checkAgeField(field, setIt);
-            } else if (field.equals(heightField)) {
-                return checkHeightField(field, setIt);
-            } else if (field.equals(weightField)) {
-                return checkWeightField(field, setIt);
-            } else if (field.equals(HPField)) {
-                return checkHPField(field, setIt);
-            } else if (field.equals(dateOfBirthField)) {
-                return checkDateOfBirthField(field, setIt);
-            } else {
-                return false; // No debería pasar.
-            }
-//            long num = DEFAULT_VALUE;
-//            boolean valid = true;
-//            try {
-//                num = intFormat.parse(field.getText()).longValue();
-//            } catch (ParseException pe) {
-//                pe.printStackTrace();
-//                valid = false;
+//            if (field.equals(ageField)) {
+//                return checkAgeField(field, setIt);
+//            } else if (field.equals(heightField)) {
+//                return checkHeightField(field, setIt);
+//            } else if (field.equals(weightField)) {
+//                return checkWeightField(field, setIt);
+//            } else if (field.equals(HPField)) {
+//                return checkHPField(field, setIt);
+//            } else if (field.equals(dateOfBirthField)) {
+//                return checkDateOfBirthField(field, setIt);
+//            } else {
+//                return false; // No debería pasar.
 //            }
-//            if ((num <= MIN_VALUE) || (num >= MAX_VALUE)) {
-//                valid = false;
-//                if (setIt) {
-//                    if (num <= MIN_VALUE) {
-//                        num = MIN_VALUE;
-//                    } else if (num >= MAX_VALUE) {
-//                        num = MAX_VALUE;
-//                    }
-//                }
-//            }
-//            if (setIt) {
-//                field.setText(doubleFormat.format(num));
-//            }
-//            return valid;
+            return true;
         }
 
         /**
@@ -751,41 +710,45 @@ public class JPGUI extends javax.swing.JFrame {
         }
 
         /**
-         * Checkea el campo de edad. Debe estar entre 0 y 1856 días (60 meses, 
-         * 5 años).
+         * Checkea el campo de edad. Debe estar entre 0 y 19 años.
          * @param field
          * @param setIt
          * @return
          */
         private boolean checkAgeField(JTextField field, boolean setIt) {
             boolean valid = false;
-            final long MIN_DAYS = 0;
-            final long MAX_DAYS = 1856;
-            long value = MIN_DAYS;
+            final long MIN_AGE = 0;
+            final long MAX_AGE = 19;
+            double value = MIN_AGE;
             if (checkForDouble(field)) {
-                value = getAgeInDays();
-                if ((value >= MIN_DAYS) && (value <= MAX_DAYS)) {
-                    valid = true;
-                } else {
-                    valid = false;
-                }
-            }
-            if (setIt) {
-                if (!valid) {
-                    if (value > MAX_DAYS) {
-                        value = MAX_DAYS;
+                try {
+                    value = readAge().getValueInUnit(AgeUnit.AÑO);
+                    if ((value >= MIN_AGE) && (value <= MAX_AGE)) {
+                        valid = true;
                     } else {
-                        value = MIN_DAYS;
+                        valid = false;
                     }
-                } else {
-                    try {
-                        value = doubleFormat.parse(field.getText()).intValue();
-                    } catch (ParseException ex) {
-                        Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                } catch (InvalidUnitException ex) {
+//                    Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    valid = false; //Should not happen
                 }
-                field.setText(doubleFormat.format(value));
             }
+//            if (setIt) {
+//                if (!valid) {
+//                    if (value > MAX_AGE) {
+//                        value = MAX_AGE;
+//                    } else {
+//                        value = MIN_AGE;
+//                    }
+//                } else {
+//                    try {
+//                        value = doubleFormat.parse(field.getText()).doubleValue();
+//                    } catch (ParseException ex) {
+//                        Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//                field.setText(doubleFormat.format(value));
+//            }
             return valid;
         }
 
@@ -799,16 +762,22 @@ public class JPGUI extends javax.swing.JFrame {
             boolean valid = false;
             final int MIN = 0;
             double value = MIN;
+            Height h = readHeight();
             if (checkForDouble(field)) {
-                value = getHeightInCm();
-                if ((value >= MIN)) {
-                    valid = true;
-                    try {
-                        value = doubleFormat.parse(field.getText()).intValue();
-                    } catch (ParseException ex) {
-                        Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    value = h.getValueInUnit(LengthUnit.CM);
+                    if ((value >= MIN)) {
+                        valid = true;
+                        try {
+                            value = doubleFormat.parse(field.getText()).intValue();
+                        } catch (ParseException ex) {
+                            Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        valid = false;
                     }
-                } else {
+                } catch (InvalidUnitException ex) {
+                    Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
                     valid = false;
                 }
             }
@@ -838,7 +807,7 @@ public class JPGUI extends javax.swing.JFrame {
             final int MIN = 0;
             double value = MIN;
             if (checkForDouble(field)) {
-                value = getWeightInKg();
+//                value = getWeightInKg();
                 if ((value >= MIN)) {
                     valid = true;
                 } else {
@@ -871,7 +840,7 @@ public class JPGUI extends javax.swing.JFrame {
             final int MIN = 0;
             double value = MIN;
             if (checkForDouble(field)) {
-                value = getPcInCm();
+//                value = getPcInCm();
                 if ((value >= MIN)) {
                     valid = true;
                 } else {
@@ -942,7 +911,7 @@ public class JPGUI extends javax.swing.JFrame {
     }
 
     /**
-     * Acción que calcula los percentilos. Crea un objeto Paciente con los datos
+     * Acción que calcula los percentilos. Crea un objeto Patient con los datos
      * asignados. Imprime en el GUI los datos obtenidos
      */
     private class CalculateAction extends AbstractAction {
@@ -954,51 +923,9 @@ public class JPGUI extends javax.swing.JFrame {
         public void actionPerformed(ActionEvent e) {
 //            System.out.println("Calculando..."); //Línea dummy, debería comentarse
             // Llenado de datos
-            Paciente.Sexo sexo = (Paciente.Sexo) sexComboBox.getSelectedItem();
-            int age = getAgeInDays();
-            double weight = getWeightInKg();
-            double height = getHeightInCm();
-            double pc = getPcInCm();
-            double IMC;
-            try {
-                IMC = Paciente.getIMC(height / 100, weight);
-                IMCField.setText(doubleFormat.format(IMC));
-            } catch (Paciente.DataNotFoundException dataNotFoundException) {
-                IMC = -1;
-                IMCField.setText("--");
-            }
-            try {
-                double[] perWeight = Paciente.getWeightToAgeCentileAndPz(sexo, age, weight);
-                weightCentField.setText(percentFormat.format(perWeight[0]));
-                weightPzField.setText(doubleFormat.format(perWeight[1]));
-            } catch (Paciente.DataNotFoundException dataNotFoundException) {
-                weightCentField.setText("--");
-                weightPzField.setText("--");
-            }
-            try {
-                double[] perHeight = Paciente.getHeightToAgeCentileAndPz(sexo, age, height);
-                heightCentField.setText(percentFormat.format(perHeight[0]));
-                heightPzField.setText(doubleFormat.format(perHeight[1]));
-            } catch (Paciente.DataNotFoundException dataNotFoundException) {
-                heightCentField.setText("--");
-                heightPzField.setText("--");
-            }
-            try {
-                double[] perPc = Paciente.getHpToAgeCentileAndPz(sexo, age, pc);
-                PCCentField.setText(percentFormat.format(perPc[0]));
-                PCPzField.setText(doubleFormat.format(perPc[1]));
-            } catch (Paciente.DataNotFoundException dataNotFoundException) {
-                PCCentField.setText("--");
-                PCPzField.setText("--");
-            }
-            try {
-                double[] perImc = Paciente.getIMCToAgeCentileAndPz(sexo, age, IMC);
-                IMCCentField.setText(percentFormat.format(perImc[0]));
-                IMCPzField.setText(doubleFormat.format(perImc[1]));
-            } catch (Paciente.DataNotFoundException dataNotFoundException) {
-                IMCCentField.setText("--");
-                IMCPzField.setText("--");
-            }
+            Patient p = createPatient();
+            System.out.println("Patient creado");
+            showResults(p);
         }
 
         private void setLabel(double pz, JLabel label) {
@@ -1008,6 +935,73 @@ public class JPGUI extends javax.swing.JFrame {
             } else if (pz >= 2 && pz < 3) {
             } else if (pz >= 3) {
             }
+        }
+
+        private Patient createPatient() {
+            Sexo sexo = getSexo();
+            Age age = readAge();
+            Weight weight = getWeight();
+            Height height = readHeight();
+            HeadPerimeter headPerimeter = getHeadPerimeter();
+            return new Patient(sexo, age, height, headPerimeter, weight);
+        }
+
+        private void showResults(Patient p) {
+            try {
+                double imc = p.getIMC();
+                String s = String.valueOf(imc);
+                s = (s.length() > 6) ? s.substring(0, 6) : s;
+                IMCField.setText(s);
+            } catch (DataNotFoundException ex) {
+                ex.printStackTrace();
+                showEmpty(IMCField);
+            }
+            TablaPercentilos.Tipo[] tipo = TablaPercentilos.Tipo.values();
+            for (int i = 0; i < tipo.length; i++) {
+                if (p.isTableAvailable(tipo[i])) {
+                    TablaPercentilos tabla = p.getTabla(tipo[i]);
+                    double observed,
+                            inputValue;
+                    try {
+                        observed = p.getValueFor(tipo[i]);
+                        inputValue = p.getInputValueFor(tipo[i]);
+                        showCentile(tabla, observed, inputValue, getOutputCentileField(tipo[i]));
+                    } catch (InvalidUnitException ex) {
+                        ex.printStackTrace();
+                        showEmpty(getOutputCentileField(tipo[i]));
+                    } catch (PatientProfile.DataNotFoundException ex) {
+                        ex.printStackTrace();
+                        showEmpty(getOutputCentileField(tipo[i]));
+                    }
+                } else {
+                    showEmpty(getOutputCentileField(tipo[i]));
+                }
+            }
+        }
+
+        private void showEmpty(JTextField field) {
+            field.setText("--");
+        }
+
+        private JTextField getOutputCentileField(Tipo tipo) {
+            if (tipo == TablaPercentilos.Tipo.TALLA_A_EDAD) {
+                return heightCentField;
+            } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD) {
+                return weightCentField;
+            } else if (tipo == TablaPercentilos.Tipo.PC_A_EDAD) {
+                return HPCentField;
+            } else if (tipo == TablaPercentilos.Tipo.IMC_A_EDAD) {
+                return IMCCentField;
+            } else if (tipo == TablaPercentilos.Tipo.PESO_A_TALLA) {
+                return weightCentField; //TODO Peso a talla
+            } else {
+                return null; // Should not happend
+            }
+        }
+
+        private void showCentile(TablaPercentilos tabla, double observed, double inputValue, JTextField outputField) {
+            double centile = tabla.getCentile(observed, inputValue);
+            outputField.setText(percentFormat.format(centile));
         }
     }
 }

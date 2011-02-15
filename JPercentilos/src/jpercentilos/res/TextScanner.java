@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package jpercentilos;
+package jpercentilos.res;
 
 import java.io.InputStream;
 import java.util.Scanner;
