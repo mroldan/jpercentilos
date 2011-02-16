@@ -327,7 +327,7 @@
             <Component class="javax.swing.JTextField" name="HPField">
               <Properties>
                 <Property name="columns" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="38"/>
+                <Property name="text" type="java.lang.String" value="43"/>
                 <Property name="inputVerifier" type="javax.swing.InputVerifier" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="verificador" type="code"/>
                 </Property>

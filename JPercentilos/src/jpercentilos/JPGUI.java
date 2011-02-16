@@ -34,20 +34,11 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import jpercentilos.res.Age;
-import jpercentilos.res.Dimensionizable.AgeUnit;
-import jpercentilos.res.Dimensionizable.InvalidUnitException;
-import jpercentilos.res.Dimensionizable.LengthUnit;
-import jpercentilos.res.Dimensionizable.WeightUnit;
-import jpercentilos.res.Length.HeadPerimeter;
-import jpercentilos.res.Length.Height;
-import jpercentilos.res.Patient;
-import jpercentilos.res.PatientProfile;
-import jpercentilos.res.PatientProfile.DataNotFoundException;
-import jpercentilos.res.PatientProfile.Sexo;
-import jpercentilos.res.TablaPercentilos;
+import jpercentilos.res.Dimensionizable.*;
+import jpercentilos.res.*;
+import jpercentilos.res.Length.*;
+import jpercentilos.res.PatientProfile.*;
 import jpercentilos.res.TablaPercentilos.Tipo;
-import jpercentilos.res.Weight;
 
 /**
  *
@@ -160,7 +151,7 @@ public class JPGUI extends javax.swing.JFrame {
         weightComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(kg)", "(g)" }));
 
         HPField.setColumns(5);
-        HPField.setText("38");
+        HPField.setText("43");
         HPField.setInputVerifier(verificador);
 
         HPComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(cm)", "(mm)" }));
@@ -544,9 +535,13 @@ public class JPGUI extends javax.swing.JFrame {
         return sexo;
     }
 
+    /**
+     * Reads ageField and ageComboBox to create an Age object.
+     * @return
+     */
     private Age readAge() {
         try {
-            double res = Double.parseDouble(ageField.getText());
+            double res = doubleFormat.parse(ageField.getText().replaceAll("\\.", ",")).doubleValue();
             AgeUnit unit;
             switch (ageComboBox.getSelectedIndex()) {
                 case 0:
@@ -563,14 +558,14 @@ public class JPGUI extends javax.swing.JFrame {
             }
             System.out.println("Age Read: " + res + " " + unit.toString());
             return new Age(res, unit);
-        } catch (NumberFormatException numberFormatException) {
+        } catch (ParseException pe) {
             return Age.NA;
         }
     }
 
     private Weight getWeight() {
         try {
-            double kg = Double.parseDouble(weightField.getText());
+            double kg = doubleFormat.parse(weightField.getText().replaceAll("\\.", ",")).doubleValue();
             WeightUnit unit;
             switch (weightComboBox.getSelectedIndex()) {
                 case 0:
@@ -584,14 +579,14 @@ public class JPGUI extends javax.swing.JFrame {
             }
             System.out.println("Weight read: " + kg + " " + unit.toString());
             return new Weight(kg, unit);
-        } catch (NumberFormatException numberFormatException) {
+        } catch (ParseException pe) {
             return Weight.NA;
         }
     }
 
     private Height readHeight() {
         try {
-            double cm = Double.parseDouble(heightField.getText());
+            double cm = doubleFormat.parse(heightField.getText().replaceAll("\\.", ",")).doubleValue();
             LengthUnit unit;
             switch (heightComboBox.getSelectedIndex()) {
                 case 0:
@@ -605,14 +600,14 @@ public class JPGUI extends javax.swing.JFrame {
             }
             System.out.println("Height read: " + cm + " " + unit.toString());
             return new Height(cm, unit);
-        } catch (NumberFormatException numberFormatException) {
+        } catch (ParseException pe) {
             return (Height) Height.NA;
         }
     }
 
     private HeadPerimeter getHeadPerimeter() {
         try {
-            double cm = Double.parseDouble(HPField.getText());
+            double cm = doubleFormat.parse(HPField.getText().replaceAll("\\.", ",")).doubleValue();
             LengthUnit unit;
             switch (HPComboBox.getSelectedIndex()) {
                 case 0:
@@ -626,7 +621,7 @@ public class JPGUI extends javax.swing.JFrame {
             }
             System.out.println("Head Perimeter read: " + cm + " " + unit.toString());
             return new HeadPerimeter(cm, unit);
-        } catch (NumberFormatException numberFormatException) {
+        } catch (ParseException pe) {
             return (HeadPerimeter) HeadPerimeter.NA;
         }
     }
@@ -664,20 +659,19 @@ public class JPGUI extends javax.swing.JFrame {
         }
 
         private boolean checkField(JTextField field, boolean setIt) {
-//            if (field.equals(ageField)) {
-//                return checkAgeField(field, setIt);
-//            } else if (field.equals(heightField)) {
-//                return checkHeightField(field, setIt);
-//            } else if (field.equals(weightField)) {
-//                return checkWeightField(field, setIt);
-//            } else if (field.equals(HPField)) {
-//                return checkHPField(field, setIt);
-//            } else if (field.equals(dateOfBirthField)) {
-//                return checkDateOfBirthField(field, setIt);
-//            } else {
-//                return false; // No debería pasar.
-//            }
-            return true;
+            if (field.equals(ageField)) {
+                return checkAgeField(field, setIt);
+            } else if (field.equals(heightField)) {
+                return checkHeightField(field, setIt);
+            } else if (field.equals(weightField)) {
+                return checkWeightField(field, setIt);
+            } else if (field.equals(HPField)) {
+                return checkHPField(field, setIt);
+            } else if (field.equals(dateOfBirthField)) {
+                return  true; //checkDateOfBirthField(field, setIt);
+            } else {
+                return false; // No debería pasar.
+            }
         }
 
         /**
@@ -720,9 +714,10 @@ public class JPGUI extends javax.swing.JFrame {
             final long MIN_AGE = 0;
             final long MAX_AGE = 19;
             double value = MIN_AGE;
+            Age a = readAge();
             if (checkForDouble(field)) {
                 try {
-                    value = readAge().getValueInUnit(AgeUnit.AÑO);
+                    value = a.getValueInUnit(AgeUnit.AÑO);
                     if ((value >= MIN_AGE) && (value <= MAX_AGE)) {
                         valid = true;
                     } else {
@@ -767,32 +762,26 @@ public class JPGUI extends javax.swing.JFrame {
                 try {
                     value = h.getValueInUnit(LengthUnit.CM);
                     if ((value >= MIN)) {
-                        valid = true;
-                        try {
-                            value = doubleFormat.parse(field.getText()).intValue();
-                        } catch (ParseException ex) {
-                            Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        valid = true;                        
                     } else {
                         valid = false;
                     }
                 } catch (InvalidUnitException ex) {
-                    Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
                     valid = false;
                 }
             }
-            if (setIt) {
-                if (!valid) {
-                    value = MIN;
-                } else {
-                    try {
-                        value = doubleFormat.parse(field.getText()).doubleValue();
-                    } catch (ParseException ex) {
-                        Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                field.setText(doubleFormat.format(value));
-            }
+//            if (setIt) {
+//                if (!valid) {
+//                    value = MIN;
+//                } else {
+//                    try {
+//                        value = doubleFormat.parse(field.getText()).doubleValue();
+//                    } catch (ParseException ex) {
+//                        Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//                field.setText(doubleFormat.format(value));
+//            }
             return valid;
         }
 
@@ -806,26 +795,31 @@ public class JPGUI extends javax.swing.JFrame {
             boolean valid = false;
             final int MIN = 0;
             double value = MIN;
+            Weight w = getWeight();
             if (checkForDouble(field)) {
-//                value = getWeightInKg();
-                if ((value >= MIN)) {
-                    valid = true;
-                } else {
-                    valid = false;
-                }
-            }
-            if (setIt) {
-                if (!valid) {
-                    value = MIN;
-                } else {
-                    try {
-                        value = doubleFormat.parse(field.getText()).doubleValue();
-                    } catch (ParseException ex) {
-                        Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    value = w.getValueInUnit(WeightUnit.KG);
+                    if (value >= MIN) {
+                        valid = true;
+                    } else {
+                        valid = false;
                     }
+                } catch (InvalidUnitException ex) {
+                    return false;
                 }
-                field.setText(doubleFormat.format(value));
             }
+//            if (setIt) {
+//                if (!valid) {
+//                    value = MIN;
+//                } else {
+//                    try {
+//                        value = doubleFormat.parse(field.getText()).doubleValue();
+//                    } catch (ParseException ex) {
+//                        Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//                field.setText(doubleFormat.format(value));
+//            }
             return valid;
         }
 
@@ -839,26 +833,31 @@ public class JPGUI extends javax.swing.JFrame {
             boolean valid = false;
             final int MIN = 0;
             double value = MIN;
+            HeadPerimeter hp = getHeadPerimeter();
             if (checkForDouble(field)) {
-//                value = getPcInCm();
-                if ((value >= MIN)) {
-                    valid = true;
-                } else {
-                    valid = false;
-                }
-            }
-            if (setIt) {
-                if (!valid) {
-                    value = MIN;
-                } else {
-                    try {
-                        value = doubleFormat.parse(field.getText()).doubleValue();
-                    } catch (ParseException ex) {
-                        Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    value = hp.getValueInUnit(LengthUnit.CM);
+                    if (value >= MIN) {
+                        valid = true;
+                    } else {
+                        valid = false;
                     }
+                } catch (InvalidUnitException ex) {
+                    return false;
                 }
-                field.setText(doubleFormat.format(value));
             }
+//            if (setIt) {
+//                if (!valid) {
+//                    value = MIN;
+//                } else {
+//                    try {
+//                        value = doubleFormat.parse(field.getText()).doubleValue();
+//                    } catch (ParseException ex) {
+//                        Logger.getLogger(JPGUI.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//                field.setText(doubleFormat.format(value));
+//            }
             return valid;
         }
 
@@ -949,9 +948,7 @@ public class JPGUI extends javax.swing.JFrame {
         private void showResults(Patient p) {
             try {
                 double imc = p.getIMC();
-                String s = String.valueOf(imc);
-                s = (s.length() > 6) ? s.substring(0, 6) : s;
-                IMCField.setText(s);
+                IMCField.setText(doubleFormat.format(imc));
             } catch (DataNotFoundException ex) {
                 ex.printStackTrace();
                 showEmpty(IMCField);
