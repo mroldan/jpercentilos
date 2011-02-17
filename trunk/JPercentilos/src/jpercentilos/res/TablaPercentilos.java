@@ -94,7 +94,7 @@ public final class TablaPercentilos extends Table {
     }
 
     private LMS getLms(double value) {
-        if (value != lastValue) {
+        if (value != lastValue || value == 0) {
             double L, M, S;
             try {
                 int index = binarySearch(value, VALUE);

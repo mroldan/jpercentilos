@@ -150,7 +150,7 @@ public class PatientProfile {
         if (year < 2 && year >= 0) {
             range = "0a2";
         } else if (year >= 2 && year < 5) {
-            range = "0a5";
+            range = "2a5";
         } else {
             range = "5a19";
         }
@@ -184,7 +184,7 @@ public class PatientProfile {
         if (year < 2 && year >= 0) {
             range = "0a2";
         } else if (year >= 2 && year < 5) {
-            range = "0a5";
+            range = "2a5";
         } else {
             range = "5a19";
         }
@@ -230,7 +230,7 @@ public class PatientProfile {
     public static final class Sexo {
 
         private final String name;
-        public static final Sexo VARÓN = new Sexo("VARÓN");
+        public static final Sexo VARON = new Sexo("VARON");
         public static final Sexo MUJER = new Sexo("MUJER");
         public static final Sexo NA = new Sexo("ND");
 
