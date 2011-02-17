@@ -43,6 +43,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="JPercentilos (beta)"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
@@ -68,19 +69,16 @@
               <Component id="jPanel5" min="-2" max="-2" attributes="2"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jPanel6" max="32767" attributes="2"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jPanel6" max="32767" attributes="2"/>
                   <Group type="102" attributes="0">
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="IMCField" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="IMCOutputField" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -88,15 +86,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" attributes="1">
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="35" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="IMCField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="IMCOutputField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -369,52 +367,68 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" max="-2" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel7" pref="41" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="weightCentField" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel16" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="weightForHeightCentField" linkSize="2" min="-2" pref="54" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="1">
-                          <Component id="jLabel8" pref="41" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="heightCentField" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel7" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="weightForAgeCentField" linkSize="2" min="-2" pref="66" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel9" pref="41" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="HPCentField" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel8" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="heightForAgeCentField" linkSize="2" min="-2" pref="66" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel10" pref="41" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="IMCCentField" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel9" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="HPForAgeCentField" linkSize="2" min="-2" pref="66" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel10" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="IMCForAgeCentField" linkSize="2" min="-2" pref="66" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel6" alignment="0" pref="57" max="32767" attributes="0"/>
-                      <Component id="jLabel12" alignment="0" pref="57" max="32767" attributes="0"/>
-                      <Component id="jLabel13" alignment="0" pref="57" max="32767" attributes="0"/>
-                      <Component id="jLabel14" alignment="1" pref="57" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="weightPzField" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="heightPzField" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="PCPzField" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="IMCPzField" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel14" linkSize="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel6" linkSize="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel12" linkSize="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel13" linkSize="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="weightForAgePzField" linkSize="2" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="heightForAgePzField" linkSize="2" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="HPForAgePzField" linkSize="2" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="IMCForAgePzField" linkSize="2" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="labelWeightForAgeStatus" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelHeightForAgeStatus" min="-2" pref="97" max="-2" attributes="0"/>
+                              <Component id="labelHPforAgeStatus" min="-2" pref="97" max="-2" attributes="0"/>
+                              <Component id="labelIMCForAgeStatus" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel17" linkSize="3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="weightForHeightPzField" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="labelWeightForHeightStatus" min="-2" pref="97" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelWeight" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelHeight" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelHP" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelIMC" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -424,50 +438,58 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="weightPzField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelWeight" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="weightForAgePzField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelWeightForAgeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="heightPzField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelHeight" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="heightForAgePzField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelHeightForAgeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="PCPzField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelHP" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="HPForAgePzField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelHPforAgeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="IMCPzField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelIMC" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="IMCForAgePzField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelIMCForAgeStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="weightCentField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="weightForAgeCentField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="heightCentField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="heightForAgeCentField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="HPCentField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="HPForAgeCentField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="IMCCentField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="IMCForAgeCentField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="weightForHeightCentField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="weightForHeightPzField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelWeightForHeightStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -475,38 +497,10 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="weightCentField">
-          <Properties>
-            <Property name="columns" type="int" value="4"/>
-            <Property name="editable" type="boolean" value="false"/>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="heightCentField">
-          <Properties>
-            <Property name="columns" type="int" value="4"/>
-            <Property name="editable" type="boolean" value="false"/>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="HPCentField">
-          <Properties>
-            <Property name="columns" type="int" value="4"/>
-            <Property name="editable" type="boolean" value="false"/>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="IMCCentField">
-          <Properties>
-            <Property name="columns" type="int" value="4"/>
-            <Property name="editable" type="boolean" value="false"/>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="11"/>
-            <Property name="text" type="java.lang.String" value="Peso:"/>
+            <Property name="text" type="java.lang.String" value="Peso/Edad:"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -516,7 +510,7 @@
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="11"/>
-            <Property name="text" type="java.lang.String" value="Talla:"/>
+            <Property name="text" type="java.lang.String" value="Talla/Edad:"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -526,7 +520,7 @@
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="11"/>
-            <Property name="text" type="java.lang.String" value="PC:"/>
+            <Property name="text" type="java.lang.String" value="PC/Edad:"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -536,17 +530,62 @@
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="11"/>
-            <Property name="text" type="java.lang.String" value="IMC:"/>
+            <Property name="text" type="java.lang.String" value="IMC/Edad:"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
           </AuxValues>
         </Component>
+        <Component class="javax.swing.JLabel" name="jLabel16">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="11"/>
+            <Property name="text" type="java.lang.String" value="Peso/Talla:"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="weightForAgeCentField">
+          <Properties>
+            <Property name="columns" type="int" value="4"/>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="heightForAgeCentField">
+          <Properties>
+            <Property name="columns" type="int" value="4"/>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="HPForAgeCentField">
+          <Properties>
+            <Property name="columns" type="int" value="4"/>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="IMCForAgeCentField">
+          <Properties>
+            <Property name="columns" type="int" value="4"/>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="weightForHeightCentField">
+          <Properties>
+            <Property name="columns" type="int" value="4"/>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+        </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="11"/>
-            <Property name="text" type="java.lang.String" value="Pz Peso:"/>
+            <Property name="text" type="java.lang.String" value="z:"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -556,7 +595,7 @@
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="11"/>
-            <Property name="text" type="java.lang.String" value="Pz Talla:"/>
+            <Property name="text" type="java.lang.String" value="z:"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -566,7 +605,7 @@
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="11"/>
-            <Property name="text" type="java.lang.String" value="Pz PC:"/>
+            <Property name="text" type="java.lang.String" value="z:"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -576,64 +615,91 @@
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="11"/>
-            <Property name="text" type="java.lang.String" value="Pz IMC:"/>
+            <Property name="text" type="java.lang.String" value="z:"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="weightPzField">
+        <Component class="javax.swing.JLabel" name="jLabel17">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="11"/>
+            <Property name="text" type="java.lang.String" value="z:"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="weightForAgePzField">
           <Properties>
             <Property name="columns" type="int" value="4"/>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="heightPzField">
+        <Component class="javax.swing.JTextField" name="heightForAgePzField">
           <Properties>
             <Property name="columns" type="int" value="4"/>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="PCPzField">
+        <Component class="javax.swing.JTextField" name="HPForAgePzField">
           <Properties>
             <Property name="columns" type="int" value="4"/>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="IMCPzField">
+        <Component class="javax.swing.JTextField" name="IMCForAgePzField">
           <Properties>
             <Property name="columns" type="int" value="4"/>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelWeight">
+        <Component class="javax.swing.JTextField" name="weightForHeightPzField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel16"/>
+            <Property name="columns" type="int" value="4"/>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelHeight">
+        <Component class="javax.swing.JLabel" name="labelWeightForAgeStatus">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel17"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="SIN DETERMINAR"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelHP">
+        <Component class="javax.swing.JLabel" name="labelHeightForAgeStatus">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel18"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="SIN DETERMINAR"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelIMC">
+        <Component class="javax.swing.JLabel" name="labelHPforAgeStatus">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel19"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="SIN DETERMINAR"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelIMCForAgeStatus">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="SIN DETERMINAR"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelWeightForHeightStatus">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="SIN DETERMINAR"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="IMCField">
+    <Component class="javax.swing.JTextField" name="IMCOutputField">
       <Properties>
         <Property name="columns" type="int" value="6"/>
         <Property name="editable" type="boolean" value="false"/>
@@ -643,6 +709,10 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="IMC:"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
