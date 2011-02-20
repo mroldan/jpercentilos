@@ -8,21 +8,22 @@ package jpercentilos.res;
  *
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
  */
-public class MathME {
+public final class MathME {
 
-    public static double log(double a) {
-        return log(a, 1e-6);
+    private static final double DEFAULT_PRECISION = 1e-8;
+
+    private MathME() {
     }
 
     public static double exp(double a) {
-        return exp(a, 1e-6);
+        return exp(a, DEFAULT_PRECISION);
     }
 
     private static double exp(double a, double precision) {
         int iterMax = 20;
         double sum = 1;
         double e = sum;
-        for (int i = 2; (i <= iterMax) || (Math.abs(e) > precision); i++) {
+        for (int i = 2; (i <= iterMax) && (Math.abs(e) > precision); i++) {
             e = realPow(a, i) / fact(i);
             sum += e;
         }
@@ -49,7 +50,7 @@ public class MathME {
         if (gt1) {
             sum = 1 / (a / a - 1);
             e = sum;
-            for (int i = 2; (i <= iterMax) || (Math.abs(e) > precision); i++) {
+            for (int i = 2; (i <= iterMax) && (Math.abs(e) > precision); i++) {
                 e = 1 / realPow((a / a - 1), i);
                 sum += e;
             }
@@ -63,6 +64,10 @@ public class MathME {
             }
         }
         return sum;
+    }
+
+    public static double log(double a) {
+        return log(a, DEFAULT_PRECISION);
     }
 
     public static double pow(double a, double b) {
@@ -136,7 +141,7 @@ public class MathME {
         return exp(b * log(a)); // return our estimate
     }
 
-    static double rint(double a) {
+    public static double rint(double a) {
         double floor = Math.floor(a);
         double ceil = Math.ceil(a);
         if (ceil - a <= 0.5) {
@@ -144,5 +149,48 @@ public class MathME {
         } else {
             return floor;
         }
+    }
+
+    public static double erf(double x, double precision) {
+        if (x <= 4 && x >= -4) {
+            int iterMax = 20;
+            final double sq = 2 / Math.sqrt(Math.PI);
+            int sign = 1; // sign switch
+            double cumSum = x, // first iteration
+                    e = x;
+            for (int n = 1; (n <= iterMax) && (Math.abs(e) > precision); n++) {
+                sign *= -1;
+                e = sq * sign * (double) realPow(x, 2 * n +1) / (double) (fact(n) * (2 * n + 1));
+                cumSum += e;
+            }
+            return cumSum;
+        } else {
+            if (x < -4) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
+
+    }
+
+    public static double erf(double x) {
+        return erf(x, DEFAULT_PRECISION);
+    }
+
+    public static double erfc(double x, double presision) {
+        return 1 - erf(x, presision);
+    }
+
+    public static double erfc(double x) {
+        return erfc(x, DEFAULT_PRECISION);
+    }
+
+    public static double phi(double z, double precision) {
+        return 0.5 * erfc(-(z / Math.sqrt(2)), precision);
+    }
+
+    public static double phi(double z) {
+        return phi(z, DEFAULT_PRECISION);
     }
 }

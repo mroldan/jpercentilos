@@ -50,6 +50,7 @@ public class TablaNormales extends Table {
      */
     public double getPz(double z) {
         return findInTable(z);
+//        return MathME.phi(z);
     }
 
     public static double getStandardZ(double x, double mu, double sigma) {

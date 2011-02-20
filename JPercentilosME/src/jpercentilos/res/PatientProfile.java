@@ -114,7 +114,6 @@ public class PatientProfile {
         }
         double IMC = w / (h * h);
         return IMC;
-
     }
 
     public final TextFileReaderME.File getTableFile(TablaPercentilos.Tipo tipo) {
