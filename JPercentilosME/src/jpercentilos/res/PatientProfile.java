@@ -133,6 +133,8 @@ public class PatientProfile {
             return getAgeRangeBMIToAge();
         } else if (tipo == TablaPercentilos.Tipo.PC_A_EDAD) {
             return getAgeRangeHPToAge();
+        } else if (tipo == TablaPercentilos.Tipo.PESO_A_TALLA) {
+            return getAgeRangeWeightToHeight();
         } else {
             return null;
         }
@@ -149,7 +151,7 @@ public class PatientProfile {
         if (year < 2 && year >= 0) {
             range = "0a2";
         } else if (year >= 2 && year < 5) {
-            range = "0a5";
+            range = "2a5";
         } else {
             range = "5a19";
         }
@@ -183,7 +185,7 @@ public class PatientProfile {
         if (year < 2 && year >= 0) {
             range = "0a2";
         } else if (year >= 2 && year < 5) {
-            range = "0a5";
+            range = "2a5";
         } else {
             range = "5a19";
         }
@@ -196,27 +198,27 @@ public class PatientProfile {
         return range;
     }
 
+    private String getAgeRangeWeightToHeight() {
+        String range;
+        range = "0a2";
+        return range;
+    }
+
     private void lookForAvailableTables() {
         try {
             if (!age.equals(Age.NA) && age.getValueInUnit(Dimensionizable.AgeUnit.AÑO) <= 19) {
                 availableTable.addElement(TablaPercentilos.Tipo.IMC_A_EDAD);
                 availableTable.addElement(TablaPercentilos.Tipo.TALLA_A_EDAD);
-                try {
                     if (age.getValueInUnit(age.getValue(), Dimensionizable.AgeUnit.AÑO) <= 10) {
                         availableTable.addElement(TablaPercentilos.Tipo.PESO_A_EDAD);
                     }
-                } catch (InvalidUnitException ex) {
-                    ex.printStackTrace();
-                }
-                try {
                     if (age.getValueInUnit(age.getValue(), Dimensionizable.AgeUnit.AÑO) <= 5) {
                         availableTable.addElement(TablaPercentilos.Tipo.PC_A_EDAD);
+                }
+                if (age.getValueInUnit(age.getValue(), Dimensionizable.AgeUnit.AÑO) <= 2) {
                         availableTable.addElement(TablaPercentilos.Tipo.PESO_A_TALLA);
                     }
-                } catch (InvalidUnitException ex) {
-                    ex.printStackTrace();
                 }
-            }
         } catch (InvalidUnitException ex) {
             ex.printStackTrace();
         }
