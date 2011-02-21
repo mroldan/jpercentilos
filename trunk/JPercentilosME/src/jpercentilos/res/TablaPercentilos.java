@@ -18,7 +18,6 @@ package jpercentilos.res;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
-import jpercentilos.res.Dimensionizable.InvalidUnitException;
 
 /**
  *
@@ -93,7 +92,7 @@ public final class TablaPercentilos extends Table {
     }
 
     private LMS getLms(double value) {
-        if (value != lastValue) {
+        if (value != lastValue || value == 0) {
             double L, M, S;
             try {
                 int index = binarySearch(value, VALUE);
@@ -169,7 +168,8 @@ public final class TablaPercentilos extends Table {
                 TALLA_A_EDAD,
                 PESO_A_EDAD,
                 IMC_A_EDAD,
-                PC_A_EDAD, //                PESO_A_TALLA
+                PC_A_EDAD,
+                PESO_A_TALLA
             };
             return t;
         }
