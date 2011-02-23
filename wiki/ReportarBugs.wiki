@@ -29,7 +29,7 @@ Los usuarios con mas experiencia pueden ofrecerte ayuda para poder opinar si tu 
 
 == Antes de reportar un bug ==
 
- # Estar seguro de tener la cuenta en Google – No se pueden reportar bugs sin tener una cuenta en Google. Si no tienes una cuenta en Google la puedes abrir en [] y seguir las instrucciones.
+ # Estar seguro de tener la cuenta en Google – No se pueden reportar bugs sin tener una cuenta en Google. Si no tienes una cuenta en Google la puedes abrir en [https://www.google.com/accounts/], hacer click en "Crear cuenta"y seguir las instrucciones.
  # Buscar en los bugs de la página que no haya sido reportado, si hay uno abierto por favor agrega tu problema en el mismo y si te es posible cambia el status de “New” (nuevo) a “Confirmed” (confirmado). 
 *Importante:* Esto sólo debes hacerlo si estas un 100% seguro que es exactamente el mismo problema. Si el bug se refiere a una pieza de hardware que tienes, debes tener la misma parte o al menos una muy parecida, en caso que ésta no sea tu situación por favor abre un nuevo reporte y menciona el que ya hayas encontrado.
 
