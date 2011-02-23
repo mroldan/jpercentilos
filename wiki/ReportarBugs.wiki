@@ -1,5 +1,5 @@
+#summary Cómo reportar errores
 #labels Featured
-Cómo reportar errores
 
 <wiki:toc max_depth="2" />
 
