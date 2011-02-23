@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Acuerdo de licencia de JPercentilos
 #labels Featured
 
 = Licencia de JPercentilos =
