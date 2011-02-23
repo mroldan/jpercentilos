@@ -36,6 +36,7 @@ public class CalcHelper {
 
     private DecimalFormat initPercentFormat() {
         DecimalFormat df = (DecimalFormat) DecimalFormat.getPercentInstance();
+        df.setMinimumFractionDigits(1);
         return df;
     }
 
