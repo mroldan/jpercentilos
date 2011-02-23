@@ -118,7 +118,7 @@ public class PatientProfile {
     }
 
     public final File getTableFile(TablaPercentilos.Tipo tipo) {
-        StringBuffer sb = new StringBuffer("tables/");
+        StringBuffer sb = new StringBuffer("tables" + File.separator);
         sb.append(tipo.toString()).append("-");
         sb.append(getAgeRange(tipo)).append("-");
         sb.append(sexo.toString());
