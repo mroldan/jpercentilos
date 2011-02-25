@@ -79,28 +79,33 @@ public class JPGUI extends javax.swing.JFrame {
         sexComboBox = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        weightCentField = new javax.swing.JTextField();
-        heightCentField = new javax.swing.JTextField();
-        HPCentField = new javax.swing.JTextField();
-        IMCCentField = new javax.swing.JTextField();
         javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel9 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel10 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel16 = new javax.swing.JLabel();
+        weightForAgeCentField = new javax.swing.JTextField();
+        heightForAgeCentField = new javax.swing.JTextField();
+        HPForAgeCentField = new javax.swing.JTextField();
+        IMCForAgeCentField = new javax.swing.JTextField();
+        weightForHeightCentField = new javax.swing.JTextField();
         javax.swing.JLabel jLabel6 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel12 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel13 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel14 = new javax.swing.JLabel();
-        weightPzField = new javax.swing.JTextField();
-        heightPzField = new javax.swing.JTextField();
-        PCPzField = new javax.swing.JTextField();
-        IMCPzField = new javax.swing.JTextField();
-        labelWeight = new javax.swing.JLabel();
-        labelHeight = new javax.swing.JLabel();
-        labelHP = new javax.swing.JLabel();
-        labelIMC = new javax.swing.JLabel();
-        IMCField = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel17 = new javax.swing.JLabel();
+        weightForAgePzField = new javax.swing.JTextField();
+        heightForAgePzField = new javax.swing.JTextField();
+        HPForAgePzField = new javax.swing.JTextField();
+        IMCForAgePzField = new javax.swing.JTextField();
+        weightForHeightPzField = new javax.swing.JTextField();
+        labelWeightForAgeStatus = new javax.swing.JLabel();
+        labelHeightForAgeStatus = new javax.swing.JLabel();
+        labelHPforAgeStatus = new javax.swing.JLabel();
+        labelIMCForAgeStatus = new javax.swing.JLabel();
+        labelWeightForHeightStatus = new javax.swing.JLabel();
+        IMCOutputField = new javax.swing.JTextField();
+        javax.swing.JLabel jLabel15 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -109,6 +114,7 @@ public class JPGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JPercentilos (beta)");
+        setResizable(false);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del paciente"));
 
@@ -229,69 +235,90 @@ public class JPGUI extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Percentilos"));
 
-        weightCentField.setColumns(4);
-        weightCentField.setEditable(false);
-        weightCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        heightCentField.setColumns(4);
-        heightCentField.setEditable(false);
-        heightCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        HPCentField.setColumns(4);
-        HPCentField.setEditable(false);
-        HPCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        IMCCentField.setColumns(4);
-        IMCCentField.setEditable(false);
-        IMCCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel7.setText("Peso:");
+        jLabel7.setText("Peso/Edad:");
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel8.setText("Talla:");
+        jLabel8.setText("Talla/Edad:");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel9.setText("PC:");
+        jLabel9.setText("PC/Edad:");
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel10.setText("IMC:");
+        jLabel10.setText("IMC/Edad:");
+
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel16.setText("Peso/Talla:");
+
+        weightForAgeCentField.setColumns(4);
+        weightForAgeCentField.setEditable(false);
+        weightForAgeCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        heightForAgeCentField.setColumns(4);
+        heightForAgeCentField.setEditable(false);
+        heightForAgeCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        HPForAgeCentField.setColumns(4);
+        HPForAgeCentField.setEditable(false);
+        HPForAgeCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        IMCForAgeCentField.setColumns(4);
+        IMCForAgeCentField.setEditable(false);
+        IMCForAgeCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        weightForHeightCentField.setColumns(4);
+        weightForHeightCentField.setEditable(false);
+        weightForHeightCentField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel6.setText("Pz Peso:");
+        jLabel6.setText("z:");
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel12.setText("Pz Talla:");
+        jLabel12.setText("z:");
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel13.setText("Pz PC:");
+        jLabel13.setText("z:");
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel14.setText("Pz IMC:");
+        jLabel14.setText("z:");
 
-        weightPzField.setColumns(4);
-        weightPzField.setEditable(false);
-        weightPzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel17.setText("z:");
 
-        heightPzField.setColumns(4);
-        heightPzField.setEditable(false);
-        heightPzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        weightForAgePzField.setColumns(4);
+        weightForAgePzField.setEditable(false);
+        weightForAgePzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        PCPzField.setColumns(4);
-        PCPzField.setEditable(false);
-        PCPzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        heightForAgePzField.setColumns(4);
+        heightForAgePzField.setEditable(false);
+        heightForAgePzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        IMCPzField.setColumns(4);
-        IMCPzField.setEditable(false);
-        IMCPzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        HPForAgePzField.setColumns(4);
+        HPForAgePzField.setEditable(false);
+        HPForAgePzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        labelWeight.setText("jLabel16");
+        IMCForAgePzField.setColumns(4);
+        IMCForAgePzField.setEditable(false);
+        IMCForAgePzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        labelHeight.setText("jLabel17");
+        weightForHeightPzField.setColumns(4);
+        weightForHeightPzField.setEditable(false);
+        weightForHeightPzField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        labelHP.setText("jLabel18");
+        labelWeightForAgeStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelWeightForAgeStatus.setText("SIN DETERMINAR");
 
-        labelIMC.setText("jLabel19");
+        labelHeightForAgeStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelHeightForAgeStatus.setText("SIN DETERMINAR");
+
+        labelHPforAgeStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelHPforAgeStatus.setText("SIN DETERMINAR");
+
+        labelIMCForAgeStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelIMCForAgeStatus.setText("SIN DETERMINAR");
+
+        labelWeightForHeightStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelWeightForHeightStatus.setText("SIN DETERMINAR");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -300,87 +327,113 @@ public class JPGUI extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(weightCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                        .addComponent(weightForHeightCentField, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(heightCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                        .addComponent(weightForAgeCentField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(HPCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                        .addComponent(heightForAgeCentField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(IMCCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE))
+                        .addComponent(HPForAgeCentField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(IMCForAgeCentField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(weightPzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(heightPzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PCPzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(IMCPzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelWeight)
-                    .addComponent(labelHeight)
-                    .addComponent(labelHP)
-                    .addComponent(labelIMC))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(weightForAgePzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(heightForAgePzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(HPForAgePzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(IMCForAgePzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelWeightForAgeStatus)
+                            .addComponent(labelHeightForAgeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelHPforAgeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelIMCForAgeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(weightForHeightPzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelWeightForHeightStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
+
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel10, jLabel16, jLabel7, jLabel8, jLabel9});
+
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {HPForAgeCentField, HPForAgePzField, IMCForAgeCentField, IMCForAgePzField, heightForAgeCentField, heightForAgePzField, weightForAgeCentField, weightForAgePzField, weightForHeightCentField, weightForHeightPzField});
+
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel12, jLabel13, jLabel14, jLabel17, jLabel6});
+
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(weightPzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelWeight))
+                            .addComponent(weightForAgePzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelWeightForAgeStatus))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(heightPzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelHeight))
+                            .addComponent(heightForAgePzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelHeightForAgeStatus))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(PCPzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelHP))
+                            .addComponent(HPForAgePzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelHPforAgeStatus))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(IMCPzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelIMC)))
+                            .addComponent(IMCForAgePzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelIMCForAgeStatus)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(weightCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
+                            .addComponent(weightForAgeCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(heightCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
+                            .addComponent(heightForAgeCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(HPCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
+                            .addComponent(HPForAgeCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(IMCCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel14))))
+                            .addComponent(jLabel14)
+                            .addComponent(IMCForAgeCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17)
+                    .addComponent(weightForHeightCentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(weightForHeightPzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelWeightForHeightStatus))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        IMCField.setColumns(6);
-        IMCField.setEditable(false);
+        IMCOutputField.setColumns(6);
+        IMCOutputField.setEditable(false);
 
         jLabel15.setText("IMC:");
 
@@ -409,30 +462,28 @@ public class JPGUI extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(IMCField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(IMCOutputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
                             .addComponent(jLabel15)
-                            .addComponent(IMCField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(IMCOutputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -464,42 +515,43 @@ public class JPGUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField HPCentField;
     private javax.swing.JComboBox HPComboBox;
     private javax.swing.JTextField HPField;
-    private javax.swing.JTextField IMCCentField;
-    private javax.swing.JTextField IMCField;
-    private javax.swing.JTextField IMCPzField;
-    private javax.swing.JTextField PCPzField;
+    private javax.swing.JTextField HPForAgeCentField;
+    private javax.swing.JTextField HPForAgePzField;
+    private javax.swing.JTextField IMCForAgeCentField;
+    private javax.swing.JTextField IMCForAgePzField;
+    private javax.swing.JTextField IMCOutputField;
     private javax.swing.JComboBox ageComboBox;
     private javax.swing.JTextField ageField;
     private javax.swing.JFormattedTextField dateOfBirthField;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JTextField heightCentField;
     private javax.swing.JComboBox heightComboBox;
     private javax.swing.JTextField heightField;
-    private javax.swing.JTextField heightPzField;
+    private javax.swing.JTextField heightForAgeCentField;
+    private javax.swing.JTextField heightForAgePzField;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JLabel labelHP;
-    private javax.swing.JLabel labelHeight;
-    private javax.swing.JLabel labelIMC;
-    private javax.swing.JLabel labelWeight;
+    private javax.swing.JLabel labelHPforAgeStatus;
+    private javax.swing.JLabel labelHeightForAgeStatus;
+    private javax.swing.JLabel labelIMCForAgeStatus;
+    private javax.swing.JLabel labelWeightForAgeStatus;
+    private javax.swing.JLabel labelWeightForHeightStatus;
     private javax.swing.JComboBox sexComboBox;
-    private javax.swing.JTextField weightCentField;
     private javax.swing.JComboBox weightComboBox;
     private javax.swing.JTextField weightField;
-    private javax.swing.JTextField weightPzField;
+    private javax.swing.JTextField weightForAgeCentField;
+    private javax.swing.JTextField weightForAgePzField;
+    private javax.swing.JTextField weightForHeightCentField;
+    private javax.swing.JTextField weightForHeightPzField;
     // End of variables declaration//GEN-END:variables
     private final DecimalFormat doubleFormat = initDoubleFormat();
-    private final DecimalFormat percentFormat = initPercentFormat();
     private final DateFormat dateFormat = initDateFormat();
     private Verifier verificador = new Verifier();
 
@@ -507,11 +559,6 @@ public class JPGUI extends javax.swing.JFrame {
         DecimalFormat df = (DecimalFormat) DecimalFormat.getNumberInstance();
         df.setMaximumFractionDigits(3);
         df.setGroupingUsed(false);
-        return df;
-    }
-
-    private DecimalFormat initPercentFormat() {
-        DecimalFormat df = (DecimalFormat) DecimalFormat.getPercentInstance();
         return df;
     }
 
@@ -746,7 +793,6 @@ public class JPGUI extends javax.swing.JFrame {
                 try {
                     dateOfBirthField.setText(dateFormat.format(daysDifference((long) a.getValueInUnit(AgeUnit.DÍA))));
                 } catch (InvalidUnitException ex) {
-                    
                 }
             }
             return valid;
@@ -947,16 +993,8 @@ public class JPGUI extends javax.swing.JFrame {
             // Llenado de datos
             Patient p = createPatient();
             System.out.println("Patient creado");
-            showResults(p);
-        }
-
-        private void setLabel(double pz, JLabel label) {
-            if (pz <= -3) {
-            } else if (pz > -3 && pz <= -2) {
-            } else if (pz > -2 && pz < 2) {
-            } else if (pz >= 2 && pz < 3) {
-            } else if (pz >= 3) {
-            }
+            CalcHelper ch = new CalcHelper(p);
+            showResults(ch);
         }
 
         private Patient createPatient() {
@@ -968,60 +1006,69 @@ public class JPGUI extends javax.swing.JFrame {
             return new Patient(sexo, age, height, headPerimeter, weight);
         }
 
-        private void showResults(Patient p) {
-            try {
-                double imc = p.getIMC();
-                IMCField.setText(doubleFormat.format(imc));
-            } catch (DataNotFoundException ex) {
-                ex.printStackTrace();
-                showEmpty(IMCField);
+        private void showResults(CalcHelper ch) {
+            showOutputString(ch.getIMCString(), IMCOutputField);
+            for (Tipo tipo : Tipo.values()) {
+                showOutputString(ch.getCentileStringForType(tipo), getOutputCentileField(tipo));
+                showStatusLabel(ch.getStatusStringForType(tipo), getStatusLabel(tipo));
+                showOutputString(ch.getZScoreStringForType(tipo), getOutputZScoreField(tipo));
             }
-            TablaPercentilos.Tipo[] tipo = TablaPercentilos.Tipo.values();
-            for (int i = 0; i < tipo.length; i++) {
-                if (p.isTableAvailable(tipo[i])) {
-                    TablaPercentilos tabla = p.getTabla(tipo[i]);
-                    double observed,
-                            inputValue;
-                    try {
-                        observed = p.getValueFor(tipo[i]);
-                        inputValue = p.getInputValueFor(tipo[i]);
-                        showCentile(tabla, observed, inputValue, getOutputCentileField(tipo[i]));
-                    } catch (InvalidUnitException ex) {
-                        ex.printStackTrace();
-                        showEmpty(getOutputCentileField(tipo[i]));
-                    } catch (PatientProfile.DataNotFoundException ex) {
-                        ex.printStackTrace();
-                        showEmpty(getOutputCentileField(tipo[i]));
-                    }
-                } else {
-                    showEmpty(getOutputCentileField(tipo[i]));
-                }
-            }
-        }
-
-        private void showEmpty(JTextField field) {
-            field.setText("--");
         }
 
         private JTextField getOutputCentileField(Tipo tipo) {
             if (tipo == TablaPercentilos.Tipo.TALLA_A_EDAD) {
-                return heightCentField;
+                return heightForAgeCentField;
             } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD) {
-                return weightCentField;
+                return weightForAgeCentField;
             } else if (tipo == TablaPercentilos.Tipo.PC_A_EDAD) {
-                return HPCentField;
+                return HPForAgeCentField;
             } else if (tipo == TablaPercentilos.Tipo.IMC_A_EDAD) {
-                return IMCCentField;
+                return IMCForAgeCentField;
             } else if (tipo == TablaPercentilos.Tipo.PESO_A_TALLA) {
-                return weightCentField; //TODO Peso a talla
+                return weightForHeightCentField; //TODO Peso a talla
             } else {
                 return null; // Should not happend
             }
         }
 
-        private void showCentile(TablaPercentilos tabla, double observed, double inputValue, JTextField outputField) {
-            double centile = tabla.getCentile(observed, inputValue);
-            outputField.setText(percentFormat.format(centile));
+        private JLabel getStatusLabel(Tipo tipo) {
+            if (tipo == TablaPercentilos.Tipo.TALLA_A_EDAD) {
+                return labelHeightForAgeStatus;
+            } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD) {
+                return labelWeightForAgeStatus;
+            } else if (tipo == TablaPercentilos.Tipo.PC_A_EDAD) {
+                return labelHPforAgeStatus;
+            } else if (tipo == TablaPercentilos.Tipo.IMC_A_EDAD) {
+                return labelIMCForAgeStatus;
+            } else if (tipo == TablaPercentilos.Tipo.PESO_A_TALLA) {
+                return labelWeightForHeightStatus;
+            } else {
+                return null; // Should not happend
+            }
+        }
+
+        private JTextField getOutputZScoreField(Tipo tipo) {
+            if (tipo == TablaPercentilos.Tipo.TALLA_A_EDAD) {
+                return heightForAgePzField;
+            } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD) {
+                return weightForAgePzField;
+            } else if (tipo == TablaPercentilos.Tipo.PC_A_EDAD) {
+                return HPForAgePzField;
+            } else if (tipo == TablaPercentilos.Tipo.IMC_A_EDAD) {
+                return IMCForAgePzField;
+            } else if (tipo == TablaPercentilos.Tipo.PESO_A_TALLA) {
+                return weightForHeightPzField;
+            } else {
+                return null; // Should not happend
+            }
+        }
+
+        private void showOutputString(String s, JTextField field) {
+            field.setText(s);
+        }
+
+        private void showStatusLabel(String s, JLabel label) {
+            label.setText(s);
         }
     }
 }
