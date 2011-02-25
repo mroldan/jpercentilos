@@ -19,7 +19,6 @@ package jpercentilos.res;
 import java.io.File;
 import java.io.IOException;
 import java.util.NoSuchElementException;
-import jpercentilos.res.Dimensionizable.InvalidUnitException;
 
 /**
  *
@@ -142,38 +141,30 @@ public final class TablaPercentilos extends Table {
     }
 
     /**
-     * Enumeración de tupos de tablas.
+     * Enum for Table types.
      */
-    public static final class Tipo {
+    public static enum Tipo {
 
-        private final String name;
-        public static final Tipo TALLA_A_EDAD = new Tipo("TALLA-EDAD");    //leido en cm
-        public static final Tipo PESO_A_EDAD = new Tipo("PESO-EDAD");      // Leído en Kg
-        public static final Tipo IMC_A_EDAD = new Tipo("IMC-EDAD");        //
-        public static final Tipo PC_A_EDAD = new Tipo("PC-EDAD");          // Leído en mm
-        public static final Tipo PESO_A_TALLA = new Tipo("PESO-TALLA");
+        
+        TALLA_A_EDAD("TALLA-EDAD"),
+        PESO_A_EDAD("PESO-EDAD"),
+        IMC_A_EDAD("IMC-EDAD"),
+        PC_A_EDAD("PC-EDAD"),
+        PESO_A_TALLA("PESO-TALLA");
 
-        public Tipo(String name) {
-            this.name = name;
+        private final String bitPath;
+
+        Tipo(String name) {
+            this.bitPath = name;
         }
 
-        public String bitPath() {
+        public String getBitPath() {
             return toString();
         }
 
+        @Override
         public String toString() {
-            return name;
-        }
-
-        public static Tipo[] values() {
-            Tipo[] t = {
-                TALLA_A_EDAD,
-                PESO_A_EDAD,
-                IMC_A_EDAD,
-                PC_A_EDAD,
-//                PESO_A_TALLA
-            };
-            return t;
+            return bitPath;
         }
     }
 }

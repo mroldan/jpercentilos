@@ -18,6 +18,7 @@ package jpercentilos.res;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.EnumSet;
 import java.util.Vector;
 import jpercentilos.res.Dimensionizable.InvalidUnitException;
 import jpercentilos.res.Length.HeadPerimeter;
@@ -186,10 +187,9 @@ public final class Patient extends PatientProfile {
     private void readTables() {
         if (!age.equals(Age.NA)) {
             File file;
-            TablaPercentilos.Tipo[] tipo = TablaPercentilos.Tipo.values();
-            for (int i = 0; i < tipo.length; i++) {
-                if (isTableAvailable(tipo[i])) {
-                    file = this.getTableFile(tipo[i]);
+            for (Tipo tipo:EnumSet.complementOf(EnumSet.of(Tipo.PESO_A_TALLA))) {
+                if (isTableAvailable(tipo)) {
+                    file = this.getTableFile(tipo);
                     try {
                         System.out.println("Reading file: " + file.getPath());
                         tablas.addElement(new TablaPercentilos(file));
@@ -199,10 +199,26 @@ public final class Patient extends PatientProfile {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    
+
                 }
             }
         }
+        if (!height.equals(Height.NA)) {
+            File file = getTableFile(Tipo.PESO_A_TALLA);
+            if (isTableAvailable(Tipo.PESO_A_TALLA)) {
+                    try {
+                        System.out.println("Reading file: " + file.getPath());
+                        tablas.addElement(new TablaPercentilos(file));
+                        System.out.println(file.getPath() + " successfuly read.");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                }
+            }
+
     }
 
     public Vector getTablas() {
