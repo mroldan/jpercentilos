@@ -29,10 +29,10 @@ import java.awt.event.FocusListener;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Locale;
 import javax.swing.*;
 import jpercentilos.res.Dimensionizable.*;
 import jpercentilos.res.*;
@@ -552,7 +552,7 @@ public class JPGUI extends javax.swing.JFrame {
     private javax.swing.JTextField weightForHeightPzField;
     // End of variables declaration//GEN-END:variables
     private final DecimalFormat doubleFormat = initDoubleFormat();
-    private final DateFormat dateFormat = initDateFormat();
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //initDateFormat();
     private Verifier verificador = new Verifier();
 
     private DecimalFormat initDoubleFormat() {
@@ -562,8 +562,9 @@ public class JPGUI extends javax.swing.JFrame {
         return df;
     }
 
+    @Deprecated
     private DateFormat initDateFormat() {
-        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ROOT);
         df.setLenient(true);
         return df;
     }
@@ -679,6 +680,21 @@ public class JPGUI extends javax.swing.JFrame {
      */
     private class Verifier extends InputVerifier implements FocusListener {
 
+        /**
+         * Si el componente seleccionado es un campo de texto, selecciona todo
+         * su contenido
+         * @param e
+         */
+        public void focusGained(FocusEvent e) {
+            if (e.getComponent() instanceof JTextField) {
+                JTextField field = (JTextField) e.getComponent();
+                field.selectAll();
+            }
+        }
+
+        public void focusLost(FocusEvent e) {
+        }
+
         @Override
         public boolean shouldYieldFocus(JComponent input) {
             boolean checked = verify(input);
@@ -734,21 +750,6 @@ public class JPGUI extends javax.swing.JFrame {
             } catch (ParseException pe) {
                 return false;
             }
-        }
-
-        /**
-         * Si el componente seleccionado es un campo de texto, selecciona todo
-         * su contenido
-         * @param e
-         */
-        public void focusGained(FocusEvent e) {
-            if (e.getComponent() instanceof JTextField) {
-                JTextField field = (JTextField) e.getComponent();
-                field.selectAll();
-            }
-        }
-
-        public void focusLost(FocusEvent e) {
         }
 
         /**
@@ -952,7 +953,6 @@ public class JPGUI extends javax.swing.JFrame {
                 if (!valid) {
                     birth = now;
                     days = 0;
-                    field.setText(dateFormat.format(birth));
                 } else {
                 }
                 field.setText(dateFormat.format(birth));
