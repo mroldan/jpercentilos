@@ -16,7 +16,6 @@
  */
 package jpercentilos.res;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
 import java.util.Vector;
@@ -25,6 +24,7 @@ import jpercentilos.res.Length.HeadPerimeter;
 import jpercentilos.res.Length.Height;
 import jpercentilos.res.PatientProfile.Sexo;
 import jpercentilos.res.TablaPercentilos.Tipo;
+import jpercentilos.res.TextScanner.ResourceFile;
 
 /**
  *
@@ -186,7 +186,7 @@ public final class Patient extends PatientProfile {
 //    }
     private void readTables() {
         if (!age.equals(Age.NA)) {
-            File file;
+            ResourceFile file;
             for (Tipo tipo:EnumSet.complementOf(EnumSet.of(Tipo.PESO_A_TALLA))) {
                 if (isTableAvailable(tipo)) {
                     file = this.getTableFile(tipo);
@@ -204,7 +204,7 @@ public final class Patient extends PatientProfile {
             }
         }
         if (!height.equals(Height.NA)) {
-            File file = getTableFile(Tipo.PESO_A_TALLA);
+            ResourceFile file = getTableFile(Tipo.PESO_A_TALLA);
             if (isTableAvailable(Tipo.PESO_A_TALLA)) {
                     try {
                         System.out.println("Reading file: " + file.getPath());
@@ -226,7 +226,7 @@ public final class Patient extends PatientProfile {
     }
 
     public TablaPercentilos getTabla(TablaPercentilos.Tipo tipo) {
-        File file = this.getTableFile(tipo);
+        ResourceFile file = this.getTableFile(tipo);
         for (int i = 0; i < tablas.size(); i++) {
             TablaPercentilos tablaPercentilos = (TablaPercentilos) tablas.elementAt(i);
             if (tablaPercentilos.getName().equals(this.getTableFile(tipo).getPath())) {

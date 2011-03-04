@@ -16,9 +16,9 @@
  */
 package jpercentilos.res;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.NoSuchElementException;
+import jpercentilos.res.TextScanner.ResourceFile;
 
 /**
  *
@@ -40,7 +40,7 @@ public final class TablaPercentilos extends Table {
         this(profile.getTableFile(tipo));
     }
 
-    public TablaPercentilos(File file) throws IOException {
+    public TablaPercentilos(ResourceFile file) throws IOException {
         super(file);
         this.name = file.getPath();
     }

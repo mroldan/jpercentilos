@@ -25,10 +25,26 @@ import java.util.Scanner;
  */
 public class TextScanner {
 
-    public static String retrieveText(InputStream is) {
+        /**
+     * Class to wrap String pointing to text files.
+     */
+    public static final class ResourceFile {
+
+        private final String path;
+
+        public ResourceFile(String path) {
+            this.path = path;
+        }
+
+        public String getPath(){
+            return this.path;
+        }
+    }
+
+    public static String retrieveText(ResourceFile file) {
         StringBuilder sb = new StringBuilder();
-        String NL = System.getProperty("line.separator");
-        Scanner tx = new Scanner(is);
+        String NL = "\n";
+        Scanner tx = new Scanner(TextScanner.class.getResourceAsStream(file.getPath()));
         try {
             while (tx.hasNextLine()) {
                 sb.append(tx.nextLine()).append(NL);
