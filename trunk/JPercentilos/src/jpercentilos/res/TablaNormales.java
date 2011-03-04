@@ -16,7 +16,6 @@
  */
 package jpercentilos.res;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
@@ -141,7 +140,7 @@ public class TablaNormales {
         /*TODO Controlar la salida, verificar que se lea correctamente el archivo,
         de no ser así enviar un mensaje de error */
         double[][] t = initializeTable();
-            String s = TextScanner.retrieveText(TablaNormales.class.getResourceAsStream("tables"+ File.separator +"normaltable"));
+            String s = TextScanner.retrieveText(new TextScanner.ResourceFile("tables/normaltable"));
             Scanner scan = new Scanner(s);
             scan.useLocale(Locale.US);
             try {

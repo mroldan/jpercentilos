@@ -4,10 +4,9 @@
  */
 package jpercentilos.res;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.util.NoSuchElementException;
+import jpercentilos.res.TextScanner.ResourceFile;
 
 /**
  *
@@ -18,7 +17,7 @@ public class Table {
     final double[][] tabla;
 //    final String[] units;
 
-    public Table(File fromFile) throws IOException {
+    public Table(ResourceFile fromFile) throws IOException {
         TableReader tr = new TableReader(fromFile);
         tabla = tr.getTableAsArray();
 //        units = tr.getTableUnits();

@@ -4,7 +4,6 @@
  */
 package jpercentilos.res;
 
-import java.io.File;
 import java.util.Vector;
 import jpercentilos.res.Dimensionizable.InvalidUnitException;
 import jpercentilos.res.Length.HeadPerimeter;
@@ -117,12 +116,12 @@ public class PatientProfile {
         return IMC;
     }
 
-    public final File getTableFile(TablaPercentilos.Tipo tipo) {
-        StringBuffer sb = new StringBuffer("tables" + File.separator);
+    public final TextScanner.ResourceFile getTableFile(TablaPercentilos.Tipo tipo) {
+        StringBuilder sb = new StringBuilder("tables/");
         sb.append(tipo.toString()).append("-");
         sb.append(getAgeRange(tipo)).append("-");
         sb.append(sexo.toString());
-        return new File(sb.toString());
+        return new TextScanner.ResourceFile(sb.toString());
     }
 
     public final String getAgeRange(TablaPercentilos.Tipo tipo) { //TODO Establecer rangos segun tipo de tabla.

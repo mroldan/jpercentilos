@@ -4,7 +4,6 @@
  */
 package jpercentilos.res;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
@@ -38,7 +37,7 @@ public class TableReader extends TextScanner {
      * @param tableString - the string to be read as table.
      * @return two dimensional array containing the double values in the string.
      */
-    public static double[][] readTable(File file) throws IOException {
+    public static double[][] readTable(ResourceFile file) throws IOException {
         return (new TableReader(file)).getTableAsArray();
     }
 
@@ -146,8 +145,8 @@ public class TableReader extends TextScanner {
      * @param file
      * @throws IOException
      */
-    public TableReader(File file) throws IOException {
-        textRead = retrieveText(TableReader.class.getResourceAsStream(file.getPath()));
+    public TableReader(ResourceFile file) throws IOException {
+        textRead = retrieveText(file);
         lineBreaker = new Scanner(textRead);
     }
 
