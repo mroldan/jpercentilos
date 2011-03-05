@@ -24,15 +24,14 @@ package jpercentilos;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import javax.swing.*;
 import jpercentilos.res.Dimensionizable.*;
 import jpercentilos.res.*;
@@ -144,6 +143,7 @@ public class JPGUI extends javax.swing.JFrame {
 
         ageComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(días)", "(meses)", "(años)" }));
         ageComboBox.setSelectedIndex(1);
+        ageComboBox.addActionListener(new AgeSyncronizer());
 
         heightField.setColumns(4);
         heightField.setText("66");
@@ -551,21 +551,19 @@ public class JPGUI extends javax.swing.JFrame {
     private javax.swing.JTextField weightForHeightCentField;
     private javax.swing.JTextField weightForHeightPzField;
     // End of variables declaration//GEN-END:variables
-    private final DecimalFormat doubleFormat = initDoubleFormat();
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //initDateFormat();
+    private static final DecimalFormat doubleFormat = initDoubleFormat();
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //initDateFormat();
     private Verifier verificador = new Verifier();
 
-    private DecimalFormat initDoubleFormat() {
+    /**
+     * Initializes doubleFormat. Set fraction digits to 3 and does not use
+     * grouping
+     * @return DoubleFormat
+     */
+    private static DecimalFormat initDoubleFormat() {
         DecimalFormat df = (DecimalFormat) DecimalFormat.getNumberInstance();
         df.setMaximumFractionDigits(3);
         df.setGroupingUsed(false);
-        return df;
-    }
-
-    @Deprecated
-    private DateFormat initDateFormat() {
-        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ROOT);
-        df.setLenient(true);
         return df;
     }
 
@@ -591,25 +589,30 @@ public class JPGUI extends javax.swing.JFrame {
     private Age readAge() {
         try {
             double res = doubleFormat.parse(ageField.getText().replaceAll("\\.", ",")).doubleValue();
-            AgeUnit unit;
-            switch (ageComboBox.getSelectedIndex()) {
-                case 0:
-                    unit = AgeUnit.DÍA;
-                    break;
-                case 1:
-                    unit = AgeUnit.MES;
-                    break;
-                case 2:
-                    unit = AgeUnit.AÑO;
-                    break;
-                default:
-                    unit = AgeUnit.AÑO;
-            }
+            AgeUnit unit = readAgeUnit();
             System.out.println("Age Read: " + res + " " + unit.toString());
             return new Age(res, unit);
         } catch (ParseException pe) {
             return Age.NA;
         }
+    }
+
+    private AgeUnit readAgeUnit() {
+        AgeUnit unit;
+        switch (ageComboBox.getSelectedIndex()) {
+            case 0:
+                unit = AgeUnit.DÍA;
+                break;
+            case 1:
+                unit = AgeUnit.MES;
+                break;
+            case 2:
+                unit = AgeUnit.AÑO;
+                break;
+            default:
+                unit = AgeUnit.AÑO;
+        }
+        return unit;
     }
 
     private Weight getWeight() {
@@ -673,6 +676,23 @@ public class JPGUI extends javax.swing.JFrame {
         } catch (ParseException pe) {
             return (HeadPerimeter) HeadPerimeter.NA;
         }
+    }
+
+    private void syncronizeAge() {
+        try {
+            Age age = new Age(dateFormat.parse(dateOfBirthField.getText()));
+            String s = doubleFormat.format(age.getValueInUnit(readAgeUnit()));
+            ageField.setText(s);
+        } catch (ParseException parseException) {
+            parseException.printStackTrace();
+        } catch (InvalidUnitException invalidUnitException) {
+            invalidUnitException.printStackTrace();
+        }
+    }
+
+    private void syncronizeDate() {
+        Age age = readAge();
+        dateOfBirthField.setText(dateFormat.format(age.getBirthDate()));
     }
 
     /**
@@ -791,10 +811,7 @@ public class JPGUI extends javax.swing.JFrame {
                     s = doubleFormat.format(a.getValue());
                 }
                 field.setText(s);
-                try {
-                    dateOfBirthField.setText(dateFormat.format(daysDifference((long) a.getValueInUnit(AgeUnit.DÍA))));
-                } catch (InvalidUnitException ex) {
-                }
+                syncronizeDate();
             }
             return valid;
         }
@@ -929,52 +946,58 @@ public class JPGUI extends javax.swing.JFrame {
          */
         private boolean checkDateOfBirthField(JTextField field, boolean setIt) {
             boolean valid = false;
-            long days = 0;
+            double years = 0;
             Date now = Calendar.getInstance().getTime();
             Date birth = now;
-            long MAX;
+            double MAX;
             try {
-                MAX = (long) new Age(19, AgeUnit.AÑO).getValueInUnit(AgeUnit.DÍA);
+                MAX = (long) new Age(19, AgeUnit.AÑO).getValueInUnit(AgeUnit.AÑO);
             } catch (InvalidUnitException ex) {
                 ex.printStackTrace();
                 return false; //Should not happen
             }
             try {
                 birth = dateFormat.parse(field.getText());
-                days = daysDifference(birth, now);
-                if ((birth.before(now) || birth.equals(now)) && (days <= MAX)) {
+                years = new Age(birth).getValueInUnit(AgeUnit.AÑO);
+                if ((birth.before(now) || birth.equals(now)) && (years <= MAX)) {
                     valid = true;
                 }
             } catch (Exception e) {
                 valid = false;
-                days = 0;
+                years = 0;
             }
             if (setIt) {
                 if (!valid) {
                     birth = now;
-                    days = 0;
+                    years = 0;
                 } else {
                 }
                 field.setText(dateFormat.format(birth));
-                ageField.setText(doubleFormat.format(days));
-                ageComboBox.setSelectedIndex(0);
+                syncronizeAge();
             }
             return valid;
-        }
-
-        private long daysDifference(Date date, Date anotherDate) {
-            long dif = date.getTime() - anotherDate.getTime();
-            if (Long.signum(dif) == -1) {
-                dif = -dif;
-            }
-            long días = dif / (1000 * 60 * 60 * 24);
-            return días;
         }
 
         private Date daysDifference(long days) {
             Date date = Calendar.getInstance().getTime();
             date.setTime(date.getTime() - days * (1000 * 60 * 60 * 24));
             return date;
+        }
+    }
+
+    /**
+     * Acción para cambiar el valor del campo de edad de acuerdo al cambio del
+     * ComboBox
+     */
+    private class AgeSyncronizer implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() instanceof JComboBox) {
+                JComboBox jComboBox = (JComboBox) e.getSource();
+                if (jComboBox == ageComboBox) {
+                    syncronizeAge();
+                }
+            }
         }
     }
 
