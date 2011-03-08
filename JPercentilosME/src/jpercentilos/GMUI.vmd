@@ -337,6 +337,8 @@
                     <Property name="commands" typeID="1C#CommandEventSource" value="A3:4_R1134_R1144_R125"/>
                     <Property name="title" typeID="Pjava.lang.String" value="VwaitScreen"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
+                    <Property name="isFullScreen" typeID="Pboolean" value="Vtrue"/>
+                    <Property name="text" typeID="Pjava.lang.String" value="VPor favor espere..."/>
                     <Property name="task" typeID="Corg.netbeans.microedition.util.CancellableTask" value="R115"/>
                     <Component componentID="114" typeID="C#WaitScreenFailureCommandEventSource">
                         <Property name="eventHandler" typeID="C#EventHandler" value="R117"/>
@@ -358,15 +360,20 @@
                         </Component>
                     </Component>
                     <Component componentID="125" typeID="C#CommandEventSource">
+                        <Property name="eventHandler" typeID="C#EventHandler" value="R126"/>
                         <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R110"/>
                         <Property name="command" typeID="Cjavax.microedition.lcdui.Command" value="R124"/>
+                        <Component componentID="126" typeID="C#SwitchDisplayableEventHandler">
+                            <Property name="eventSource" typeID="C#EventSource" value="R125"/>
+                            <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R14"/>
+                        </Component>
                     </Component>
                 </Component>
                 <Component componentID="118" typeID="Cjavax.microedition.lcdui.Alert">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="Valert"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R120"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="Valert"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VError"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="string" typeID="Pjava.lang.String" value="VError!"/>
                     <Property name="timeout" typeID="Pint" value="V10000"/>
@@ -392,9 +399,9 @@
         </Component>
     </Document>
     <FlowScene version="1">
-        <Node componentID="118" descriptorID="componentNode118" x="536" y="192"/>
-        <Node componentID="110" descriptorID="componentNode110" x="528" y="10"/>
         <Node componentID="2" descriptorID="componentNode2" x="24" y="26"/>
+        <Node componentID="110" descriptorID="componentNode110" x="528" y="10"/>
+        <Node componentID="118" descriptorID="componentNode118" x="536" y="192"/>
         <Node componentID="24" descriptorID="componentNode24" x="152" y="236"/>
         <Node componentID="14" descriptorID="componentNode14" x="245" y="96"/>
     </FlowScene>

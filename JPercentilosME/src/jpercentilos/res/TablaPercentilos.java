@@ -39,7 +39,7 @@ public final class TablaPercentilos extends Table {
         this(profile.getTableFile(tipo));
     }
 
-    public TablaPercentilos(TextFileReaderME.File file) throws IOException {
+    public TablaPercentilos(TextFileReaderME.ResourceFile file) throws IOException {
         super(file);
         this.name = file.getPath();
     }
@@ -92,7 +92,7 @@ public final class TablaPercentilos extends Table {
     }
 
     private LMS getLms(double value) {
-        if (value != lastValue || value == 0) {
+        if (value != lastValue || lastLMS == null) {
             double L, M, S;
             try {
                 int index = binarySearch(value, VALUE);

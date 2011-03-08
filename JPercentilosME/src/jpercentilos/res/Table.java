@@ -16,7 +16,7 @@ public class Table {
     final double[][] tabla;
 //    final String[] units;
 
-    public Table(TextFileReaderME.File fromFile) throws IOException {
+    public Table(TextFileReaderME.ResourceFile fromFile) throws IOException {
         TableReaderME tr = new TableReaderME(fromFile);
         tabla = tr.getTableAsArray();
 //        units = tr.getTableUnits();

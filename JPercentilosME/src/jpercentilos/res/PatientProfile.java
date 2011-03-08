@@ -116,12 +116,12 @@ public class PatientProfile {
         return IMC;
     }
 
-    public final TextFileReaderME.File getTableFile(TablaPercentilos.Tipo tipo) {
+    public final TextFileReaderME.ResourceFile getTableFile(TablaPercentilos.Tipo tipo) {
         StringBuffer sb = new StringBuffer("tables/");
         sb.append(tipo.toString()).append("-");
         sb.append(getAgeRange(tipo)).append("-");
         sb.append(sexo.toString());
-        return new TextFileReaderME.File(sb.toString());
+        return new TextFileReaderME.ResourceFile(sb.toString());
     }
 
     public final String getAgeRange(TablaPercentilos.Tipo tipo) { //TODO Establecer rangos segun tipo de tabla.

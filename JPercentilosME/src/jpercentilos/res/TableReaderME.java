@@ -38,7 +38,7 @@ public class TableReaderME extends TextFileReaderME {
      * @param tableString - the string to be read as table.
      * @return two dimensional array containing the double values in the string.
      */
-    public static double[][] readTable(TableReaderME.File file) throws IOException {
+    public static double[][] readTable(TableReaderME.ResourceFile file) throws IOException {
         return (new TableReaderME(file)).getTableAsArray();
     }
 
@@ -158,7 +158,7 @@ public class TableReaderME extends TextFileReaderME {
      * @param file
      * @throws IOException
      */
-    public TableReaderME(TextFileReaderME.File file) throws IOException {
+    public TableReaderME(TextFileReaderME.ResourceFile file) throws IOException {
         textRead = retrieveTextFromFile(file);
         lineBreaker = new StringTokenizerME(textRead, NLDELIM);
     }
