@@ -184,7 +184,7 @@ public final class Patient extends PatientProfile {
 //    }
     private void readTables() {
         if (!age.equals(Age.NA)) {
-            TextFileReaderME.File file;
+            TextFileReaderME.ResourceFile file;
             TablaPercentilos.Tipo[] tipo = TablaPercentilos.Tipo.values();
             for (int i = 0; i < tipo.length; i++) {
                 if (isTableAvailable(tipo[i])) {
@@ -208,7 +208,7 @@ public final class Patient extends PatientProfile {
     }
 
     public TablaPercentilos getTabla(TablaPercentilos.Tipo tipo) {
-        TextFileReaderME.File file = this.getTableFile(tipo);
+        TextFileReaderME.ResourceFile file = this.getTableFile(tipo);
         for (int i = 0; i < tablas.size(); i++) {
             TablaPercentilos tablaPercentilos = (TablaPercentilos) tablas.elementAt(i);
             if (tablaPercentilos.getName().equals(this.getTableFile(tipo).getPath())) {

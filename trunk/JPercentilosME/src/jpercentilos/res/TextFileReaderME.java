@@ -30,11 +30,11 @@ public class TextFileReaderME {
     /**
      * Class to wrap String pointing to text files.
      */
-    public static final class File {
+    public static final class ResourceFile {
 
         private final String path;
 
-        public File(String path) {
+        public ResourceFile(String path) {
             this.path = path;
         }
 
@@ -43,7 +43,7 @@ public class TextFileReaderME {
         }
     }
 
-    public static String retrieveTextFromFile(File file) throws IOException {
+    public static String retrieveTextFromFile(ResourceFile file) throws IOException {
         InputStream is = null;
         StringBuffer sb = new StringBuffer();
 //        String NL = System.getProperty("line.separator");

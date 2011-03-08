@@ -220,7 +220,7 @@ public class GMUI extends MIDlet implements CommandListener {
                 // write post-action user code here
             } else if (command == cancelCommand2) {//GEN-LINE:|7-commandAction|15|125-preAction
                 // write pre-action user code here
-//GEN-LINE:|7-commandAction|16|125-postAction
+                switchDisplayable(null, getInputDataScreen());//GEN-LINE:|7-commandAction|16|125-postAction
                 // write post-action user code here
             }//GEN-BEGIN:|7-commandAction|17|7-postCommandAction
         }//GEN-END:|7-commandAction|17|7-postCommandAction
@@ -671,6 +671,8 @@ public class GMUI extends MIDlet implements CommandListener {
             waitScreen.setTitle("waitScreen");
             waitScreen.addCommand(getCancelCommand2());
             waitScreen.setCommandListener(this);
+            waitScreen.setFullScreenMode(true);
+            waitScreen.setText("Por favor espere...");
             waitScreen.setTask(getTask());//GEN-END:|110-getter|1|110-postInit
             // write post-init user code here
         }//GEN-BEGIN:|110-getter|2|
@@ -724,7 +726,7 @@ public class GMUI extends MIDlet implements CommandListener {
     public Alert getAlert() {
         if (alert == null) {//GEN-END:|118-getter|0|118-preInit
             // write pre-init user code here
-            alert = new Alert("alert", "Error!", null, AlertType.ERROR);//GEN-BEGIN:|118-getter|1|118-postInit
+            alert = new Alert("Error", "Error!", null, AlertType.ERROR);//GEN-BEGIN:|118-getter|1|118-postInit
             alert.addCommand(getOkCommand2());
             alert.setCommandListener(this);
             alert.setTimeout(10000);//GEN-END:|118-getter|1|118-postInit

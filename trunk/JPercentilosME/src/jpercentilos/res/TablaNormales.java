@@ -25,7 +25,7 @@ import java.io.IOException;
 public class TablaNormales extends Table {
 
     public TablaNormales() throws IOException {
-            super(new TextFileReaderME.File("tables/normaltable"));
+        super(new TextFileReaderME.ResourceFile("tables/normaltable"));
     }
 
     /**
@@ -72,7 +72,7 @@ public class TablaNormales extends Table {
             }
         } else {
             if (z >= -4.99) {
-                return 1-interpolateValue(-z);
+                return 1 - interpolateValue(-z);
             } else {
                 return 0;
             }
@@ -132,5 +132,4 @@ public class TablaNormales extends Table {
             return l;
         }
     }
-
 }
