@@ -252,9 +252,6 @@
               <Connection code="verificador" type="code"/>
             </Property>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(dateFormat);"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="ageField">
           <Properties>
@@ -277,7 +274,7 @@
             <Property name="selectedIndex" type="int" value="1"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="ageComboBox.addActionListener(new AgeSyncronizer());"/>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="ageComboBox.addActionListener(verificador);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="heightField">

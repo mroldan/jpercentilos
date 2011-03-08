@@ -66,7 +66,7 @@ public class JPGUI extends javax.swing.JFrame {
         javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        dateOfBirthField = new JFormattedTextField(dateFormat);
+        dateOfBirthField = new javax.swing.JFormattedTextField();
         ageField = new javax.swing.JTextField();
         ageComboBox = new javax.swing.JComboBox();
         heightField = new javax.swing.JTextField();
@@ -143,7 +143,7 @@ public class JPGUI extends javax.swing.JFrame {
 
         ageComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(días)", "(meses)", "(años)" }));
         ageComboBox.setSelectedIndex(1);
-        ageComboBox.addActionListener(new AgeSyncronizer());
+        ageComboBox.addActionListener(verificador);
 
         heightField.setColumns(4);
         heightField.setText("66");
@@ -688,17 +688,35 @@ public class JPGUI extends javax.swing.JFrame {
         } catch (InvalidUnitException invalidUnitException) {
             invalidUnitException.printStackTrace();
         }
+        syncronizeHP();
     }
 
     private void syncronizeDate() {
         Age age = readAge();
         dateOfBirthField.setText(dateFormat.format(age.getBirthDate()));
+        syncronizeHP();
+    }
+
+    private void syncronizeHP() {
+        Age age = readAge();
+        try {
+            if (age.getValueInUnit(AgeUnit.AÑO) <= 5) {
+                HPField.setEnabled(true);
+                HPComboBox.setEnabled(true);
+            } else {
+                HPField.setEnabled(false);
+                HPComboBox.setEnabled(false);
+            }
+        } catch (InvalidUnitException iue) {
+            HPField.setEnabled(true);
+            HPComboBox.setEnabled(true);
+        }
     }
 
     /**
      * Validador de datos de entrada y formato.
      */
-    private class Verifier extends InputVerifier implements FocusListener {
+    private class Verifier extends InputVerifier implements FocusListener, ActionListener {
 
         /**
          * Si el componente seleccionado es un campo de texto, selecciona todo
@@ -978,18 +996,12 @@ public class JPGUI extends javax.swing.JFrame {
             return valid;
         }
 
+        @Deprecated
         private Date daysDifference(long days) {
             Date date = Calendar.getInstance().getTime();
             date.setTime(date.getTime() - days * (1000 * 60 * 60 * 24));
             return date;
         }
-    }
-
-    /**
-     * Acción para cambiar el valor del campo de edad de acuerdo al cambio del
-     * ComboBox
-     */
-    private class AgeSyncronizer implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() instanceof JComboBox) {
