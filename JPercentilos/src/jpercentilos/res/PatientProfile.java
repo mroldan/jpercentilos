@@ -11,7 +11,10 @@ import jpercentilos.res.Length.Height;
 import jpercentilos.res.Magnitude.*;
 
 /**
- * Class containing Patient info and methods to handle data retrieving.
+ * Objeto que contiene datos de paciente y métodos para manejarlos. Es un objeto
+ * inmutable para ser seguro y confiable, es decir, los datos no inicializados
+ * en el constructor no pueden ser agregados luego y tampoco se pueden modificar
+ * datos inicializados.
  * 
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
  */
@@ -20,12 +23,12 @@ public class PatientProfile {
     protected final Sexo sexo;
     protected final Age age; // Edad
     protected final Height height;  // Altura
-    protected final HeadPerimeter headPerimeter; // Perímetro
+    protected final HeadPerimeter headPerimeter; // Perímetro cefálico
     protected final Weight weight; // Peso
     protected Vector availableTable = new Vector(2);
 
     /**
-     * Constructs a <code>PatientProfile<code> object with all parameters set.
+     * Crea un objeto <code>PatientProfile<code> con todos los datos.
      * @param sexo
      * @param age
      * @param height
@@ -41,26 +44,66 @@ public class PatientProfile {
         lookForAvailableTables();
     }
 
+    /**
+     * Crea un objeto <code>PatientProfile<code> con los datos especificados. El
+     * resto se inicializa a <code>NA<code> y su búsqueda lanza una exepción.
+     * @param sexo
+     * @param age
+     * @param height
+     * @param weight
+     */
     public PatientProfile(Sexo sexo, Age age, Height height, Weight weight) {
         this(sexo, age, height, (HeadPerimeter) HeadPerimeter.NA, weight);
     }
 
+    /**
+     * Crea un objeto <code>PatientProfile<code> con los datos especificados. El
+     * resto se inicializa a <code>NA<code> y su búsqueda lanza una exepción.
+     * @param height
+     * @param weight
+     */
     public PatientProfile(Height height, Weight weight) {
         this(Sexo.NA, Age.NA, height, weight);
     }
 
+    /**
+     * Crea un objeto <code>PatientProfile<code> con los datos especificados. El
+     * resto se inicializa a <code>NA<code> y su búsqueda lanza una exepción.
+     * @param sexo
+     * @param age
+     * @param height
+     */
     public PatientProfile(Sexo sexo, Age age, Height height) {
         this(sexo, age, height, Weight.NA);
     }
 
+    /**
+     * Crea un objeto <code>PatientProfile<code> con los datos especificados. El
+     * resto se inicializa a <code>NA<code> y su búsqueda lanza una exepción.
+     * @param sexo
+     * @param age
+     * @param weight
+     */
     public PatientProfile(Sexo sexo, Age age, Weight weight) {
         this(sexo, age, (Height) Height.NA, weight);
     }
 
+    /**
+     * Crea un objeto <code>PatientProfile<code> con los datos especificados. El
+     * resto se inicializa a <code>NA<code> y su búsqueda lanza una exepción.
+     * @param sexo
+     * @param age
+     * @param headPerimeter
+     */
     public PatientProfile(Sexo sexo, Age age, HeadPerimeter headPerimeter) {
         this(sexo, age, (Height) Height.NA, headPerimeter, Weight.NA);
     }
 
+    /**
+     * Devuelve el objeto <code>Age<code> representando la edad del paciente.
+     * @return
+     * @throws jpercentilos.res.PatientProfile.DataNotFoundException
+     */
     public final Age getAge() throws DataNotFoundException {
         if (age.equals(Age.NA)) {
             throw new DataNotFoundException("Edad no especificada");
@@ -69,6 +112,13 @@ public class PatientProfile {
         }
     }
 
+    /**
+     * Devuelve el objeto <code>HeadPerimeter<code> representando el perímetro
+     * cefálico de éste paciente. Si el dato no está presente (<code>NA<code>)
+     * lanza una exepción.
+     * @return
+     * @throws jpercentilos.res.PatientProfile.DataNotFoundException
+     */
     public final HeadPerimeter getHeadPerimeter() throws DataNotFoundException {
         if (headPerimeter.equals(HeadPerimeter.NA)) {
             throw new DataNotFoundException("PC no especificado");
@@ -77,6 +127,12 @@ public class PatientProfile {
         }
     }
 
+    /**
+     * Devuelve el objeto <code>Height<code> representando la talla de éste
+     * paciente. Si el dato no está presente se lanza una exepción.
+     * @return
+     * @throws jpercentilos.res.PatientProfile.DataNotFoundException
+     */
     public final Height getHeight() throws DataNotFoundException {
         if (height.equals(Height.NA)) {
             throw new DataNotFoundException("Talla no especificada");
@@ -85,6 +141,12 @@ public class PatientProfile {
         }
     }
 
+    /**
+     * Devuelve el objeto <code>Sexo<code> representando el sexo de éste
+     * paciente. Si el dato no está presente se lanza una exepción.
+     * @return
+     * @throws jpercentilos.res.PatientProfile.DataNotFoundException
+     */
     public final Sexo getSex() throws DataNotFoundException {
         if (sexo.equals(Sexo.NA)) {
             throw new DataNotFoundException("Sexo no especificado");
@@ -93,6 +155,12 @@ public class PatientProfile {
         }
     }
 
+    /**
+     * Devuelve el objeto <code>Weight<code> representando el peso de éste
+     * paciente. Si el dato no está presente se lanza una exepción.
+     * @return
+     * @throws jpercentilos.res.PatientProfile.DataNotFoundException
+     */
     public final Weight getWeight() throws DataNotFoundException {
         if (weight.equals(Weight.NA)) {
             throw new DataNotFoundException("Peso no especificado");
@@ -101,6 +169,12 @@ public class PatientProfile {
         }
     }
 
+    /**
+     * Devuelve el Índice de Masa Corporal de éste paciente. Si el dato no se
+     * puede calcular por faltar el peso o la talla se lanza una exepción.
+     * @return
+     * @throws jpercentilos.res.PatientProfile.DataNotFoundException
+     */
     public final double getIMC() throws DataNotFoundException {
         double w = 0;
         double h = 0;
@@ -116,7 +190,13 @@ public class PatientProfile {
         return IMC;
     }
 
-    public final TextScanner.ResourceFile getTableFile(TablaPercentilos.Tipo tipo) {
+    /**
+     * Devuelve un objeto <code>ResourceFile<code> con la ruta del archivo de
+     * recurso que contiene la tabla del <code>tipo<code> especificado.
+     * @param tipo
+     * @return
+     */
+    protected final TextScanner.ResourceFile getTableFile(TablaPercentilos.Tipo tipo) {
         StringBuilder sb = new StringBuilder("tables/");
         sb.append(tipo.toString()).append("-");
         sb.append(getAgeRange(tipo)).append("-");
@@ -124,7 +204,13 @@ public class PatientProfile {
         return new TextScanner.ResourceFile(sb.toString());
     }
 
-    public final String getAgeRange(TablaPercentilos.Tipo tipo) { //TODO Establecer rangos segun tipo de tabla.
+    /**
+     * Devuelve la cadena correspondiente al rango de edades para el <code>tipo<code>
+     * especificado
+     * @param tipo
+     * @return
+     */
+    protected final String getAgeRange(TablaPercentilos.Tipo tipo) { //TODO Establecer rangos segun tipo de tabla.
         if (tipo == TablaPercentilos.Tipo.TALLA_A_EDAD) {
             return getAgeRangeHeightToAge();
         } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD) {
@@ -204,6 +290,10 @@ public class PatientProfile {
         return range;
     }
 
+    /**
+     * Busca las tablas que se pueden utilizar para éste paciente con los datos
+     * ingresados
+     */
     private void lookForAvailableTables() {
         try {
             if (!age.equals(Age.NA) && age.getValueInUnit(Dimensionizable.AgeUnit.AÑO) <= 19) {
@@ -224,10 +314,20 @@ public class PatientProfile {
         }
     }
 
+    /**
+     * Devuelve <code>true<code> si la tabla del <code>tipo<code> especificado
+     * corresponde para éste paciente
+     * @param tipo
+     * @return
+     */
     public boolean isTableAvailable(TablaPercentilos.Tipo tipo) {
         return availableTable.contains(tipo);
     }
 
+    /**
+     * Enumeración de sexos incluyendo un marcador <code>NA<code> utilizado
+     * cuando no hay información.
+     */
     public static final class Sexo {
 
         private final String name;
@@ -248,6 +348,10 @@ public class PatientProfile {
         }
     }
 
+    /**
+     * Exepción que se debe lanzar cuando no se encuentra un dato en éste
+     * <code>PatientProfile<code>.
+     */
     public static final class DataNotFoundException extends Exception {
 
         public DataNotFoundException(String message) {

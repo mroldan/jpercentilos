@@ -23,8 +23,8 @@ import jpercentilos.res.PatientProfile.DataNotFoundException;
 import jpercentilos.res.TablaPercentilos.Tipo;
 
 /**
- * Class containing methods to calculate and get strings to be shown in the main
- * GUI.
+ * Objeto que contiene métodos para obtener cadenas a partir de datos obtenidos
+ * del paciente y mostrarlos en el IGU
  *
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
  */
@@ -47,10 +47,18 @@ public class CalcHelper {
         return df;
     }
 
+    /**
+     * Crea un objeto <code>CalcHelper<code> para el paciente especificado.
+     * @param patient
+     */
     public CalcHelper(Patient patient) {
         this.patient = patient;
     }
 
+    /**
+     * Obtiene la cadena a mostrar en el campo de IMC.
+     * @return
+     */
     String getIMCString() {
         String s;
         try {
@@ -61,6 +69,11 @@ public class CalcHelper {
         return s;
     }
 
+    /**
+     * Obtiene la cadena a mostrar en el campo de percentilo para un tipo dado.
+     * @param tipo
+     * @return
+     */
     String getCentileStringForType(Tipo tipo) {
         String s;
         if (patient.isTableAvailable(tipo)) {
@@ -81,10 +94,36 @@ public class CalcHelper {
         return s;
     }
 
+    /**
+     * Obtiene la cadena a mostrar en la etiqueta de estado para cada tipo.
+     * @param tipo
+     * @return
+     */
     String getStatusStringForType(Tipo tipo) {
-        return "SIN DETERMINAR";
+        final String NA = "SIN DETERMINAR";
+        String s;
+        if (patient.isTableAvailable(tipo)) {
+            try {
+                double observedValue = patient.getValueFor(tipo);
+                double forInputValue = patient.getInputValueFor(tipo);
+                double zScore = patient.getTabla(tipo).getZScore(observedValue, forInputValue);
+                s = patient.getStatusForZScore(zScore).name();
+            } catch (InvalidUnitException invalidUnitException) {
+                s = NA;
+            } catch (DataNotFoundException dataNotFoundException) {
+                s = NA;
+            }
+        } else {
+            s = NA;
+        }
+        return s;
     }
 
+    /**
+     * Obtiene la cadena a mostrar en el campo de zScore para un tipo dado.
+     * @param tipo
+     * @return
+     */
     String getZScoreStringForType(Tipo tipo) {
         String s;
         if (patient.isTableAvailable(tipo)) {
