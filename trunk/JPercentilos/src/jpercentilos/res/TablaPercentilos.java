@@ -21,6 +21,7 @@ import java.util.NoSuchElementException;
 import jpercentilos.res.TextScanner.ResourceFile;
 
 /**
+ * Objeto para el manejo de tablas de percentilos y obtención de resultados.
  *
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
  */
@@ -36,6 +37,13 @@ public final class TablaPercentilos extends Table {
     private LMS lastLMS;
     private static TablaNormales TABLA_NORMALES = initializeTablaNormales();
 
+    /**
+     * Crea un objeto <code>TablaPercentilos<code> para el paciente y tipo
+     * especificado por <code>profile<code> y <code>tipo<code>.
+     * @param profile
+     * @param tipo
+     * @throws IOException
+     */
     public TablaPercentilos(PatientProfile profile, Tipo tipo) throws IOException {
         this(profile.getTableFile(tipo));
     }
@@ -57,14 +65,34 @@ public final class TablaPercentilos extends Table {
 
     }
 
+    /**
+     * Obtiene el percentilo correspondiente al zScore especificado. Básicamente
+     * es un cálculo de fractiles.
+     * @param zScore
+     * @return
+     */
     public double getCentile(double zScore) {
         return TABLA_NORMALES.getPz(zScore);
     }
 
+    /**
+     * Devuelve la cadena con el nombre de ésta tabla (el nombre del archivo del
+     * que fue leída).
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Devuelve el zScore para el valor observado (<code>observedValue<code>) y
+     * valor de entrada a la tabla (<code>forInputValue<code>), éste último es
+     * el devuelto por el método <code>getInputValue<code> del objeto
+     * <code>PatientPrfile<code>.
+     * @param observedValue
+     * @param forInputValue
+     * @return
+     */
     public double getZScore(double observedValue, double forInputValue) {
         LMS lms = getLms(forInputValue);
         System.out.println("LMS: " + lms.getL() + ", " + lms.getM() + ", " + lms.getS());
@@ -87,6 +115,15 @@ public final class TablaPercentilos extends Table {
         return zS;
     }
 
+    /**
+     * Devuelve el percentilo para el valor observado (<code>observedValue<code>)
+     * y valor de entrada a la tabla (<code>forInputValue<code>), éste último es
+     * el devuelto por el método <code>getInputValue<code> del objeto
+     * <code>PatientPrfile<code>.
+     * @param observedValue
+     * @param forInputValue
+     * @return
+     */
     public double getCentile(double observedValue, double forInputValue) {
         double zScore = getZScore(observedValue, forInputValue);
         return TABLA_NORMALES.getPz(zScore);
@@ -141,7 +178,7 @@ public final class TablaPercentilos extends Table {
     }
 
     /**
-     * Enum for Table types.
+     * Enumeración de tipos de tablas.
      */
     public static enum Tipo {
 

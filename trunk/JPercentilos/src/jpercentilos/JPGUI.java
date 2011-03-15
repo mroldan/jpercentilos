@@ -363,17 +363,17 @@ public class JPGUI extends javax.swing.JFrame {
                             .addComponent(IMCForAgePzField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelWeightForAgeStatus)
-                            .addComponent(labelHeightForAgeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelHPforAgeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelIMCForAgeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(labelHeightForAgeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                            .addComponent(labelHPforAgeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                            .addComponent(labelIMCForAgeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                            .addComponent(labelWeightForAgeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(weightForHeightPzField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelWeightForHeightStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel10, jLabel16, jLabel7, jLabel8, jLabel9});
@@ -714,7 +714,8 @@ public class JPGUI extends javax.swing.JFrame {
     }
 
     /**
-     * Validador de datos de entrada y formato.
+     * Validador de datos de entrada y formato. También se encarga de la
+     * actualización del GUI
      */
     private class Verifier extends InputVerifier implements FocusListener, ActionListener {
 
@@ -1015,7 +1016,7 @@ public class JPGUI extends javax.swing.JFrame {
 
     /**
      * Acción que calcula los percentilos. Crea un objeto Patient con los datos
-     * asignados. Imprime en el GUI los datos obtenidos
+     * asignados. Imprime en el IGU los datos obtenidos.
      */
     private class CalculateAction extends AbstractAction {
 
@@ -1041,6 +1042,11 @@ public class JPGUI extends javax.swing.JFrame {
             return new Patient(sexo, age, height, headPerimeter, weight);
         }
 
+        /**
+         * Muestra en el IGU los resultados obtenidos de los parámetros de
+         * entrada.
+         * @param ch
+         */
         private void showResults(CalcHelper ch) {
             showOutputString(ch.getIMCString(), IMCOutputField);
             for (Tipo tipo : Tipo.values()) {

@@ -414,21 +414,21 @@
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="labelWeightForAgeStatus" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelHeightForAgeStatus" min="-2" pref="97" max="-2" attributes="0"/>
-                              <Component id="labelHPforAgeStatus" min="-2" pref="97" max="-2" attributes="0"/>
-                              <Component id="labelIMCForAgeStatus" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                              <Component id="labelHeightForAgeStatus" alignment="0" pref="97" max="32767" attributes="1"/>
+                              <Component id="labelHPforAgeStatus" alignment="0" pref="97" max="32767" attributes="1"/>
+                              <Component id="labelIMCForAgeStatus" alignment="0" pref="97" max="32767" attributes="1"/>
+                              <Component id="labelWeightForAgeStatus" alignment="0" max="32767" attributes="1"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel17" linkSize="3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="weightForHeightPzField" linkSize="2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="labelWeightForHeightStatus" min="-2" pref="97" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
