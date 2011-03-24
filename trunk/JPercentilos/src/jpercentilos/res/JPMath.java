@@ -22,7 +22,20 @@ package jpercentilos.res;
  *
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
  */
-public class JPMath {
+public final class JPMath {
 
-
+    
+    /**
+     * Devuelve el factorial de un entero <code>n<code> positivo.
+     * @param n
+     * @return
+     * @throws Exception - Si <code>n<code> es negativo.
+     */
+    public static long fact(int n) throws Exception {
+        if (n <= 1) {
+            return 1;
+        } else {
+            return n * fact(n - 1);
+        }
+    }
 }
