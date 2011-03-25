@@ -99,16 +99,16 @@ public final class TablaPercentilos extends Table {
         double L = lms.getL(),
                 M = lms.getM(),
                 S = lms.getS();
-        double pow = Math.pow(observedValue / M, L);
+        double pow = JPMath.pow(observedValue / M, L);
         double zS = (pow - 1) / (L * S);
-        if (Math.abs(zS) > 3) { //TODO revisar.
+        if (JPMath.abs(zS) > 3) {
             if (zS < -3) {
-                double s23neg = M * (Math.pow(1 + L * S * (-2), L) - Math.pow(1 + L * S * (-3), L));
-                double s3neg = M * Math.pow(1 + L * S * (-3), L);
+                double s23neg = M * (JPMath.pow(1 + L * S * (-2), L) - JPMath.pow(1 + L * S * (-3), L));
+                double s3neg = M * JPMath.pow(1 + L * S * (-3), L);
                 zS = -3 + (observedValue - s3neg) / (s23neg);
             } else {
-                double s23pos = M * (Math.pow(1 + L * S * 3, L) - Math.pow(1 + L * S * 2, L));
-                double s3pos = M * Math.pow(1 + L * S * 3, L);
+                double s23pos = M * (JPMath.pow(1 + L * S * 3, L) - JPMath.pow(1 + L * S * 2, L));
+                double s3pos = M * JPMath.pow(1 + L * S * 3, L);
                 zS = 3 + (observedValue - s3pos) / (s23pos);
             }
         }

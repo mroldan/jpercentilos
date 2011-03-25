@@ -129,7 +129,7 @@ public final class Patient extends PatientProfile {
         } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD) {
             return getWeight().getValueInUnit(Dimensionizable.WeightUnit.KG);
         } else if (tipo == TablaPercentilos.Tipo.PC_A_EDAD) {
-            return getHeadPerimeter().getValueInUnit(Dimensionizable.LengthUnit.CM); //TODO Chequear unidad
+            return getHeadPerimeter().getValueInUnit(Dimensionizable.LengthUnit.CM); 
         } else if (tipo == TablaPercentilos.Tipo.IMC_A_EDAD) {
             return getIMC();
         } else if (tipo == TablaPercentilos.Tipo.PESO_A_TALLA) {
@@ -180,7 +180,7 @@ public final class Patient extends PatientProfile {
     /**
      * Enumeración de estados posibles para un parámetro dado.
      */
-    public enum Status { //TODO Status
+    public enum Status { 
 
         DEFICIT,
         LOW,

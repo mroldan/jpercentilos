@@ -1066,7 +1066,7 @@ public class JPGUI extends javax.swing.JFrame {
             } else if (tipo == TablaPercentilos.Tipo.IMC_A_EDAD) {
                 return IMCForAgeCentField;
             } else if (tipo == TablaPercentilos.Tipo.PESO_A_TALLA) {
-                return weightForHeightCentField; //TODO Peso a talla
+                return weightForHeightCentField; 
             } else {
                 return null; // Should not happend
             }
