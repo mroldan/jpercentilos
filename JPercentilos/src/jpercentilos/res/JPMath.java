@@ -14,7 +14,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package jpercentilos.res;
 
 /**
@@ -23,76 +22,101 @@ package jpercentilos.res;
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
  * @autor Zielinski Leonardo Daniel <leonardo_03z@hotmail.com>
  */
-
-
 public final class JPMath {
 
-    int k = 1;
-    int n = 0;
-    double sumatoria;
-    double fin;
-    double iteracion1;
-    double multiplicador;
-
-    public double erf(double z) {
-
-        multiplicador = (2 / Math.sqrt(Math.PI));
-
-        iteracion1 = (2 / Math.sqrt(Math.PI)) * (z / 2 * n) * ((Math.pow(-z, 2)) / k);
-
-        for (n = 1; n < 20; n++) {
-
-            sumatoria = (z / 2 * n);
-
-            for (k = 1; k < n; k++) {
-
-                fin = (sumatoria) * ((Math.pow(-z, 2)) / k);
-
-
-            } // fin del for anidado
-
-        } // fin del for
-        return fin;
+    private JPMath() {
     }
-} // fin de la clase JPMath
-/*
- *
- */
-/*
 
-<<< .mine
-=======
-    
+    /**
+     * Devuelve la función error de un valor real <code>z<code>.
+     * @param z
+     * @return erf(z)
+     */
+    public static double erf(double z) {
+        double e;
+        double res;
+        res = z;
+        for (int n = 1; n < 20; n++) {
+            e = (z / (2 * n + 1));
+            double multiplicador = 1;
+            for (int k = 1; k < n; k++) {
+                multiplicador *= ( -Math.pow(z, 2) / k);
+            } // fin del for anidado
+            e *= multiplicador;
+            res += e;
+        } // fin del for
+        return (2 / Math.sqrt(Math.PI)) * res;
+    }
+
+    /**
+     * Devuelve la función error complementaria de un valor real <code>z<code>.
+     * @param z
+     * @return erfc(z) = 1 - erf(z)
+     */
+    public static double erfc(double z) {
+        return 1 - erf(z);
+    }
+
     /**
      * Devuelve el factorial de un entero <code>n<code> positivo.
      * @param n
      * @return
      * @throws Exception - Si <code>n<code> es negativo.
      */
-        /*
-    public static long
-
-fact(int n) throws Exception {
-        if (n <= 1) {
+    public static long fact(int n) throws Exception {
+        if (n <= 1 && n >= 0) {
             return 1;
-
-
-
-
-
-
-
-
-} else {
+        } else if (n > 1) {
             return n * fact(n - 1);
-
-
-
-
-}
+        } else {
+            throw new Exception("Entero inválido para calcular factorial: " + n);
+        }
     }
 
+    /**
+     * Devuelve la función de distribución de probabilidad normal estandar de un
+     * valor real <code>z<code>.
+     * @param z
+     * @return phi(z)
+     */
+    public static double phi(double z) {
+        return 1 / 2 * erfc(-z / Math.sqrt(2));
+    }
 
+    /**
+     * Devuelve el logaritmo natural de la variable <code>x<code>.
+     * @param x
+     * @return ln(x)
+     */
+    public static double logn(double x) {
+        return Math.log(x);
+    }
 
->>>>>>> .r50
-*/
+    /**
+     * Devuelve e^x para <code>x<code>.
+     * @param x
+     * @return e^x
+     */
+    public static double exp(double x) {
+        return Math.exp(x);
+    }
+
+    /**
+     * Devuelve el primer argumento elevado al segundo argumento.
+     * @param x
+     * @param y
+     * @return x^y
+     */
+    public static double pow(double x, double y) {
+        return Math.pow(x, y);
+    }
+
+    /**
+     * Devuelve el valor absoluto del argunmento.
+     * @param a
+     * @return 'a' sin signo.
+     */
+    static double abs(double a) {
+        return Math.abs(a);
+    }
+}

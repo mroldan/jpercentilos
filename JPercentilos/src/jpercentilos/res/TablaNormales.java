@@ -37,7 +37,7 @@ public class TablaNormales {
      * @param sigma
      * @return
      */
-    public double getPx(double x, double mu, double sigma) {
+    public static double getPx(double x, double mu, double sigma) {
         double z = getStandardZ(x, mu, sigma);
         return getPz(z);
     }
@@ -48,8 +48,9 @@ public class TablaNormales {
      * @param z
      * @return
      */
-    public double getPz(double z) {
-        return findInTable(z);
+    public static double getPz(double z) {
+//        return findInTable(z);
+        return JPMath.phi(z);
     }
 
     public static double getStandardZ(double x, double mu, double sigma) {
@@ -114,7 +115,7 @@ public class TablaNormales {
      * @return
      */
     private static double[] splitValue(double z) {
-        double[] res = new double[2]; //TODO Dividir el número
+        double[] res = new double[2];
         res[0] = StrictMath.floor(z);
         res[1] = (z - StrictMath.floor(z));
         return res;
@@ -126,7 +127,7 @@ public class TablaNormales {
         double lz = StrictMath.floor(z * 100) / 100;
         double hz = StrictMath.ceil(z * 100) / 100;
         if (l != h) {
-            return (l + (z - lz) * (h - l) / (hz - lz)); //TODO Buscar valores de z correspondientes a la tabla
+            return (l + (z - lz) * (h - l) / (hz - lz)); 
         } else {
             return l;
         }

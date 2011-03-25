@@ -210,7 +210,7 @@ public class PatientProfile {
      * @param tipo
      * @return
      */
-    protected final String getAgeRange(TablaPercentilos.Tipo tipo) { //TODO Establecer rangos segun tipo de tabla.
+    protected final String getAgeRange(TablaPercentilos.Tipo tipo) {
         if (tipo == TablaPercentilos.Tipo.TALLA_A_EDAD) {
             return getAgeRangeHeightToAge();
         } else if (tipo == TablaPercentilos.Tipo.PESO_A_EDAD) {
