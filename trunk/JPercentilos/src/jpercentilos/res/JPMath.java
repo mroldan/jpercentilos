@@ -37,15 +37,15 @@ public final class JPMath {
         double res;
         res = z;
         for (int n = 1; n < 20; n++) {
-            e = (z / (2 * n + 1));
+            e = (z / (double)(2 * n + 1));
             double multiplicador = 1;
             for (int k = 1; k < n; k++) {
-                multiplicador *= ( -Math.pow(z, 2) / k);
+                multiplicador *= ( -Math.pow(z, 2) / (double)k);
             } // fin del for anidado
             e *= multiplicador;
             res += e;
         } // fin del for
-        return (2 / Math.sqrt(Math.PI)) * res;
+        return ((double)2 / Math.sqrt(Math.PI)) * res;
     }
 
     /**
@@ -54,7 +54,8 @@ public final class JPMath {
      * @return erfc(z) = 1 - erf(z)
      */
     public static double erfc(double z) {
-        return 1 - erf(z);
+        double erfc = (1 - erf(z));
+        return erfc;
     }
 
     /**
@@ -80,7 +81,8 @@ public final class JPMath {
      * @return phi(z)
      */
     public static double phi(double z) {
-        return 1 / 2 * erfc(-z / Math.sqrt(2));
+        double phi = ((double)1 / (double)2) * erfc(-z / Math.sqrt(2));
+        return phi;
     }
 
     /**
