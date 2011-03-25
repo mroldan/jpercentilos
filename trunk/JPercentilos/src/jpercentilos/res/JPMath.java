@@ -24,6 +24,8 @@ package jpercentilos.res;
  */
 public final class JPMath {
 
+    private static final double PRECISION = 1e-8;
+
     private JPMath() {
     }
 
@@ -36,16 +38,17 @@ public final class JPMath {
         double e;
         double res;
         res = z;
-        for (int n = 1; n < 20; n++) {
-            e = (z / (double)(2 * n + 1));
+        e = res;
+        for (int n = 1; n < 20 || e/res > PRECISION; n++) { //TODO Revisar el criterio de parada de acuerdo al error
+            e = (z / (double) (2 * n + 1));
             double multiplicador = 1;
             for (int k = 1; k < n; k++) {
-                multiplicador *= ( -Math.pow(z, 2) / (double)k);
+                multiplicador *= (-Math.pow(z, 2) / (double) k);
             } // fin del for anidado
             e *= multiplicador;
             res += e;
         } // fin del for
-        return ((double)2 / Math.sqrt(Math.PI)) * res;
+        return ((double) 2 / Math.sqrt(Math.PI)) * res;
     }
 
     /**
@@ -81,7 +84,7 @@ public final class JPMath {
      * @return phi(z)
      */
     public static double phi(double z) {
-        double phi = ((double)1 / (double)2) * erfc(-z / Math.sqrt(2));
+        double phi = ((double) 1 / (double) 2) * erfc(-z / Math.sqrt(2));
         return phi;
     }
 
