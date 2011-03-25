@@ -50,7 +50,8 @@ public class TablaNormales {
      */
     public static double getPz(double z) {
 //        return findInTable(z);
-        return JPMath.phi(z);
+        double per = JPMath.phi(z);
+        return per;
     }
 
     public static double getStandardZ(double x, double mu, double sigma) {
