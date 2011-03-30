@@ -107,6 +107,7 @@
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="label" typeID="Pjava.lang.String" value="VCancel"/>
                     <Property name="type" typeID="Pint" value="V3"/>
+                    <Property name="priority" typeID="Pint" value="V0"/>
                 </Component>
             </Component>
             <Component componentID="10" typeID="C#DisplayablesCategory">
@@ -399,10 +400,10 @@
         </Component>
     </Document>
     <FlowScene version="1">
-        <Node componentID="2" descriptorID="componentNode2" x="24" y="26"/>
-        <Node componentID="110" descriptorID="componentNode110" x="528" y="10"/>
         <Node componentID="118" descriptorID="componentNode118" x="536" y="192"/>
+        <Node componentID="110" descriptorID="componentNode110" x="528" y="10"/>
         <Node componentID="24" descriptorID="componentNode24" x="152" y="236"/>
+        <Node componentID="2" descriptorID="componentNode2" x="24" y="26"/>
         <Node componentID="14" descriptorID="componentNode14" x="245" y="96"/>
     </FlowScene>
 </VisualDesign>

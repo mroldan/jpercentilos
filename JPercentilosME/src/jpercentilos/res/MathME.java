@@ -10,7 +10,7 @@ package jpercentilos.res;
  */
 public final class MathME {
 
-    private static final double DEFAULT_PRECISION = 1e-8;
+    public static final double DEFAULT_PRECISION = 1e-8;
 
     private MathME() {
     }
@@ -20,29 +20,45 @@ public final class MathME {
     }
 
     private static double exp(double a, double precision) {
-        int iterMax = 20;
-        double sum = 1;
-        double e = sum;
-        for (int i = 2; (i <= iterMax) && (Math.abs(e) > precision); i++) {
+        int iterMax = 50;
+        double sum = 1 + a;
+        double e = a;
+        int i = 2;
+        do {            
             e = realPow(a, i) / fact(i);
             sum += e;
-        }
+            i++;
+        } while (i < iterMax && Math.abs(e / sum) > precision);
         return sum;
     }
 
-    private static long fact(int a) {
-        if (a == 1 || a == 0) {
+    /**
+     * Devuelve el factorial de un entero <code>n<code> positivo.
+     * @param n
+     * @return
+     */
+    public static long fact(int n) {
+        if (n <= 1 && n >= 0) {
             return 1;
+        } else if (n > 1) {
+            return n * fact(n - 1);
         } else {
-            return a * fact(a - 1);
+            return 0;
         }
     }
 
-    private static double log(double a, double precision) {
+    /**
+     * Devuelve el logaritmo natural de un valor <code>a<code>. El criterio de
+     * paro es el dado por el parámetro <code>precision<code>.
+     * @param a
+     * @param precision
+     * @return ln(a)
+     */
+    public static double log(double a, double precision) { //TODO Agregar situaciones excepcionales
         if (a == 1) {
             return 0;
         }
-        int iterMax = 20;
+        int iterMax = 50;
         // true if a is greater than 1
         boolean gt1 = (Math.sqrt((a - 1) * (a - 1)) <= 1) ? false : true;
         double e, sum;
@@ -50,15 +66,15 @@ public final class MathME {
         if (gt1) {
             sum = 1 / (a / a - 1);
             e = sum;
-            for (int i = 2; (i <= iterMax) && (Math.abs(e) > precision); i++) {
+            for (int i = 2; (i <= iterMax) && (Math.abs(e / sum) > precision); i++) {
                 e = 1 / realPow((a / a - 1), i);
                 sum += e;
             }
         } else {
             sum = a - 1;
             e = sum;
-            for (int i = 2; (i <= iterMax) || (Math.abs(e) > precision); i++) {
-                e = sign * realPow((a - 1), i) / i;
+            for (int i = 2; (i <= iterMax) && (Math.abs(e / sum) > precision); i++) {
+                e = sign * realPow((a - 1), i) / (double) i;
                 sum += e;
                 sign *= -1; // change sign
             }
@@ -66,17 +82,29 @@ public final class MathME {
         return sum;
     }
 
+    /**
+     * Devuelve el logaritmo natural de un valor <code>a<code> con la precisión
+     * por defecto de 8 cifras significativas.
+     * @param a
+     * @return
+     */
     public static double log(double a) {
         return log(a, DEFAULT_PRECISION);
     }
 
+    /**
+     * Devuelve el primer argumento elevado al segundo argumento.
+     * @param a
+     * @param b
+     * @return a^b
+     */
     public static double pow(double a, double b) {
-        // is exponent a negative number
+        // es exponente negativo?
         if (b < 0) {
             a = 1 / a;
             b *= -1;
         }
-        // is exponent a whole number?
+        // el exponente es un número entero?
         if ((b - Math.floor(b)) == 0) {
             return realPow(a, (int) b);
         }
@@ -87,6 +115,8 @@ public final class MathME {
         double p = a;
         if (b == 0 && a != 0) {
             return 1;
+        } else if (b == 1 && a != 0){
+            return a;
         } else {
             for (int i = 1; i < b; i++) {
                 p *= a;
@@ -96,49 +126,7 @@ public final class MathME {
     }
 
     private static double realPow(double a, double b) {
-        // true if base is greater than 1
-//        boolean gt1 = (Math.sqrt((a - 1) * (a - 1)) <= 1) ? false : true;
-//        int oc = -1; // used to alternate math symbol (+,-)
-//        int iter = 20; // number of iterations
-//        double p, x, x2, sumX, sumY;
-//        x = (gt1)
-//                ? (a / (a - 1)) : // base is greater than 1
-//                (a - 1); // base is 1 or less
-//        sumX = (gt1)
-//                ? (1 / x) : // base is greater than 1
-//                x; // base is 1 or less
-//        for (int i = 2; i < iter; i++) {
-//            // find x^iteration
-//            p = x;
-//            for (int j = 1; j < i; j++) {
-//                p *= x;
-//            }
-//            double xTemp = (gt1)
-//                    ? (1 / (i * p)) : // base is greater than 1
-//                    (p / i); // base is 1 or less
-//            sumX = (gt1)
-//                    ? (sumX + xTemp) : // base is greater than 1
-//                    (sumX + (xTemp * oc)); // base is 1 or less
-//            oc *= -1; // change math symbol (+,-)
-//        }
-//        sumX = log(a);
-//        x2 = b * sumX;
-//        sumY = 1 + x2; // our estimate
-//        for (int i = 2; i <= iter; i++) {
-//            // find x2^iteration
-//            p = x2;
-//            for (int j = 1; j < i; j++) {
-//                p *= x2;
-//            }
-//            // multiply iterations (ex: 3 iterations = 3*2*1)
-//            int yTemp = 2;
-//            for (int j = i; j > 2; j--) {
-//                yTemp *= j;
-//            }
-//            // add to estimate (ex: 3rd iteration => (x2^3)/(3*2*1) )
-//            sumY += p / yTemp;
-//        }
-        return exp(b * log(a)); // return our estimate
+        return exp(b * log(a));
     }
 
     public static double rint(double a) {
@@ -151,46 +139,16 @@ public final class MathME {
         }
     }
 
-    public static double erf(double x, double precision) {
-        if (x <= 4 && x >= -4) {
-            int iterMax = 20;
-            final double sq = 2 / Math.sqrt(Math.PI);
-            int sign = 1; // sign switch
-            double cumSum = x, // first iteration
-                    e = x;
-            for (int n = 1; (n <= iterMax) && (Math.abs(e) > precision); n++) {
-                sign *= -1;
-                e = sq * sign * (double) realPow(x, 2 * n +1) / (double) (fact(n) * (2 * n + 1));
-                cumSum += e;
-            }
-            return cumSum;
+    /**
+     * Devuelve 1 si el signo si <code>(a >= 0)<code>, -1 si <code>(a <= 0)<code>.
+     * @param a
+     * @return
+     */
+    public static double signum(double a) {
+        if (a >= 0) {
+            return 1.0;
         } else {
-            if (x < -4) {
-                return -1;
-            } else {
-                return 1;
-            }
+            return -1.0;
         }
-
-    }
-
-    public static double erf(double x) {
-        return erf(x, DEFAULT_PRECISION);
-    }
-
-    public static double erfc(double x, double presision) {
-        return 1 - erf(x, presision);
-    }
-
-    public static double erfc(double x) {
-        return erfc(x, DEFAULT_PRECISION);
-    }
-
-    public static double phi(double z, double precision) {
-        return 0.5 * erfc(-(z / Math.sqrt(2)), precision);
-    }
-
-    public static double phi(double z) {
-        return phi(z, DEFAULT_PRECISION);
     }
 }

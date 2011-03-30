@@ -963,6 +963,7 @@ public class GMUI extends MIDlet implements CommandListener {
                         inputValue;
                 try {
                     observed = patient.getValueFor(tipo[i]);
+                    System.out.println("Valor observado para " + tipo[i] + ": " + observed);
                     inputValue = patient.getInputValueFor(tipo[i]);
                     showCentile(tabla, observed, inputValue, getOutputStringItem(tipo[i]));
                 } catch (InvalidUnitException ex) {
