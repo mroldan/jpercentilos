@@ -49,8 +49,8 @@ public class TablaNormales extends Table {
      * @return
      */
     public double getPz(double z) {
-        return findInTable(z);
-//        return MathME.phi(z);
+//        return findInTable(z);
+        return JPMath.phi(z);
     }
 
     public static double getStandardZ(double x, double mu, double sigma) {

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 
 /**
+ * Objeto para el manejo de tablas de percentilos y obtención de resultados.
  *
  * @author Joaquín Ignacio Aramendía <samsagax@gmail.com>
  */
@@ -35,6 +36,13 @@ public final class TablaPercentilos extends Table {
     private LMS lastLMS;
     private static TablaNormales TABLA_NORMALES = initializeTablaNormales();
 
+    /**
+     * Crea un objeto <code>TablaPercentilos<code> para el paciente y tipo
+     * especificado por <code>profile<code> y <code>tipo<code>.
+     * @param profile
+     * @param tipo
+     * @throws IOException
+     */
     public TablaPercentilos(PatientProfile profile, Tipo tipo) throws IOException {
         this(profile.getTableFile(tipo));
     }
@@ -56,43 +64,75 @@ public final class TablaPercentilos extends Table {
 
     }
 
+    /**
+     * Obtiene el percentilo correspondiente al zScore especificado. Básicamente
+     * es un cálculo de fractiles.
+     * @param zScore
+     * @return
+     */
     public double getCentile(double zScore) {
         return TABLA_NORMALES.getPz(zScore);
     }
 
+    /**
+     * Devuelve la cadena con el nombre de ésta tabla (el nombre del archivo del
+     * que fue leída).
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Devuelve el zScore para el valor observado (<code>observedValue<code>) y
+     * valor de entrada a la tabla (<code>forInputValue<code>), éste último es
+     * el devuelto por el método <code>getInputValue<code> del objeto
+     * <code>PatientPrfile<code>.
+     * @param observedValue
+     * @param forInputValue
+     * @return
+     */
     public double getZScore(double observedValue, double forInputValue) {
         LMS lms = getLms(forInputValue);
         System.out.println("LMS: " + lms.getL() + ", " + lms.getM() + ", " + lms.getS());
         double L = lms.getL(),
                 M = lms.getM(),
                 S = lms.getS();
-        double pow = MathME.pow(observedValue / M, L);
+        double pow = JPMath.pow(observedValue / M, L);
         double zS = (pow - 1) / (L * S);
-        if (Math.abs(zS) > 3) { //TODO revisar.
+        if (JPMath.abs(zS) > 3) {
             if (zS < -3) {
-                double s23neg = M * (MathME.pow(1 + L * S * (-2), L) - MathME.pow(1 + L * S * (-3), L));
-                double s3neg = M * MathME.pow(1 + L * S * (-3), L);
+                double s23neg = M * (JPMath.pow(1 + L * S * (-2), L) - JPMath.pow(1 + L * S * (-3), L));
+                double s3neg = M * JPMath.pow(1 + L * S * (-3), L);
                 zS = -3 + (observedValue - s3neg) / (s23neg);
             } else {
-                double s23pos = M * (MathME.pow(1 + L * S * 3, L) - MathME.pow(1 + L * S * 2, L));
-                double s3pos = M * MathME.pow(1 + L * S * 3, L);
+                double s23pos = M * (JPMath.pow(1 + L * S * 3, L) - JPMath.pow(1 + L * S * 2, L));
+                double s3pos = M * JPMath.pow(1 + L * S * 3, L);
                 zS = 3 + (observedValue - s3pos) / (s23pos);
             }
         }
+        System.out.println("z-score: " + zS);
         return zS;
     }
 
+    /**
+     * Devuelve el percentilo para el valor observado (<code>observedValue<code>)
+     * y valor de entrada a la tabla (<code>forInputValue<code>), éste último es
+     * el devuelto por el método <code>getInputValue<code> del objeto
+     * <code>PatientPrfile<code>.
+     * @param observedValue
+     * @param forInputValue
+     * @return
+     */
     public double getCentile(double observedValue, double forInputValue) {
         double zScore = getZScore(observedValue, forInputValue);
-        return TABLA_NORMALES.getPz(zScore);
+        double centile = TABLA_NORMALES.getPz(zScore);
+        System.out.println("Percentilo: " + centile);
+        return centile;
     }
 
     private LMS getLms(double value) {
-        if (value != lastValue || lastLMS == null) {
+        if (value != lastValue || value == 0) {
             double L, M, S;
             try {
                 int index = binarySearch(value, VALUE);
