@@ -69,16 +69,20 @@ public final class JPMath {
             double res;
             res = z;
             err = res;
-            for (int n = 1; n < 20 || err / res > DEFAULT_PRECISION; n++) { 
-                err = (z / (double) (2 * n + 1));
+            final double constante = (2.0 / Math.sqrt(Math.PI));
+            int itermax = 50;
+            int n = 1;
+            do {
+                err = constante * (z / (double) (2 * n + 1));
                 double multiplicador = 1;
-                for (int k = 1; k < n; k++) {
-                    multiplicador *= (-pow(z, 2) / (double) k);
+                for (int k = 1; k <= n; k++) {
+                    multiplicador *= (- pow(z, 2) / (double) k);
                 } // fin del for anidado
                 err *= multiplicador;
                 res += err;
-            } // fin del for
-            return (2.0 / Math.sqrt(Math.PI)) * res;
+                n++;
+            } while (n < itermax && abs(err / res) > DEFAULT_PRECISION);
+            return res;
         }
     }
 
@@ -89,11 +93,7 @@ public final class JPMath {
      */
     public static double erfc(double z) {
         double erfc = (1.0 - erf(z));
-
-
         return erfc;
-
-
     }
 
     /**
@@ -125,11 +125,7 @@ public final class JPMath {
      */
     public static double phi(double z) {
         double phi = 0.5 * (1.0 + erf(z / Math.sqrt(2.0)));
-
-
         return phi;
-
-
     }
 
     /**
@@ -139,8 +135,6 @@ public final class JPMath {
      */
     public static double logn(double x) {
         return Math.log(x);
-
-
     }
 
     /**
@@ -162,8 +156,6 @@ public final class JPMath {
      */
     public static double pow(double x, double y) {
         return Math.pow(x, y);
-
-
     }
 
     /**
