@@ -24,7 +24,7 @@ package jpercentilos.res;
  */
 public final class JPMath {
 
-    private static final double PRECISION = 1e-8;
+    private static final double DEFAULT_PRECISION = 1e-8;
 
     private JPMath() {
     }
@@ -35,20 +35,51 @@ public final class JPMath {
      * @return erf(z)
      */
     public static double erf(double z) {
-        double e;
-        double res;
-        res = z;
-        e = res;
-        for (int n = 1; n < 20 || e/res > PRECISION; n++) { //TODO Revisar el criterio de parada de acuerdo al error
-            e = (z / (double) (2 * n + 1));
-            double multiplicador = 1;
-            for (int k = 1; k < n; k++) {
-                multiplicador *= (-Math.pow(z, 2) / (double) k);
-            } // fin del for anidado
-            e *= multiplicador;
-            res += e;
-        } // fin del for
-        return ((double) 2 / Math.sqrt(Math.PI)) * res;
+        if (z == 0) {
+            return 0;
+        } else if (z < 0) {
+            return -erf(-z);
+        } else if (z >= 1) { // z >= 1 usando cálculo por fracción continua
+            double a = 2.0 * z,
+                    b = -2.0 / Math.PI * exp(-pow(z, 2)),
+                    P,
+                    Q,
+                    conv = 1;
+            double P1 = 1, // Q0 and P0
+                    Q1 = 1,
+                    P2 = 1,
+                    Q2 = 0;
+            int n = 1;
+            final int itermax = 50;
+            double err;
+            do {
+                P = a * P1 + b * P2;
+                Q = a * Q1 + b * Q2;
+                conv = P / Q;
+                P2 = P1;
+                Q2 = Q1;
+                P1 = P;
+                Q1 = Q;
+                b = 2.0 * n;
+                err = abs((conv - P2 / Q2) / conv);
+            } while (n < itermax && err > DEFAULT_PRECISION);
+            return conv;
+        } else { // z < 1 usando cálculo por serie de taylor
+            double err;
+            double res;
+            res = z;
+            err = res;
+            for (int n = 1; n < 20 || err / res > DEFAULT_PRECISION; n++) { 
+                err = (z / (double) (2 * n + 1));
+                double multiplicador = 1;
+                for (int k = 1; k < n; k++) {
+                    multiplicador *= (-pow(z, 2) / (double) k);
+                } // fin del for anidado
+                err *= multiplicador;
+                res += err;
+            } // fin del for
+            return (2.0 / Math.sqrt(Math.PI)) * res;
+        }
     }
 
     /**
@@ -57,23 +88,32 @@ public final class JPMath {
      * @return erfc(z) = 1 - erf(z)
      */
     public static double erfc(double z) {
-        double erfc = (1 - erf(z));
+        double erfc = (1.0 - erf(z));
+
+
         return erfc;
+
+
     }
 
     /**
      * Devuelve el factorial de un entero <code>n<code> positivo.
      * @param n
-     * @return
-     * @throws Exception - Si <code>n<code> es negativo.
+     * @return n!
      */
-    public static long fact(int n) throws Exception {
+    public static long fact(int n) {
         if (n <= 1 && n >= 0) {
             return 1;
+
+
         } else if (n > 1) {
             return n * fact(n - 1);
+
+
         } else {
-            throw new Exception("Entero inválido para calcular factorial: " + n);
+            return 0;
+
+
         }
     }
 
@@ -84,8 +124,12 @@ public final class JPMath {
      * @return phi(z)
      */
     public static double phi(double z) {
-        double phi = ((double) 1 / (double) 2) * erfc(-z / Math.sqrt(2));
+        double phi = 0.5 * (1.0 + erf(z / Math.sqrt(2.0)));
+
+
         return phi;
+
+
     }
 
     /**
@@ -95,15 +139,19 @@ public final class JPMath {
      */
     public static double logn(double x) {
         return Math.log(x);
+
+
     }
 
     /**
-     * Devuelve e^x para <code>x<code>.
+     * Devuelve err^x para <code>x<code>.
      * @param x
-     * @return e^x
+     * @return err^x
      */
     public static double exp(double x) {
         return Math.exp(x);
+
+
     }
 
     /**
@@ -114,6 +162,8 @@ public final class JPMath {
      */
     public static double pow(double x, double y) {
         return Math.pow(x, y);
+
+
     }
 
     /**
@@ -123,5 +173,12 @@ public final class JPMath {
      */
     static double abs(double a) {
         return Math.abs(a);
+
+
+    }
+
+    static double signum(double a) {
+        return Math.signum(a);
+
     }
 }
