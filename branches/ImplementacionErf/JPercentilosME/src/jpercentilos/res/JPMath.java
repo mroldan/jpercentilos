@@ -76,7 +76,7 @@ public final class JPMath {
                 err = constante * (z / (double) (2 * n + 1));
                 double multiplicador = 1;
                 for (int k = 1; k <= n; k++) {
-                    multiplicador *= (- pow(z, 2) / (double) k);
+                    multiplicador *= (-pow(z, 2) / (double) k);
                 } // fin del for anidado
                 err *= multiplicador;
                 res += err;
@@ -102,19 +102,7 @@ public final class JPMath {
      * @return n!
      */
     public static long fact(int n) {
-        if (n <= 1 && n >= 0) {
-            return 1;
-
-
-        } else if (n > 1) {
-            return n * fact(n - 1);
-
-
-        } else {
-            return 0;
-
-
-        }
+        return MathME.fact(n);
     }
 
     /**
@@ -124,7 +112,7 @@ public final class JPMath {
      * @return phi(z)
      */
     public static double phi(double z) {
-        double phi = 0.5 * (1.0 + erf(z / Math.sqrt(2.0)));
+        double phi = 0.5 * (1.0 + erf(z / sqrt(2.0)));
         return phi;
     }
 
@@ -144,8 +132,6 @@ public final class JPMath {
      */
     public static double exp(double x) {
         return MathME.exp(x);
-
-
     }
 
     /**
@@ -165,12 +151,13 @@ public final class JPMath {
      */
     static double abs(double a) {
         return Math.abs(a);
-
-
     }
 
     static double signum(double a) {
         return MathME.signum(a);
+    }
 
+    static double sqrt(double a) {
+        return Math.sqrt(a);
     }
 }

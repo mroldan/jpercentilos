@@ -19,7 +19,13 @@ public final class MathME {
         return exp(a, DEFAULT_PRECISION);
     }
 
-    private static double exp(double a, double precision) {
+    /**
+     * Devuelve e^a con la precisión deseada como criterio de parada.
+     * @param a
+     * @param precision
+     * @return
+     */
+    private static double exp(double a, double precision) { //TODO prever en caso de no convergencia.
         int iterMax = 50;
         double sum = 1 + a;
         double e = a;
@@ -35,7 +41,7 @@ public final class MathME {
     /**
      * Devuelve el factorial de un entero <code>n<code> positivo.
      * @param n
-     * @return
+     * @return n!
      */
     public static long fact(int n) {
         if (n <= 1 && n >= 0) {
