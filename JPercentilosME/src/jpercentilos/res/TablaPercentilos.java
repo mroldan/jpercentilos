@@ -34,7 +34,6 @@ public final class TablaPercentilos extends Table {
     static final int VALUE = 0;  // Unit index in table
     private double lastValue;
     private LMS lastLMS;
-    private static TablaNormales TABLA_NORMALES = initializeTablaNormales();
 
     /**
      * Crea un objeto <code>TablaPercentilos<code> para el paciente y tipo
@@ -52,18 +51,6 @@ public final class TablaPercentilos extends Table {
         this.name = file.getPath();
     }
 
-    private static TablaNormales initializeTablaNormales() {
-        if (TABLA_NORMALES == null) {
-            try {
-                TABLA_NORMALES = new TablaNormales();
-            } catch (Exception e) {
-                return null;
-            }
-        }
-        return TABLA_NORMALES;
-
-    }
-
     /**
      * Obtiene el percentilo correspondiente al zScore especificado. Básicamente
      * es un cálculo de fractiles.
@@ -71,7 +58,7 @@ public final class TablaPercentilos extends Table {
      * @return
      */
     public double getCentile(double zScore) {
-        return TABLA_NORMALES.getPz(zScore);
+        return TablaNormales.getPz(zScore);
     }
 
     /**
@@ -126,8 +113,8 @@ public final class TablaPercentilos extends Table {
      */
     public double getCentile(double observedValue, double forInputValue) {
         double zScore = getZScore(observedValue, forInputValue);
-        double centile = TABLA_NORMALES.getPz(zScore);
-        System.out.println("Percentilo: " + centile);
+        double centile = getCentile(zScore);
+        System.out.println("Percentilo para " + zScore + ": " + centile);
         return centile;
     }
 
